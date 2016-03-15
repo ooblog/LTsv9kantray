@@ -1,0 +1,70 @@
+[L:Tsv|
+code	UTF-8
+enter	LF
+tab	8
+program	kantray
+LTsvver	20160314M010029
+modify	20160316W005359
+|L:Tsv]
+
+[kantray|
+find_NX	゛
+find_alpha	σ
+find_dic	代
+find_char	
+direct_notifys	3
+direct_image	kanmap.png
+direct_cellpos	N:0	X:77	NK:75	XK:152	P:76	D:153	S:154
+direct_ONOFF	0
+input_paste	CtrlL	V
+input_cut	CtrlL	X
+input_NFER	NFER
+input_XFER	XFER
+input_KANA	KANA
+input_OTHER	Left	Up	Right	Down	Enter	Tab	Esc	PrtSc	BS	DEL	Home	End	PgUp	PgDn
+eval_calc	Σ
+eval_now	年-月-日(週曜)時:分:秒
+eval_overhour	30
+eval_slash	￥
+eval_dakuon	Ｐ
+eval_seion	Ｈ
+eval_entry	３
+dic_wordname	kanword.tsv
+dic_zipname	kanzip.tsv
+font_name	kantray5x5comic
+font_size	12
+|kantray]
+
+[keybind|
+H_Left			Left	// H
+J_Down			Down	// J
+K_Up			Up	// K
+L_Right			Right	// L
+Home			Home	// Y
+End			End	// U
+PgUp			PgUp	// I
+PgDn			PgDn	// O
+BS			BS	// B
+Del			Del	// D
+Enter			Enter	// E
+Tab			Tab	// T
+A+Ctrl		CtrlL	A	// A
+S+Ctrl		CtrlL	S	// S
+Z+Ctrl		CtrlL	Z	// Z
+X+Ctrl		CtrlL	X	// X
+C+Ctrl		CtrlL	C	// C
+V+Ctrl		CtrlL	V	// V
+<ShiftL		ShiftL	Left	// <
+>ShiftR		ShiftL	Right	// >
+tab!		tab!		// N
+4Space!		4Space!		// G
+Eval!		Eval!		// E
+Window!		Window!		// W
+QuickWindow!	QuickWindow!	// Q
+|keybind]
+
+
+# Copyright (c) 2016 ooblog
+# License: MIT
+# https://github.com/ooblog/LTsv9kantray/blob/master/LICENSE
+

@@ -1,0 +1,29 @@
+[L:Tsv|
+code	UTF-8
+enter	LF
+tab	8
+program	LTsv_joy.py
+LTsvver	20160314M010029
+modify	20160314M010029
+|L:Tsv]
+
+[LTsv_deviceL|
+joy	/dev/input/js
+|LTsv_deviceL]
+
+[keydefault|
+axisL	Lx	Ly	_	Rx	Ry	Px	Py
+axisW	Lx	Ly	Rx	Ry	Px	Py
+button	X	Y	A	B	C	Z	L	R	F	J	S	P
+|keydefault]
+
+[keyanother|
+axisUV	dwXpos	dwYpos	dwZpos	dwRpos	dwUpos	dwVpos	dwPOV
+axisLW	Lx	Ly	Ry	Rx	Px	Py
+axisL7	Lx	Ly	Lz	Rx	Ry	Rz	Px	Py
+axisW8	Lx	Ly	Ry	Rx	Px	Py	Lz	Rz
+buttonN	X	Y	A	B	L	R	ZL	ZR	Ls	RC	S	P	H
+buttonP	△	□	×	○	L1	R1	L2	R2	L3	R3	S	O	P
+|keyanother]
+
+# (c)2015-2015 光束ミユ／ooblog
