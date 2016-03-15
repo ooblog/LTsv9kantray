@@ -60,3 +60,14 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
+
+
+#LTsv9kantray
+testfile.*
+kanzip.tsv
+kanfont.svg
+kanmap.gnumeric
+kanmap.apd
+未整理漢字.txt
+
+
