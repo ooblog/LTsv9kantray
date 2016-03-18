@@ -466,5 +466,7 @@ else:
 print("")
 
 
-# (c)2016-2016 光束ミユ／ooblog
+# Copyright (c) 2016 ooblog
+# License: MIT
+# https://github.com/ooblog/LTsv9kantray/blob/master/LICENSE
 

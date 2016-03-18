@@ -229,5 +229,7 @@ if len(LTsv_GUI) > 0:
     LTsv_window_main(kanzip_window)
 
 
-# (c)2015-2016 光束ミユ／ooblog
+# Copyright (c) 2016 ooblog
+# License: MIT
+# https://github.com/ooblog/LTsv9kantray/blob/master/LICENSE
 
