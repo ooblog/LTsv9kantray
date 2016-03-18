@@ -63,11 +63,9 @@ target/
 
 
 #LTsv9kantray
-testfile.*
+kanfont.svg
 kanzip.tsv
 kanzip/
-kanfont.svg
-kanmap.gnumeric
-kanmap.apd
-未整理漢字.txt
+未整理漢字/
+testfile/
 

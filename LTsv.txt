@@ -189,7 +189,7 @@ version 20160314M010029
  「L;Tsv」ファイルの基本的な読み書きモジュールです。
  ・「LTsv9kantray(tsvtool9)」の本編です。主に「L:Tsv」の読み書きです。
  ・Python2とPython3のテキストファイル読み込み方法の違いを吸収する手段にも使えます。
- ・単体風テストでは[testfile.tsv]と[testfile.txt]を作成して関数群の挙動確認ができます。
+ ・単体風テストでは[testfile]フォルダに[testfile.tsv]と[testfile.txt]を作成して関数群の挙動確認ができます。
  ・modify項目で「LTsv_getdaytimestr()」を使うので[LTsv_time.py]モジュールも必要。
 
  LTsv_newfile(LTsv_program,LTsv_default=None):

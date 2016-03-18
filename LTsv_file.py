@@ -459,7 +459,9 @@ if __name__=="__main__":
     from LTsv_printf import *
     print("__main__ Python{0.major}.{0.minor}.{0.micro},{1},{2}".format(sys.version_info,sys.platform,sys.stdout.encoding))
     print("")
-    tsvpath="testfile.tsv"; txtpath="testfile.txt"; printlog=""
+    test_workdir="./testfile/"
+    if not os.path.isdir(test_workdir): os.mkdir(test_workdir)
+    tsvpath=test_workdir+"testfile.tsv"; txtpath=test_workdir+"testfile.txt"; printlog=""
     newfile=LTsv_newfile('__name__=="__main__"',"LTsv8Py"); printlog=LTsv_libc_printf("LTsv_newfile('LTsv8Py')↓\n{0}-eof-".format(newfile),printlog)
     newfile=LTsv_putpage(newfile,"LTsv8Py","stdout\tHelloワールド\u5496\u55B1")
     newpage=LTsv_getpage(newfile,"LTsv8Py")
