@@ -15,6 +15,9 @@ from LTsv_file import *
 LTsv_Tkinter=True
 try:
     import tkinter as Tk
+    import tkinter.scrolledtext as Tk_sc
+#    import tkFileDialog
+#    import tkMessageBox
 except:
     LTsv_Tkinter=False
 LTsv_libgtk,LTsv_libgdk,LTsv_libobj=None,None,None
@@ -231,18 +234,22 @@ def LTsv_widget_settext(LTsv_widgetPAGENAME,widget_t=""):
     if widget_k == "label":
         if LTsv_GUI == LTsv_GUI_GTK2:     LTsv_libgtk.gtk_label_set_text(widget_o,widget_t.encode("utf-8","xmlcharrefreplace"))
         if LTsv_GUI == LTsv_GUI_Tkinter:  widget_v=LTsv_widgetOBJ[LTsv_readlinerest(LTsv_widgetPAGE,"widgetstringvar")]; widget_v.set(widget_t)
-        LTsv_widgetPAGE=LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,widget_t=widget_t,widget_v=widget_v)
+        LTsv_widgetPAGE=LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,widget_t=widget_t)
     if widget_k == "button":
         if LTsv_GUI == LTsv_GUI_GTK2:     LTsv_libgtk.gtk_label_set_text(LTsv_libgtk.gtk_bin_get_child(widget_o),widget_t.encode("utf-8","xmlcharrefreplace"))
         if LTsv_GUI == LTsv_GUI_Tkinter:  widget_v=LTsv_widgetOBJ[LTsv_readlinerest(LTsv_widgetPAGE,"widgetstringvar")]; widget_v.set(widget_t)
-        LTsv_widgetPAGE=LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,widget_t=widget_t,widget_v=widget_v)
-    if widget_k == "entry":
-        if LTsv_GUI == LTsv_GUI_GTK2:     LTsv_libgtk.gtk_entry_set_text(widget_o,widget_t.encode("utf-8","xmlcharrefreplace"))
-        if LTsv_GUI == LTsv_GUI_Tkinter:  widget_o.delete(0,Tk.END); widget_o.insert(0,widget_t)
         LTsv_widgetPAGE=LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,widget_t=widget_t)
     if widget_k == "clipboard":
         if LTsv_GUI == LTsv_GUI_GTK2:     LTsv_libgtk.gtk_clipboard_set_text(widget_o,widget_t.encode("utf-8","xmlcharrefreplace"),-1)
         if LTsv_GUI == LTsv_GUI_Tkinter:  widget_o.clipboard_append(widget_t)
+    if widget_k == "edit":
+        if LTsv_GUI == LTsv_GUI_GTK2:     widget_v=LTsv_widgetOBJ[LTsv_readlinerest(LTsv_widgetPAGE,"widgetstringvar")]; LTsv_libgtk.gtk_text_buffer_set_text(widget_v,widget_t.encode("utf-8","xmlcharrefreplace"),-1)
+        if LTsv_GUI == LTsv_GUI_Tkinter:  widget_o.delete(1.0,Tk.END); widget_o.insert(1.0,widget_t)
+        LTsv_widgetPAGE=LTsv_widgetPAGEXYWH(LTsv_widgetPAGE)
+    if widget_k == "entry":
+        if LTsv_GUI == LTsv_GUI_GTK2:     LTsv_libgtk.gtk_entry_set_text(widget_o,widget_t.encode("utf-8","xmlcharrefreplace"))
+        if LTsv_GUI == LTsv_GUI_Tkinter:  widget_o.delete(0,Tk.END); widget_o.insert(0,widget_t)
+        LTsv_widgetPAGE=LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,widget_t=widget_t)
     if widget_k == "scale":
         widget_s=int(float(widget_t))
         if LTsv_GUI == LTsv_GUI_GTK2:     LTsv_libgtk.gtk_range_set_value(widget_o,ctypes.c_double(widget_s))
@@ -266,6 +273,23 @@ def LTsv_widget_settext(LTsv_widgetPAGENAME,widget_t=""):
                 LTsv_libgtk.gtk_combo_box_set_active(widget_o,widget_s)
     LTsv_widgetLTSV=LTsv_putpage(LTsv_widgetLTSV,LTsv_widgetPAGENAME,LTsv_widgetPAGE)
 
+class LTsv_TextIter(ctypes.Structure):
+    _fields_ = [
+        ('dummy1',          ctypes.c_void_p),
+        ('dummy2',          ctypes.c_void_p),
+        ('dummy3',          ctypes.c_uint),
+        ('dummy4',          ctypes.c_uint),
+        ('dummy5',          ctypes.c_uint),
+        ('dummy6',          ctypes.c_uint),
+        ('dummy7',          ctypes.c_uint),
+        ('dummy8',          ctypes.c_uint),
+        ('dummy9',          ctypes.c_uint),
+        ('dummy10',         ctypes.c_void_p),
+        ('dummy11',         ctypes.c_void_p),
+        ('dummy12',         ctypes.c_uint),
+        ('dummy13',         ctypes.c_uint),
+        ('dummy14',         ctypes.c_void_p),
+    ]
 def LTsv_widget_gettext(LTsv_widgetPAGENAME):
     global LTsv_widgetLTSV
     LTsv_widgetPAGE=LTsv_getpage(LTsv_widgetLTSV,LTsv_widgetPAGENAME)
@@ -281,12 +305,20 @@ def LTsv_widget_gettext(LTsv_widgetPAGENAME):
     if widget_k == "button":
         if LTsv_GUI == LTsv_GUI_GTK2:     widget_t=ctypes.c_char_p(LTsv_libgtk.gtk_label_get_text(LTsv_libgtk.gtk_bin_get_child(widget_o))).value.decode("utf-8")
         if LTsv_GUI == LTsv_GUI_Tkinter:  widget_t=widget_o.cget("text")
-    if widget_k == "entry":
-        if LTsv_GUI == LTsv_GUI_GTK2:     widget_t=ctypes.c_char_p(LTsv_libgtk.gtk_entry_get_text(widget_o)).value.decode("utf-8")
-        if LTsv_GUI == LTsv_GUI_Tkinter:  widget_t=widget_o.get()
     if widget_k == "clipboard":
         if LTsv_GUI == LTsv_GUI_GTK2:     widget_t=ctypes.c_char_p(LTsv_libgtk.gtk_clipboard_wait_for_text(widget_o)).value.decode("utf-8")
         if LTsv_GUI == LTsv_GUI_Tkinter:  widget_t=widget_o.clipboard_get()
+    if widget_k == "entry":
+        if LTsv_GUI == LTsv_GUI_GTK2:     widget_t=ctypes.c_char_p(LTsv_libgtk.gtk_entry_get_text(widget_o)).value.decode("utf-8")
+        if LTsv_GUI == LTsv_GUI_Tkinter:  widget_t=widget_o.get()
+    if widget_k == "edit":
+        if LTsv_GUI == LTsv_GUI_GTK2:
+            widget_v=LTsv_widgetOBJ[LTsv_readlinerest(LTsv_widgetPAGE,"widgetstringvar")]
+            start_iter=LTsv_TextIter(); end_iter=LTsv_TextIter()
+            LTsv_libgtk.gtk_text_buffer_get_start_iter(widget_v,ctypes.pointer(start_iter)); LTsv_libgtk.gtk_text_buffer_get_end_iter(widget_v,ctypes.pointer(end_iter))
+            widget_t=ctypes.c_char_p(LTsv_libgtk.gtk_text_buffer_get_text(widget_v,ctypes.pointer(start_iter),ctypes.pointer(end_iter),True)).value.decode("utf-8");
+#            LTsv_libgtk.gtk_text_iter_free(ctypes.pointer(start_iter)); LTsv_libgtk.gtk_text_iter_free(ctypes.pointer(end_iter))
+        if LTsv_GUI == LTsv_GUI_Tkinter:  widget_t=widget_o.get(1.0,Tk.END)
     if widget_k == "scale":
         if LTsv_GUI == LTsv_GUI_GTK2:     widget_t=str(int(ctypes.c_double(LTsv_libgtk.gtk_range_get_value(widget_o)).value))
         if LTsv_GUI == LTsv_GUI_Tkinter:  widget_t=str(widget_o.get())
@@ -601,6 +633,55 @@ def LTsv_clipboard_new(LTsv_windowPAGENAME,widget_n=None):
     LTsv_widgetLTSV=LTsv_putpage(LTsv_widgetLTSV,LTsv_widgetPAGENAME,LTsv_widgetPAGE)
     return LTsv_widgetPAGENAME
 
+def LTsv_clipmenu_new(widget_o):
+    global LTsv_popupmenuOBJ
+    menu_o=Tk.Menu(widget_o,tearoff=False)
+    menu_o.add_cascade(label="Ctrl+X(Cut)")
+    menu_o.add_cascade(label='Ctrl+C(Copy)')
+    menu_o.add_cascade(label='Ctrl+P(Paste)')
+    menu_o.add_cascade(label='Ctrl+A(SelectAll)')
+    LTsv_popupmenuOBJ[str(widget_o)]=menu_o
+    def LTsv_entry_copypopup_show(event):
+        global LTsv_popupmenuOBJ
+        window_o=LTsv_popupmenuOBJ[str(event.widget)]
+        window_o.post(event.x_root,event.y_root)
+        window_o.entryconfigure("Ctrl+X(Cut)",command=lambda: event.widget.event_generate("<<Cut>>"))
+        window_o.entryconfigure("Ctrl+C(Copy)",command=lambda: event.widget.event_generate("<<Copy>>"))
+        window_o.entryconfigure("Ctrl+P(Paste)",command=lambda: event.widget.event_generate("<<Paste>>"))
+        window_o.entryconfigure("Ctrl+A(SelectAll)",command=lambda: event.widget.event_generate("<<SelectAll>>"))
+    menu_b=LTsv_entry_copypopup_show
+    return menu_o,menu_b
+
+LTsv_G_TYPE_STRING=64
+LTsv_GTK_SELECTION_SINGLE=1
+LTsv_GTK_POLICY_AUTOMATIC=1
+LTsv_GTK_SHADOW_ETCHED_IN=3
+def LTsv_edit_new(LTsv_windowPAGENAME,widget_n=None,widget_t="LTsv_edit",widget_x=0,widget_y=0,widget_w=16,widget_h=16,widget_f=None):
+    global LTsv_widgetLTSV
+    LTsv_windowPAGE=LTsv_getpage(LTsv_widgetLTSV,LTsv_windowPAGENAME)
+    window_o=LTsv_widgetOBJ[LTsv_readlinerest(LTsv_windowPAGE,"widgetobj")]
+    LTsv_widgetPAGENAME=LTsv_widget_newUUID(widget_n); LTsv_widgetPAGE=""
+    LTsv_widgetPAGE=LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,widget_k="edit",widget_t=widget_t,widget_f=widget_f,widget_x=widget_x,widget_y=widget_y,widget_w=widget_w,widget_h=widget_h)
+    if LTsv_GUI == LTsv_GUI_GTK2:
+        widget_o=LTsv_libgtk.gtk_scrolled_window_new(0,0)
+        widget_v=LTsv_libgtk.gtk_text_buffer_new(0)
+        widget_c=LTsv_libgtk.gtk_text_view_new_with_buffer(widget_v)
+        LTsv_libgtk.gtk_scrolled_window_set_policy(widget_o,LTsv_GTK_POLICY_AUTOMATIC,LTsv_GTK_POLICY_AUTOMATIC)
+        LTsv_libgtk.gtk_scrolled_window_set_shadow_type(widget_o,LTsv_GTK_SHADOW_ETCHED_IN)
+        LTsv_libgtk.gtk_container_add(widget_o,widget_c)
+        window_c=LTsv_widgetOBJ[LTsv_readlinerest(LTsv_windowPAGE,"widgetcontainer")]
+        LTsv_GTKwidget_fixed(window_c,widget_o,widget_x,widget_y,widget_w,widget_h,widget_f,False)
+        LTsv_widgetPAGE=LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,widget_o=widget_o,widget_v=widget_v,widget_c=widget_c)
+    if LTsv_GUI == LTsv_GUI_Tkinter:
+        widget_o=Tk_sc.ScrolledText(window_o,font=LTsv_fonttuple(widget_f))
+        widget_o.place(x=widget_x,y=widget_y,width=widget_w,height=widget_h)
+        LTsv_widgetPAGE=LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,widget_o=widget_o)
+        menu_o,menu_b=LTsv_clipmenu_new(widget_o)
+        widget_o.bind('<Button-3>',menu_b)
+        LTsv_widgetPAGE=LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,widget_o=widget_o,menu_o=menu_o,menu_b=menu_b)
+    LTsv_widgetLTSV=LTsv_putpage(LTsv_widgetLTSV,LTsv_widgetPAGENAME,LTsv_widgetPAGE)
+    return LTsv_widgetPAGENAME
+
 def LTsv_entry_new(LTsv_windowPAGENAME,widget_n=None,event_b=None,widget_t="LTsv_entry",widget_x=0,widget_y=0,widget_w=16,widget_h=16,widget_f=None):
     global LTsv_widgetLTSV
     LTsv_windowPAGE=LTsv_getpage(LTsv_widgetLTSV,LTsv_windowPAGENAME)
@@ -622,21 +703,7 @@ def LTsv_entry_new(LTsv_windowPAGENAME,widget_n=None,event_b=None,widget_t="LTsv
         widget_o.place(x=widget_x,y=widget_y,width=widget_w,height=widget_h)
         if event_b != None:
             widget_o.bind('<Return>',event_b)
-        menu_o=Tk.Menu(widget_o,tearoff=False)
-        menu_o.add_cascade(label="Ctrl+X(Cut)")
-        menu_o.add_cascade(label='Ctrl+C(Copy)')
-        menu_o.add_cascade(label='Ctrl+P(Paste)')
-        menu_o.add_cascade(label='Ctrl+A(SelectAll)')
-        LTsv_popupmenuOBJ[str(widget_o)]=menu_o
-        def LTsv_entry_copypopup_show(event):
-            global LTsv_popupmenuOBJ
-            window_o=LTsv_popupmenuOBJ[str(event.widget)]
-            window_o.post(event.x_root,event.y_root)
-            window_o.entryconfigure("Ctrl+X(Cut)",command=lambda: event.widget.event_generate("<<Cut>>"))
-            window_o.entryconfigure("Ctrl+C(Copy)",command=lambda: event.widget.event_generate("<<Copy>>"))
-            window_o.entryconfigure("Ctrl+P(Paste)",command=lambda: event.widget.event_generate("<<Paste>>"))
-            window_o.entryconfigure("Ctrl+A(SelectAll)",command=lambda: event.widget.event_generate("<<SelectAll>>"))
-        menu_b=LTsv_entry_copypopup_show
+        menu_o,menu_b=LTsv_clipmenu_new(widget_o)
         widget_o.bind('<Button-3>',menu_b)
         LTsv_widgetPAGE=LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,widget_o=widget_o,widget_v=widget_v,event_b=event_b,menu_o=menu_o,menu_b=menu_b)
     LTsv_widgetLTSV=LTsv_putpage(LTsv_widgetLTSV,LTsv_widgetPAGENAME,LTsv_widgetPAGE)
@@ -663,21 +730,7 @@ def LTsv_spin_new(LTsv_windowPAGENAME,widget_n=None,event_b=None,widget_s=0,widg
         LTsv_widgetPAGE=LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,widget_o=widget_o,event_b=event_b)
         if event_b != None:
             widget_o.bind('<Return>',event_b)
-        menu_o=Tk.Menu(widget_o,tearoff=False)
-        menu_o.add_cascade(label="Ctrl+X(Cut)")
-        menu_o.add_cascade(label='Ctrl+C(Copy)')
-        menu_o.add_cascade(label='Ctrl+P(Paste)')
-        menu_o.add_cascade(label='Ctrl+A(SelectAll)')
-        LTsv_popupmenuOBJ[str(widget_o)]=menu_o
-        def LTsv_entry_copypopup_show(event):
-            global LTsv_popupmenuOBJ
-            window_o=LTsv_popupmenuOBJ[str(event.widget)]
-            window_o.post(event.x_root,event.y_root)
-            window_o.entryconfigure("Ctrl+X(Cut)",command=lambda: event.widget.event_generate("<<Cut>>"))
-            window_o.entryconfigure("Ctrl+C(Copy)",command=lambda: event.widget.event_generate("<<Copy>>"))
-            window_o.entryconfigure("Ctrl+P(Paste)",command=lambda: event.widget.event_generate("<<Paste>>"))
-            window_o.entryconfigure("Ctrl+A(SelectAll)",command=lambda: event.widget.event_generate("<<SelectAll>>"))
-        menu_b=LTsv_entry_copypopup_show
+        menu_o,menu_b=LTsv_clipmenu_new(widget_o)
         widget_o.bind('<Button-3>',menu_b)
         LTsv_widgetPAGE=LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,widget_o=widget_o,event_b=event_b,menu_o=menu_o,menu_b=menu_b)
     LTsv_widgetLTSV=LTsv_putpage(LTsv_widgetLTSV,LTsv_widgetPAGENAME,LTsv_widgetPAGE)
@@ -1657,6 +1710,11 @@ def debug_color_combo(window_objvoid=None,window_objptr=None):
         LTsv_widget_setnumber(debug_keysetup_scaleG,scaleG)
         LTsv_widget_setnumber(debug_keysetup_scaleB,scaleB)
 
+def debug_edit_clip(window_objvoid=None,window_objptr=None):
+    edit_clip=LTsv_widget_gettext(debug_edit)
+    LTsv_libc_printf("edit_clip={0}".format(edit_clip))
+    LTsv_widget_settext(debug_clipboard,widget_t=edit_clip)
+
 if __name__=="__main__":
     from LTsv_printf import *
     from LTsv_file   import *
@@ -1712,7 +1770,9 @@ if __name__=="__main__":
             LTsv_widget_disableenable(debug_keysetup_spin[debug_kbdxy],False)
             debug_kbdcodename="「{0}」({1})".format(debug_kbdlabel,LTsv_kbdgettypename(LTsv_kbdgettypegana(debug_kbdlabel))) if debug_kbdlabel != "NFER" and debug_kbdlabel != "NFER" and debug_kbdlabel != "XFER" and debug_kbdlabel != "KANA" else "「{0}」".format(debug_kbdlabel)
             debug_keysetup_label[debug_kbdxy]=LTsv_label_new(debug_keysetup_window,widget_t=debug_kbdcodename,widget_x=debug_keyspin_X+debug_kbdx,widget_y=debug_keyspin_Y+debug_kbd_y-debug_keyspin_H,widget_w=debug_keyspin_W if debug_kbdlabel != "　" else debug_keyspin_W*3,widget_h=debug_keyspin_H,widget_f=debug_font_entry)
-#        debug_keysetup_button=LTsv_button_new(debug_keysetup_window,widget_t="save",widget_x=debug_keysetup_W-debug_keyspin_W,widget_y=debug_keysetup_H-debug_keyspin_H,widget_w=debug_keyspin_W,widget_h=debug_keyspin_H,widget_f=debug_font_entry)
+        debug_edit=LTsv_edit_new(debug_keysetup_window,widget_t="",widget_x=0,widget_y=debug_keysetup_H-debug_keyspin_H*4,widget_w=debug_keyspin_W*2,widget_h=debug_keyspin_H*4,widget_f=debug_font_entry)
+        debug_clipboard=LTsv_clipboard_new(debug_keysetup_window)
+        debug_clipbutton=LTsv_button_new(debug_keysetup_window,widget_t="clip",widget_x=0,widget_y=debug_keysetup_H-debug_keyspin_H*5,widget_w=debug_keyspin_W*1,widget_h=debug_keyspin_H*1,widget_f=debug_font_entry,event_b=debug_edit_clip)
         if LTsv_GUI == LTsv_GUI_GTK2:
             debug_keysetup_combobox=LTsv_combobox_new(debug_keysetup_window,widget_x=debug_combobox_X,widget_y=debug_combobox_Y,widget_w=debug_combobox_W,widget_h=debug_combobox_H,widget_f=debug_font_entry,event_b=debug_color_combo)
             #/usr/share/X11/rgb.txt

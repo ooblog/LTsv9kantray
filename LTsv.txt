@@ -81,7 +81,7 @@ version 20160314M010029
  「kantray」を２つ以上起動した状態で「漢直モード」と「貼付モード」が混在するとキーボード操作が困難になります。
  Tkinterで通知タスクトレイ(Notify)クリックからのポップアップメニュー出現方法が不明なので、「kantray」の「漢直モード」は当面Linux版のみになります。
  TkinterはBMP外(基本多言語面0xffff以上)の漢字を正しく扱えないので「kantray」「kanfont」で機能制限があります。その他不具合も発生するかもしれません。
- TkinterというよりWindowsとLinuxの環境の違いで「omake」内の[archYMD.py][nico-tu.py][sensortray.py]は未完成のまま放置になると思います。
+ Tkinterのクリップボード操作が機能してません。
  Linuxでマウスボタン・マウスホイールの取得を保留。tkk方面は手を出さない予定(コンボボックスなどはGTKのみサポート)。
  [kantray5x5comic.svg]を[kantray5x5comic.ttf]に変換する手段として「FontForge」が必要。直接フォント生成とかできればベストだが優先順位は低い。
  「kanzip」の都道府県アイコンの見た目をもう少しどうにかしたい。
@@ -1002,8 +1002,15 @@ version 20160314M010029
  LTsv_clipboard_new(LTsv_windowPAGENAME,widget_n=None)
   オブジェクト「clipboard」を作成。テキスト入力補助。
 
+ def LTsv_clipmenu_new(widget_o)
+  「Tkinter」専用の内部関数。
+  オブジェクト「edit」「entry」「spin」の右クリックメニューを作成。
+
+ LTsv_edit_new(LTsv_windowPAGENAME,widget_n=None,widget_t="LTsv_edit",widget_x=0,widget_y=0,widget_w=16,widget_h=16,widget_f=None)
+  GUIオブジェクト「edit」を作成。テキスト複数行入力欄。
+
  LTsv_entry_new(LTsv_windowPAGENAME,widget_n=None,event_b=None,widget_t="LTsv_entry",widget_x=0,widget_y=0,widget_w=16,widget_h=16,widget_f=None)
-  GUIオブジェクト「entry」を作成。テキスト入力。テキストを変更後エンターキーでイベント。
+  GUIオブジェクト「entry」を作成。テキスト１行入力欄。テキストを変更後エンターキーでイベント。
 
  LTsv_spin_new(LTsv_windowPAGENAME,widget_n=None,event_b=None,widget_s=0,widget_e=255,widget_a=1,widget_x=0,widget_y=0,widget_w=16,widget_h=16,widget_f=None)
   GUIオブジェクト「spin」を作成。数値入力。数値変更でイベント。
@@ -1166,6 +1173,10 @@ version 20160314M010029
  debug_color_combo(window_objvoid=None,window_objptr=None)
   単体風テスト専用。「GTK2」では「combobox」が使えるので色名でRGBを指定、みたいなのを想定。
   「rgb.txt」からRGBデータを抽出するルーチンはまだ作ってない。
+
+ debug_edit_clip(window_objvoid=None,window_objptr=None)
+  単体風テスト専用。クリップボードの動作確認。
+  「Tkinter」でクリップボードの操作が機能してない様子。
 
 
 １-7b．「kantray」の「貼付モード(マウス)」や「kanfont」などで用いられる「keyboard」GUIの操作方法。
