@@ -670,7 +670,7 @@ def LTsv_edit_new(LTsv_windowPAGENAME,widget_n=None,widget_t="LTsv_edit",widget_
         LTsv_libgtk.gtk_scrolled_window_set_shadow_type(widget_o,LTsv_GTK_SHADOW_ETCHED_IN)
         LTsv_libgtk.gtk_container_add(widget_o,widget_c)
         window_c=LTsv_widgetOBJ[LTsv_readlinerest(LTsv_windowPAGE,"widgetcontainer")]
-        LTsv_GTKwidget_fixed(window_c,widget_o,widget_x,widget_y,widget_w,widget_h,widget_f,False)
+        LTsv_GTKwidget_fixed(window_c,widget_o,widget_x,widget_y,widget_w,widget_h,widget_f,True)
         LTsv_widgetPAGE=LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,widget_o=widget_o,widget_v=widget_v,widget_c=widget_c)
     if LTsv_GUI == LTsv_GUI_Tkinter:
         widget_o=Tk_sc.ScrolledText(window_o,font=LTsv_fonttuple(widget_f))
@@ -774,7 +774,7 @@ def LTsv_scale_adjustment(LTsv_widgetPAGENAME,widget_s=0,widget_e=255,widget_a=1
             widget_o.configure(from_=widget_s,to=widget_e)
     if widget_k == "spin":
         if LTsv_GUI == LTsv_GUI_GTK2:
-            widget_v=int(ctypes.c_double(LTsv_libgtk.gtk_range_get_value(widget_o)).value)
+            widget_v=int(ctypes.c_double(LTsv_libgtk.gtk_spin_button_get_value_as_int(widget_o)).value)
             adjustment_o=LTsv_libgtk.gtk_adjustment_new(ctypes.c_double(max(min(widget_v,widget_e),widget_s)),ctypes.c_double(widget_s),ctypes.c_double(widget_e),ctypes.c_double(widget_a),ctypes.c_double(1),ctypes.c_double(0),)
             LTsv_libgtk.gtk_spin_button_set_adjustment(widget_o,adjustment_o)
         if LTsv_GUI == LTsv_GUI_Tkinter:
