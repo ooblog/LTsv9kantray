@@ -4,18 +4,18 @@ enter	LF
 tab	8
 program	kantray
 LTsvver	20160314M010029
-modify	20160319S031344
+modify	20160323W044157
 |L:Tsv]
 
 [kantray|
 find_NX	Σ
 find_alpha	σ
-find_dic	代
+find_dic	名
 find_char	
 direct_notifys	3
 direct_image	kanmap.png
 direct_cellpos	N:0	X:77	NK:75	XK:152	P:76	D:153	S:154
-direct_ONOFF	0
+direct_ONOFF	1
 input_paste	CtrlL	V
 input_cut	CtrlL	X
 input_NFER	NFER

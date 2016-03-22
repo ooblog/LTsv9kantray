@@ -93,10 +93,10 @@ FontForgeの導入が困難なWindowsの場合、「kantray5x5comic.woff」を[W
 
 ## 動作環境。
 
-Python2.7.3(PuppyLinux571JP)およびPython3.4.3(Wine1.7.18)で動作を確認しています。
+Python2.7.3(PuppyLinux571JP)およびPython3.4.3(Wine1.7.18)で動作を確認しています。  
 
 ## ライセンス・著作権など。
 
-Copyright (c) 2016 ooblog
-License: MIT
-[https://github.com/ooblog/LTsv9kantray/blob/master/LICENSE](https://github.com/ooblog/LTsv9kantray/blob/master/LICENSE "https://github.com/ooblog/LTsv9kantray/blob/master/LICENSE")
+Copyright (c) 2016 ooblog  
+License: MIT  
+[https://github.com/ooblog/LTsv9kantray/blob/master/LICENSE](https://github.com/ooblog/LTsv9kantray/blob/master/LICENSE "https://github.com/ooblog/LTsv9kantray/blob/master/LICENSE")  
