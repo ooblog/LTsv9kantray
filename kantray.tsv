@@ -4,7 +4,7 @@ enter	LF
 tab	8
 program	kantray
 LTsvver	20160314M010029
-modify	20160323W044157
+modify	20160327U023014
 |L:Tsv]
 
 [kantray|
@@ -15,7 +15,7 @@ find_char
 direct_notifys	3
 direct_image	kanmap.png
 direct_cellpos	N:0	X:77	NK:75	XK:152	P:76	D:153	S:154
-direct_ONOFF	1
+direct_ONOFF	0
 input_paste	CtrlL	V
 input_cut	CtrlL	X
 input_NFER	NFER

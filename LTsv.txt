@@ -305,14 +305,25 @@ version 20160314M010029
   メタタグ「L:Tsv」の「modify」の更新のみを行う。「LTsv_getdaytimestr()」を使うので[LTsv_time.py]モジュールが必要に。
   「LTsv_newfile()」や「LTsv_savefile()」と「modify」の時間がズレる場合がある事に注意。
 
+ LTsv_savedir(LTsv_path):
+  「LTsv_savefile()」「LTsv_saveplain()」で保存予定のファイル名が1個フォルダを必要とする場合、1個フォルダを作成する。
+  「os.mkdir()」を使うので、一気に深い階層のフォルダを作ろうとするとエラーになる。
+  「LTsv_savefile()」「LTsv_saveplain()」の内部で使用するので通常は自動でフォルダを作成する。
+
+ LTsv_savedirs(LTsv_path):
+  「LTsv_savefile()」「LTsv_saveplain()」で保存予定のファイル名が複数のフォルダを必要とする場合、複数のフォルダを作成する。
+  「os.makedirs()」を使うので、一気に深い階層のフォルダを作れてしまうので取扱い注意。
+
  LTsv_savefile(LTsv_path,LTsv_default=None)
   ローカルのLTsv_pathに「L:Tsv」LTsv_default(LTsv_text)を書き込む。
   ファイル保存の時にメタタグ「L:Tsv」の「modify」の更新。メモリ上のファイルと保存されたファイルで「modify」の時間がズレる場合がある事に注意。
   LTsv_default(LTsv_text)を省略の場合はファイル削除。
+  「LTsv_savedir()」を内部で呼び出すのでフォルダ1個分の階層なら自動でフォルダ作成される。
 
  LTsv_saveplain(LTsv_path,LTsv_plain)
   ローカルのLTsv_pathに「L:Tsv」LTsv_plainを(LTsv_text)書き込む。
   メタタグの修正や追加などは無い。タグの無いtsvの保存や普通のテキストファイルを作成する。
+  「LTsv_savedir()」を内部で呼び出すのでフォルダ1個分の階層なら自動でフォルダ作成される。
 
  LTsv_labelzip(LTsv_labels,LTsv_datas)
    LTsv_labelsを横軸ラベル、LTsv_datasをデータとして1行のLTSV「label:data	label:data	…」に束ねる。
