@@ -24,8 +24,8 @@ GTK2の通知タスクトレイ&#40;Notify&#41;が使える環境ならキーボ
 &#91;Ctrl&#93;+&#91;V&#93;で貼り付けができないエディタでは漢直できません。  
 逆にVim以外のエディタでもhjkl移動を可能にします。  
 
-「貼付モード(マウス)」の操作方法は[LTsv.txt](LTsv.txt "https://github.com/ooblog/LTsv9kantray/blob/master/LTsv.txt")の方に書いてます。  
-「漢直モード(キーボード)」の操作方法は[kantray.txt](kantray.txt "https://github.com/ooblog/LTsv9kantray/blob/master/kantray.txt")の方に書いてます。  
+「貼付モード(マウス)」の操作方法は「[LTsv.txt](LTsv.txt "https://github.com/ooblog/LTsv9kantray/blob/master/LTsv.txt")」の方に書いてます。  
+「漢直モード(キーボード)」の操作方法は「[kantray.txt](kantray.txt "https://github.com/ooblog/LTsv9kantray/blob/master/kantray.txt")」の方に書いてます。  
 
 ## 「kanfont」は単漢字辞書&#91;kanchar.tsv&#93;の管理するソフトです。辞書の項目にはフォントのグリフデザインも含まれます。
 

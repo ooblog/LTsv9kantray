@@ -9,12 +9,13 @@ if sys.version_info.major == 2:
 if sys.version_info.major == 3:
     import urllib.request
 import math
+sys.path.append("LTsv")
 from LTsv_printf import *
 from LTsv_file   import *
-from LTsv_time   import *
-from LTsv_calc   import *
-from LTsv_joy    import *
-from LTsv_kbd    import *
+#from LTsv_time   import *
+#from LTsv_calc   import *
+#from LTsv_joy    import *
+#from LTsv_kbd    import *
 from LTsv_gui    import *
 
 kanzip_kanzip_tsv="kanzip.tsv"

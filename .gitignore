@@ -63,6 +63,7 @@ target/
 
 
 # git push github:ooblog/LTsv9kantray.git master
+# git push github:ooblog/LTsv9kantray.git 20160328M231906
 # git log
 # git commit -a -m ""
 kanfont.svg
@@ -70,4 +71,4 @@ kanzip.tsv
 kanzip/
 未整理漢字/
 testfile/
-
+LTsv/testfile/

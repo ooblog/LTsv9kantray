@@ -113,9 +113,9 @@ LTsv_buttonsmax=[0]*LTsv_JOYHANDMAXLIMIT
 LTsv_joykbdformat="axisL\tLx\tLy\t_\tRx\tRy\tPx\tPy\n" \
                  "axisW\tLx\tLy\tRy\tRx\tPx\tPy\n" \
                  "button\tX\tY\tA\tB\tC\tZ\tL\tR\tF\tJ\tS\tP\n"
-def LTsv_joyreset(path="LTsv_joy.tsv"):
+def LTsv_joyreset(LTsv_tsvpath):
     global LTsv_joydevpath,LTsv_joykbdformat
-    LTsv_joyltsv=LTsv_loadfile(path)
+    LTsv_joyltsv=LTsv_loadfile(LTsv_tsvpath)
     LTsv_deviceL_page=LTsv_getpage(LTsv_joyltsv,"LTsv_deviceL")
     if len(LTsv_deviceL_page) > 0:
         LTsv_joydevpath=LTsv_readlinerest(LTsv_deviceL_page,"joy")
@@ -138,7 +138,7 @@ def LTsv_joyexit():
 def LTsv_joyinit():
     global LTsv_joydevpath,LTsv_joyhandmax,LTsv_joyhands,LTsv_joyaxismax,LTsv_joyaxis,LTsv_joybuttons,LTsv_buttonsmax
     LTsv_joyexit()
-    LTsv_joyreset()
+    LTsv_joyreset(LTsv_tsvpath="LTsv/LTsv_kbd.tsv")
     LTsv_joycaps=LTsv_JOYCAPS()
     if sys.platform.startswith("win"):
         LTsv_numdev=LTsv_winmm.joyGetNumDevs() if LTsv_winmm.joyGetNumDevs()<=LTsv_JOYHANDMAXLIMIT else LTsv_JOYHANDMAXLIMIT
@@ -259,7 +259,7 @@ def LTsv_joyaxis_label():
     return LTsv_joyaxislabel
 
 def LTsv_joy_ver():
-    return "20160314M010029"
+    return "20160328M231906"
 
 if __name__=="__main__":
     from LTsv_printf import *

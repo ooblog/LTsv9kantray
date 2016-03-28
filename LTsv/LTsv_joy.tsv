@@ -3,8 +3,8 @@ code	UTF-8
 enter	LF
 tab	8
 program	LTsv_joy.py
-LTsvver	20160314M010029
-modify	20160314M010029
+LTsvver	20160328M231906
+modify	20160328M231906
 |L:Tsv]
 
 [LTsv_deviceL|
@@ -26,4 +26,7 @@ buttonN	X	Y	A	B	L	R	ZL	ZR	Ls	RC	S	P	H
 buttonP	△	□	×	○	L1	R1	L2	R2	L3	R3	S	O	P
 |keyanother]
 
-# (c)2015-2015 光束ミユ／ooblog
+
+# Copyright (c) 2016 ooblog
+# License: MIT
+# https://github.com/ooblog/LTsv9kantray/blob/master/LICENSE
