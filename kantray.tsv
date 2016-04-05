@@ -4,14 +4,14 @@ enter	LF
 tab	8
 program	kantray
 LTsvver	20160328M231906
-modify	20160329T005335
+modify	20160405T025220
 |L:Tsv]
 
 [kantray|
-find_NX	Σ
+find_NX	
 find_alpha	σ
-find_dic	名
-find_char	
+find_dic	地
+find_char	)
 direct_notifys	3
 direct_image	kanmap.png
 direct_cellpos	N:0	X:77	NK:75	XK:152	P:76	D:153	S:154
@@ -28,7 +28,7 @@ eval_overhour	30
 eval_slash	￥
 eval_dakuon	Ｐ
 eval_seion	Ｈ
-eval_entry	
+eval_entry	照o⇔&#111;
 dic_wordname	kanword.tsv
 dic_zipname	kanzip.tsv
 font_name	kantray5x5comic
