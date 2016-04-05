@@ -4,11 +4,11 @@ enter	LF
 tab	8
 program	kantray
 LTsvver	20160405T171612
-modify	20160406W021847
+modify	20160406W032047
 |L:Tsv]
 
 [kantray|
-find_NX	え
+find_NX	Σ
 find_alpha	σ
 find_dic	名
 find_char	

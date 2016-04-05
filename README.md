@@ -11,8 +11,8 @@
     ┗━━━━━━━━━━━━━━┛┗━━━━━━━━━━━━━━┛┗━━━━━━━━━━━━━━┛
 
 通知タスクトレイ&#40;Notify&#41;に鍵盤アイコンを表示するので、漢字配列を丸暗記しなくても使えます。  
-※[鍵盤アイコン](kanmap.png "https://github.com/ooblog/LTsv9kantray/blob/master/kanmap.png")には描画途中の箇所があります。  
-※アイコン描画されてない箇所&#40;α鍵盤&#41;にも[漢字配列(kanmap.tsv)](kanmap.tsv "https://github.com/ooblog/LTsv9kantray/blob/master/kanmap.tsv")
+※「[鍵盤アイコン(kanmap.png)](kanmap.png "https://github.com/ooblog/LTsv9kantray/blob/master/kanmap.png")」には描画途中の箇所があります。  
+※アイコン描画されてない&#40;α鍵盤&#41;にも未整頓ではありますが「[漢字配列(kanmap.tsv)](kanmap.tsv "https://github.com/ooblog/LTsv9kantray/blob/master/kanmap.tsv")」上に漢字があります。  
 ※配列に無い漢字も「[単漢字辞書(kanchar.tsv)](kanchar.tsv "https://github.com/ooblog/LTsv9kantray/blob/master/kanchar.tsv")」からの字引入力で異体字なども漢直できます。  
 
 ### 漢直の操作方法
@@ -22,8 +22,7 @@ GTK2の通知タスクトレイ&#40;Notify&#41;が使える環境ならキーボ
 親指で&#91;NFER&#40;無変換&#41;&#93;,&#91;XFER&#40;変換&#41;&#93;,&#91;Space&#40;SandS&#41;&#93;,&#91;KANA&#93;キーを操作して鍵盤を交換しながら漢字を直接入力します。  
 
 漢直の実装はキーフック(EVIOCGRAB)でキーボード操作を吸収してクリップボード経由で文字入力するので、  
-&#91;Ctrl&#93;+&#91;V&#93;で貼り付けができないエディタでは漢直できません。  
-逆にVim以外のエディタでもhjkl移動を可能にします。  
+&#91;Ctrl&#93;+&#91;V&#93;で貼り付けができないエディタでは漢直できません。逆にVim以外のエディタでもhjkl移動を可能にします。  
 
 「貼付モード(マウス)」の操作方法は「[LTsv.txt](LTsv.txt "https://github.com/ooblog/LTsv9kantray/blob/master/LTsv.txt")」の方に書いてます。  
 「漢直モード(キーボード)」の操作方法は「[kantray.txt](kantray.txt "https://github.com/ooblog/LTsv9kantray/blob/master/kantray.txt")」の方に書いてます。  
@@ -58,15 +57,15 @@ GTK2の通知タスクトレイ&#40;Notify&#41;が使える環境ならキーボ
     ┃[12401日│└────┘　　　　───────　　　　　　　　　│　　　　　　  ＿名づざぞびごぴぽ、。ぺ〜σ┃
     ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-「kanfont.svg」を「kantray5x5comic.ttf」に変換するには[FontForge](http://fontforge.github.io/ja/ "FontForge")が別途必要です。  
-FontForgeの導入が困難なWindowsの場合、「kantray5x5comic.woff」を[WOFFコンバータ](http://opentype.jp/woffconv.htm "WOFFコンバータ")でTTFに変換してください。  
+「kanfont.svg」を「kantray5x5comic.ttf」に変換するには「[FontForge](http://fontforge.github.io/ja/ "FontForge")」が別途必要です。  
+FontForgeの導入が困難なWindowsの場合、「kantray5x5comic.woff」を「[WOFFコンバータ](http://opentype.jp/woffconv.htm "WOFFコンバータ")」でTTFに変換してください。  
 
 ### グリフキャンバスの座標とSVGパスの座標の違い。
 
 グリフキャンバスのサイズは512ですがフォントの想定サイズは1024です。  
 グリフキャンバスは左上が&#40;0,0&#41;ですがフォントは左下が&#40;0,0&#41;です。  
 「活」の項目には上下と縮尺二倍を修正したSVGパスが入ります。  
-ついでに言うと「kanfont」は直線しか編集できない&#40;ポリゴン限定「M」と「z」しか対応してない&#41;ので注意。  
+「kanfont」は直線しか編集できない&#40;ポリゴン限定「M」と「z」しか対応してない&#41;ので注意。  
 
 ## 「kanzip」は郵便番号辞書&#91;kanzip.tsv&#93;を作成するソフトです。
 
@@ -86,7 +85,7 @@ FontForgeの導入が困難なWindowsの場合、「kantray5x5comic.woff」を[W
     ┃｢        都道府県と事業所をダウンロード＆コンバートし終えてから[kanzip.tsv]にマージ。        ｣□┃
     ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-[郵便番号](http://www.post.japanpost.jp/zipcode/dl/readme.html "郵便番号データの説明 - 日本郵便")からzipをダウンロードして郵便番号辞書「kanzip.tsv」を作成します。  
+「〒[郵便番号](http://www.post.japanpost.jp/zipcode/dl/readme.html "郵便番号データの説明 - 日本郵便")」からzipをダウンロードして郵便番号辞書「kanzip.tsv」を作成します。  
 
 ## 「LTsv」はアプリを作るためのモジュール群です。
 
