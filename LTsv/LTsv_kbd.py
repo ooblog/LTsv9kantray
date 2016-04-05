@@ -444,8 +444,6 @@ def LTsv_keyboard_findNX():
     global LTsv_keyboard_findN,LTsv_keyboard_findX,LTsv_keyboard_findNr,LTsv_keyboard_findXr
     return LTsv_keyboard_findN,LTsv_keyboard_findX,LTsv_keyboard_findNr,LTsv_keyboard_findXr
 
-def LTsv_kbd_ver():
-    return "20160328M231906"
 
 if __name__=="__main__":
     from LTsv_printf import *

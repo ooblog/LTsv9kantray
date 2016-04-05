@@ -1,6 +1,6 @@
 # 「LTsv9kantray(tsvtool9)」は「L:Tsv」の読み書きを中心としたモジュール群と漢字入力「kantray」のPythonによる実装です。
 
-## 「kantray」は日本語入力ソフトです。漢字を直接入力するので漢直のジャンルです。
+## 「kantray」は日本語入力ソフトです。漢字を直接入力する(変換サジェストが存在しない)ので漢直のジャンルです。
 
     ┏kantray「貼付モード(マウス) ┓┏kantray「貼付モード(マウス) ┓┏kantray「貼付モード(マウス) ┓
     ┃ ぬふあうえおやゆよわほへﾇ  ┃┃ 1 2 3 4 5 6 7 8 9 0 - ^ Σ ┃┃ 名音訓送異俗簡繁越地逆非￥ ┃
@@ -10,15 +10,16 @@
     ┃[代ま⇔ぱ          ]Ｃ← ⇔ ┃┃[算1÷3⇔1|3       ]Ｃ← ⇔ ┃┃[照_⇔&#95;        ]Ｃ← ⇔ ┃
     ┗━━━━━━━━━━━━━━┛┗━━━━━━━━━━━━━━┛┗━━━━━━━━━━━━━━┛
 
-親指で&#91;NFER&#40;無変換&#41;&#93;,&#91;XFER&#40;変換&#41;&#93;,&#91;Space&#40;SandS&#41;&#93;,&#91;KANA&#93;キーを操作して鍵盤を交換しながら漢字を直接入力します。  
 通知タスクトレイ&#40;Notify&#41;に鍵盤アイコンを表示するので、漢字配列を丸暗記しなくても使えます。  
 ※[鍵盤アイコン](kanmap.png "https://github.com/ooblog/LTsv9kantray/blob/master/kanmap.png")には描画途中の箇所があります。  
-※[漢字配列](kanmap.tsv "https://github.com/ooblog/LTsv9kantray/blob/master/kanmap.tsv"),[単漢字辞書](kanchar.tsv "https://github.com/ooblog/LTsv9kantray/blob/master/kanchar.tsv")なども多分永遠のベータ版です。  
+※アイコン描画されてない箇所&#40;α鍵盤&#41;にも[漢字配列(kanmap.tsv)](kanmap.tsv "https://github.com/ooblog/LTsv9kantray/blob/master/kanmap.tsv")
+※配列に無い漢字も「[単漢字辞書(kanchar.tsv)](kanchar.tsv "https://github.com/ooblog/LTsv9kantray/blob/master/kanchar.tsv")」からの字引入力で異体字なども漢直できます。  
 
 ### 漢直の操作方法
 
 Tkinter環境&#40;Windows&#41;ならマウス操作「貼付モード」のみですが、  
 GTK2の通知タスクトレイ&#40;Notify&#41;が使える環境ならキーボード操作「漢直モード」も使用可能になります。  
+親指で&#91;NFER&#40;無変換&#41;&#93;,&#91;XFER&#40;変換&#41;&#93;,&#91;Space&#40;SandS&#41;&#93;,&#91;KANA&#93;キーを操作して鍵盤を交換しながら漢字を直接入力します。  
 
 漢直の実装はキーフック(EVIOCGRAB)でキーボード操作を吸収してクリップボード経由で文字入力するので、  
 &#91;Ctrl&#93;+&#91;V&#93;で貼り付けができないエディタでは漢直できません。  

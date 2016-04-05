@@ -258,8 +258,6 @@ def LTsv_joyaxis_label():
     if sys.platform.startswith("linux"): LTsv_joyaxislabel="axisL"
     return LTsv_joyaxislabel
 
-def LTsv_joy_ver():
-    return "20160328M231906"
 
 if __name__=="__main__":
     from LTsv_printf import *

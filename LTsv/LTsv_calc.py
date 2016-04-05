@@ -261,8 +261,6 @@ def LTsv_calc_multiplication(LTsv_calcQbase):
         LTsv_calcA=LTsv_calc_fractalize(str(LTsv_fractnum)+'|'+str(LTsv_fractdeno))
     return LTsv_calcA
 
-def LTsv_calc_ver():
-    return "20160328M231906"
 
 if __name__=="__main__":
     from LTsv_printf import *

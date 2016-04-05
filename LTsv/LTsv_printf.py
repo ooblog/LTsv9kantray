@@ -186,8 +186,6 @@ def LTsv_ink2utf(LTsv_text):
                 LTsv_utftext+=chr(LTsv_unicode)
     return LTsv_utftext
 
-def LTsv_printf_ver():
-    return "20160328M231906"
 
 if __name__=="__main__":
     print("__main__ Python{0.major}.{0.minor}.{0.micro},{1},{2}".format(sys.version_info,sys.platform,sys.stdout.encoding))

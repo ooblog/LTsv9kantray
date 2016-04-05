@@ -127,7 +127,7 @@ def LTsv_widget_newobj(LTsv_widgetpagelocal,LTsv_widgetoption,widget_obj):
 def LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,widget_o=None,widget_k=None,widget_t=None,widget_u=None,widget_s=None,widget_e=None,widget_a=None,widget_v=None, \
   widget_p=None,widget_m=None,widget_g=None,widget_f=None,widget_x=None,widget_y=None,widget_w=None,widget_h=None,widget_r=None,widget_c=None, \
   event_b=None,event_p=None,event_r=None,event_e=None,event_m=None,event_l=None,event_a=None,event_u=None, \
-  menu_o=None,menu_b=None,kbd_d=None,kbd_g=None,kbd_s=None):
+  menu_o=None,menu_b=None,menu_c=None,kbd_d=None,kbd_g=None,kbd_s=None):
     if widget_o != None:  LTsv_widgetPAGE=LTsv_widget_newobj(LTsv_widgetPAGE,"widgetobj",widget_o)
     if widget_k != None:  LTsv_widgetPAGE=LTsv_pushlinerest(LTsv_widgetPAGE,"widgetkind",widget_k)
     if widget_t != None:  LTsv_widgetPAGE=LTsv_pushlinerest(LTsv_widgetPAGE,"widgettext",widget_t)
@@ -156,6 +156,7 @@ def LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,widget_o=None,widget_k=None,widget_t=Non
     if event_u  != None:  LTsv_widgetPAGE=LTsv_widget_newobj(LTsv_widgetPAGE,"notify_popupmenu",event_u)
     if menu_o   != None:  LTsv_widgetPAGE=LTsv_widget_newobj(LTsv_widgetPAGE,"popupmenuobj",menu_o)
     if menu_b   != None:  LTsv_widgetPAGE=LTsv_widget_newobj(LTsv_widgetPAGE,"popupmenubind",menu_b)
+    if menu_c   != None:  LTsv_widgetPAGE=LTsv_widget_newobj(LTsv_widgetPAGE,"popupmenubind",menu_b)
     if kbd_d    != None:  LTsv_widgetPAGE=LTsv_widget_newobj(LTsv_widgetPAGE,"keyboard_draw",kbd_d)
     if kbd_g    != None:  LTsv_widgetPAGE=LTsv_widget_newobj(LTsv_widgetPAGE,"keyboard_getkey",kbd_g)
     if kbd_s    != None:  LTsv_widgetPAGE=LTsv_widget_newobj(LTsv_widgetPAGE,"keyboard_setkey",kbd_s)
@@ -1552,14 +1553,13 @@ def LTsv_icon_load(LTsv_picturepath):
                     LTsv_iconOBJ["{0}[{1}]".format(LTsv_picturepath,icon_n)]=LTsv_EXEICON.phIcon[0]
     return LTsv_Icons
 
-def LTsv_notifyicon_new(LTsv_windowPAGENAME,notify_n=None,widget_t="",widget_u="",menu_b=None):
+def LTsv_notifyicon_new(LTsv_windowPAGENAME,notify_n=None,widget_t="",widget_u="",menu_b=None,menu_c=None):
     global LTsv_widgetLTSV
     LTsv_windowPAGE=LTsv_getpage(LTsv_widgetLTSV,LTsv_windowPAGENAME)
     window_o=LTsv_widgetOBJ[LTsv_readlinerest(LTsv_windowPAGE,"widgetobj")]
     LTsv_widgetPAGENAME=LTsv_widget_newUUID(notify_n); LTsv_widgetPAGE=""
     LTsv_widgetPAGE=LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,widget_k="notify")
     iconuri=widget_u
-    LTsv_notify_activate,LTsv_notify_popupmenu=None,None
     if LTsv_GUI == LTsv_GUI_GTK2:
         picture_o=LTsv_pictureOBJ[iconuri] if iconuri in LTsv_pictureOBJ else None
         if picture_o == None:
@@ -1568,15 +1568,13 @@ def LTsv_notifyicon_new(LTsv_windowPAGENAME,notify_n=None,widget_t="",widget_u="
             picture_o=LTsv_pictureOBJ[iconuri]
         widget_o=LTsv_libgtk.gtk_status_icon_new_from_pixbuf(picture_o)
         LTsv_libgtk.gtk_status_icon_set_tooltip(widget_o,widget_t.encode("utf-8"))
-        def LTsv_notifyicon_activate(window_objvoid=None,window_objptr=None):
-            LTsv_widget_showhide(LTsv_windowPAGENAME,True)
-        LTsv_notify_activate_cbk=LTsv_CALLBACLTYPE(LTsv_notifyicon_activate)
-        LTsv_libobj.g_signal_connect_data(widget_o,"activate".encode("utf-8"),LTsv_notify_activate_cbk,-1,0,0)
         menu_o=LTsv_libgtk.gtk_menu_new()
+        LTsv_notify_popupmenu_cbk=LTsv_CALLBACLTYPE(menu_c) if menu_c != None else LTsv_CALLBACLTYPE(LTsv_window_none)
+        LTsv_libobj.g_signal_connect_data(widget_o,"popup-menu".encode("utf-8"),LTsv_notify_popupmenu_cbk,0,0,0)
         def LTsv_notifyicon_defmenu_yield():
             yield ("window exit",LTsv_window_exit_cbk)
             yield ("-----------",None)
-            yield ("window show",LTsv_notify_activate_cbk)
+            yield ("notify click",LTsv_notify_popupmenu_cbk)
         LTsv_notifyicon_menu_yield=menu_b if menu_b != None else LTsv_notifyicon_defmenu_yield()
         for LTsv_popup_count,LTsv_popup_menu in enumerate(LTsv_notifyicon_menu_yield):
             if LTsv_popup_menu[0]=="" or LTsv_popup_menu[1] == None:
@@ -1586,12 +1584,13 @@ def LTsv_notifyicon_new(LTsv_windowPAGENAME,notify_n=None,widget_t="",widget_u="
                 LTsv_popup_menu_label=LTsv_libgtk.gtk_menu_item_new_with_label(LTsv_popup_menu[0].encode("utf-8","xmlcharrefreplace"))
                 LTsv_libgtk.gtk_menu_shell_append(menu_o,LTsv_popup_menu_label)
                 LTsv_libobj.g_signal_connect_data(LTsv_popup_menu_label,"activate".encode("utf-8"),LTsv_popup_menu[1],LTsv_popup_count,0,0)
-        def LTsv_notifyicon_menupopup_show(window_objvoid=None,window_objptr=None):
+        def LTsv_notifyicon_activate(window_objvoid=None,window_objptr=None):
             LTsv_libgtk.gtk_widget_show_all(menu_o)
             LTsv_libgtk.gtk_menu_popup(menu_o,0,0,LTsv_libgtk.gtk_status_icon_position_menu,widget_o,0,0)
-        LTsv_notify_popupmenu=LTsv_CALLBACLTYPE(LTsv_notifyicon_menupopup_show)
-        LTsv_libobj.g_signal_connect_data(widget_o,"popup-menu".encode("utf-8"),LTsv_notify_popupmenu,0,0,0)
-        LTsv_widgetPAGE=LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,widget_o=widget_o,widget_t=widget_t,widget_u=iconuri,event_a=LTsv_notify_activate_cbk,event_u=LTsv_notify_popupmenu,menu_o=menu_o,menu_b=LTsv_notifyicon_menu_yield)
+            LTsv_widget_showhide(LTsv_windowPAGENAME,True)
+        LTsv_notify_activate_cbk=LTsv_CALLBACLTYPE(LTsv_notifyicon_activate)
+        LTsv_libobj.g_signal_connect_data(widget_o,"activate".encode("utf-8"),LTsv_notify_activate_cbk,-1,0,0)
+        LTsv_widgetPAGE=LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,widget_o=widget_o,widget_t=widget_t,widget_u=iconuri,event_a=LTsv_notify_activate_cbk,event_u=LTsv_notify_popupmenu_cbk,menu_o=menu_o,menu_b=LTsv_notifyicon_menu_yield,menu_c=menu_c)
     if LTsv_GUI == LTsv_GUI_Tkinter:
         icon_o=LTsv_iconOBJ[iconuri] if iconuri in LTsv_iconOBJ else None
         if icon_o == None:
@@ -1613,8 +1612,6 @@ def LTsv_notifyicon_new(LTsv_windowPAGENAME,notify_n=None,widget_t="",widget_u="
     LTsv_widgetLTSV=LTsv_putpage(LTsv_widgetLTSV,LTsv_widgetPAGENAME,LTsv_widgetPAGE)
     return LTsv_widgetPAGENAME
 
-def LTsv_gui_ver():
-    return "20160328M231906"
 
 def debug_canvas(window_objvoid=None,window_objptr=None):
     global debug_scaleRGB
@@ -1717,6 +1714,7 @@ def debug_edit_clip(window_objvoid=None,window_objptr=None):
     edit_clip=LTsv_widget_gettext(debug_edit)
     LTsv_libc_printf("edit_clip={0}".format(edit_clip))
     LTsv_widget_settext(debug_clipboard,widget_t=edit_clip)
+
 
 if __name__=="__main__":
     from LTsv_printf import *

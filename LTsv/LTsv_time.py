@@ -712,8 +712,6 @@ def LTsv_gettimerstr(timeformat=None):
     LTsv_tf=LTsv_tf if not "\t"     in LTsv_tf else LTsv_tf.replace("\t","@")
     return LTsv_tf
 
-def LTsv_time_ver():
-    return "20160328M231906"
 
 if __name__=="__main__":
     from LTsv_printf import *

@@ -20,7 +20,7 @@ kantray_findNX,kantray_findalpha,kantray_finddic,kantray_findchar="Σ","σ","名
 kantray_directnotifys,kantray_directimage,kantray_directcellpos,kantray_directONOFF=0,"kanmap.png",{"N":76,"X":153,"NK":75,"XK":152,"P":76,"D":153,"S":154},0
 kantray_inputpaste,kantray_inputcut,kantray_inputNFER,kantray_inputXFER,kantray_inputKANA="CtrlL\tV","CtrlL\tX","NFER","XFER","KANA"
 kantray_input_OTHER="Left\tUp\tRight\tDown\tEnter\tTab\tEsc\tPrtSc\tBS\tDEL\tHome\tEnd\tPgUp\tPgDn"
-kantray_evalentry,kantray_evalcalc,kantray_evalnow,kantray_evaloverhour,kantray_evalslash,kantray_evaldakuon,kantray_evalseion="","Σ","年-月-日(週曜)時:分:秒",24,"￥","Ｐ","Ｈ"
+kantray_evalentry,kantray_evalcalc,kantray_evalnow,kantray_evalbranch,kantray_evaloverhour,kantray_evalslash,kantray_evaldakuon,kantray_evalseion="","Σ","年-月-日(週曜)時:分:秒","@000y@0m@0dm@wdec@0h@0n@0s",24,"￥","Ｐ","Ｈ"
 kantray_notifyicon=None
 kantray_notifyID=[[],[3],[3,2],[2,1,0],[3,2,1,0]]
 kantray_notifyOBJ=[[],[None],[None,None],[None,None,None],[None,None,None,None]]
@@ -301,11 +301,15 @@ def kantray_entryeval_kernel(value=""):
         calc_A=LTsv_kanare(calc_Q,"HiraKana2DakP")
     elif calc_K == "今":
         LTsv_putdaytimenow(overhour=kantray_evaloverhour)
-        calc_Q=calc_Q.replace("今",kantray_evalnow)
-        calc_Q=calc_Q.replace("干","@yzj").replace("年","@000y").replace("月","@0m").replace("日","@0dm").replace("週","@0wnyi").replace("曜","@wdj").replace("時","@0h").replace("分","@0n").replace("秒","@0s")
-        calc_Q=calc_Q.replace("版",LTsv_time_ver())
-        calc_Q=calc_Q.replace("印","@000y@0m@0dm@wdec@0h@0n@0s")
-        calc_A=LTsv_getdaytimestr(calc_Q)
+        if "枝" in calc_Q:
+            calc_Q="枝"
+            calc_A=LTsv_getdaytimestr(kantray_evalbranch)
+        else:
+            calc_Q=calc_Q.replace("今",kantray_evalnow)
+            calc_Q=calc_Q.replace("干","@yzj").replace("年","@000y").replace("月","@0m").replace("日","@0dm").replace("週","@0wnyi").replace("曜","@wdj").replace("時","@0h").replace("分","@0n").replace("秒","@0s")
+            calc_Q=calc_Q.replace("版",LTsv_file_ver())
+            calc_Q=calc_Q.replace("印",kantray_evalbranch)
+            calc_A=LTsv_getdaytimestr(calc_Q)
     elif calc_K == "⑩":
         calc_A=str(LTsv_intstr0x(calc_Q))
     elif calc_K == "⑯":
@@ -351,7 +355,6 @@ def kantray_entryeval_kernel(value=""):
     if calc_K == "算":
         calc_A=LTsv_calc(calc_Q)
     if calc_K != "":
-#        LTsv_widget_settext(kantray_entry,"{0}{1}⇔{2}".format(calc_K,calc_Q,calc_A))
         calc_value="{0}{1}⇔{2}".format(calc_K,calc_Q,calc_A)
     else:
         calc_value=value
@@ -376,7 +379,7 @@ def kantray_configload():
     global kantray_findNX,kantray_findalpha,kantray_finddic,kantray_findchar
     global kantray_directnotifys,kantray_directimage,kantray_directcellpos,kantray_directONOFF
     global kantray_inputpaste,kantray_inputcut,kantray_inputNFER,kantray_inputXFER,kantray_inputKANA,kantray_input_OTHER
-    global kantray_evalentry,kantray_evalcalc,kantray_evalnow,kantray_evaloverhour,kantray_evalslash,kantray_evaldakuon,kantray_evalseion
+    global kantray_evalentry,kantray_evalcalc,kantray_evalnow,kantray_evalbranch,kantray_evaloverhour,kantray_evalslash,kantray_evaldakuon,kantray_evalseion
     kantray_ltsv=LTsv_loadfile("kantray.tsv")
     kantray_config=LTsv_getpage(kantray_ltsv,"kantray")
     kantray_findNX=LTsv_readlinerest(kantray_config,"find_NX",kantray_findNX)
@@ -402,6 +405,7 @@ def kantray_configload():
     kantray_evalcalc=LTsv_readlinerest(kantray_config,"eval_calc",kantray_evalcalc)
     kantray_evalentry=LTsv_readlinerest(kantray_config,"eval_entry","")
     kantray_evalnow=LTsv_readlinerest(kantray_config,"eval_now",kantray_evalnow)
+    kantray_evalbranch=LTsv_readlinerest(kantray_config,"eval_branch",kantray_evalbranch)
     kantray_evaloverhour=min(max(LTsv_intstr0x(LTsv_readlinerest(kantray_config,"eval_overhour")),24),48)
     kantray_evalslash=LTsv_readlinerest(kantray_config,"eval_slash",kantray_evalslash)
     kantray_evaldakuon=LTsv_readlinerest(kantray_config,"eval_dakuon",kantray_evaldakuon)
@@ -459,7 +463,8 @@ if len(LTsv_GUI) > 0:
     kantray_evalbutton=LTsv_button_new(kantray_window,event_b=kantray_entryeval_shell,widget_t="⇔",widget_x=kantray_entryW+kantray_buttonWH*2,widget_y=kantray_canvasH,widget_w=int(kantray_buttonWH*1.5),widget_h=kantray_buttonWH,widget_f=kantray_font)
     if kantray_directnotifys > 0:
         for notifyLCRX in range(len(kantray_notifyID[kantray_directnotifys])):
-            kantray_notifyOBJ[kantray_directnotifys][notifyLCRX]=LTsv_notifyicon_new(kantray_window,widget_t="kantray",widget_u="{0}[{1}]".format(kantray_directimage,kantray_directcellpos[kantray_notifyPD[kantray_directONOFF]]*4+kantray_notifyID[kantray_directnotifys][notifyLCRX]),menu_b=kantray_notify_menu())
+            kantray_notifyOBJ[kantray_directnotifys][notifyLCRX]=LTsv_notifyicon_new(kantray_window,widget_t="kantray",widget_u="{0}[{1}]".format(kantray_directimage,kantray_directcellpos[kantray_notifyPD[kantray_directONOFF]]*4+kantray_notifyID[kantray_directnotifys][notifyLCRX]),menu_b=kantray_notify_menu(),menu_c=kantray_directswitch)
+#            kantray_notifyOBJ[kantray_directnotifys][notifyLCRX]=LTsv_notifyicon_new(kantray_window,widget_t="kantray",widget_u="{0}[{1}]".format(kantray_directimage,kantray_directcellpos[kantray_notifyPD[kantray_directONOFF]]*4+kantray_notifyID[kantray_directnotifys][notifyLCRX]))
             LTsv_widget_settext(kantray_notifyOBJ[kantray_directnotifys][notifyLCRX],kantray_title[kantray_directONOFF])
         LTsv_kbdEVIOCGRAB(kantray_directONOFF)
     LTsv_widget_showhide(kantray_window,True)

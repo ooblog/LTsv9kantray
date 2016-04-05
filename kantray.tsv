@@ -3,15 +3,15 @@ code	UTF-8
 enter	LF
 tab	8
 program	kantray
-LTsvver	20160328M231906
-modify	20160405T025220
+LTsvver	20160405T171612
+modify	20160406W021847
 |L:Tsv]
 
 [kantray|
-find_NX	
+find_NX	え
 find_alpha	σ
-find_dic	地
-find_char	)
+find_dic	名
+find_char	
 direct_notifys	3
 direct_image	kanmap.png
 direct_cellpos	N:0	X:77	NK:75	XK:152	P:76	D:153	S:154
@@ -24,11 +24,12 @@ input_KANA	KANA
 input_OTHER	Left	Up	Right	Down	Enter	Tab	Esc	PrtSc	BS	DEL	Home	End	PgUp	PgDn
 eval_calc	Σ
 eval_now	年-月-日(週曜)時:分:秒
+eval_branch	@000y@0m@0dm@wdec@0h@0n@0s
 eval_overhour	30
 eval_slash	￥
 eval_dakuon	Ｐ
 eval_seion	Ｈ
-eval_entry	照o⇔&#111;
+eval_entry	
 dic_wordname	kanword.tsv
 dic_zipname	kanzip.tsv
 font_name	kantray5x5comic
