@@ -1,11 +1,11 @@
 「LTsv9kantray(tsvtool9)」は「L:Tsv」の読み書きを中心としたモジュール群と漢字入力「kantray」のPythonによる実装です。
-version 20160405T171612
+version 20160417U181212
 
 目次
 
  ０-0． ライセンス及びソフトの使用の補足ガイドライン
  ０-1． インストール＆アンインストール方法・その他セットアップ方法
- ０-2． バージョン「20160314M010029(それ以前も含む)」から「20160405T171612」への変更にあたる注意点など。
+ ０-2． バージョン「20160314M010029(それ以前も含む)」から「20160417U181212」への変更にあたる注意点など。
  ０-3． その他現在わかっている不具合や今後の課題。
  １-0a．「L:Tsv」の解説。
  １-0b．「L:Tsv」ファイルの構造。
@@ -63,7 +63,7 @@ version 20160405T171612
  ※Pythonは別途インストールされているものとします(Pythonの導入分からない人は「３-0． ＦＡＱ(そもそも起動しないなどの疑問はこちら)」も参考)。
 
 
-０-2． バージョン「20160328M231906(それ以前も含む)」から「20160405T171612」への変更にあたる注意点など。
+０-2． バージョン「20160328M231906(それ以前も含む)」から「20160417U181212」への変更にあたる注意点など。
 
  [readme.txt]を[README.md][LTsv.txt][kantray.txt]の３ファイルに分割。
  「L;Tsv」関連を「LTsv」フォルダに格納。「sys.path.append("LTsv")」を付加。
@@ -71,6 +71,8 @@ version 20160405T171612
  アイコン関連は「icon」フォルダに格納。
  「LTsv_savedir()」「LTsv_savedirs()」追加。「LTsv_savefile()」「LTsv_saveplain()」ファイル保存時のフォルダ作成を半自動で(os.mkdirを使った１階層)。
  「LTsv_file_ver()」以外のバージョン関数などをリソースの都合で省略。
+ 「LTsv_draw_picture_W」「LTsv_draw_picture_H」を「LTsv_global_pictureW」「LTsv_global_pictureH」に移行。
+ 「LTsv_draw_color()」を消す予定。
 
 
 ０-3． その他現在わかっている不具合や今後の課題。
@@ -184,7 +186,7 @@ version 20160405T171612
   データ破損を補完する機能はないので注意。
 
  LTsv_printf_ver()
-   [LTsv_printf.py]のバージョン表示(20160405T171612)。
+   [LTsv_printf.py]のバージョン表示(20160417U181212)。
 
 
 １-2． [LTsv_file.py]の関数一覧
@@ -364,14 +366,14 @@ version 20160405T171612
  PuppyLinux571JPなど「Tkinter」が使えないディストリビューションとかあるので注意。
 
  LTsv_file_ver()
-  [LTsv_file.py]のバージョン表示(20160405T171612)。
+  [LTsv_file.py]のバージョン表示(20160417U181212)。
 
 
 １-3a．[LTsv_time.py]の関数一覧
 
  日時フォーマットモジュールです。FPSも扱います。徹夜日時という概念があります。
  ・とりあえず日時を取得する場合は「LTsv_getdaytimestr(overhour=24,diffminute=0)」で。
- ・20160405T171612形式(@000y@0m@0dm@wdec@0h@0n@0s)だと困るのであればフォーマット指定。
+ ・20160417U181212形式(@000y@0m@0dm@wdec@0h@0n@0s)だと困るのであればフォーマット指定。
  ・徹夜日時とは正子(夜中の午前0時)を24時として日付を切り替えずに25時(夜中の1時)、26時(夜中の2時)…と時だけが過ぎる状態です。
  ・ISOカレンダーの週はISO8601の1月4日を含む週(最初の木曜日を含む週)を第1週と数える方法。曜日は月曜から始まるので土日は週末。ISOカレンダーの曜は月曜が1で土曜が6、日曜が7。
  ・単体風テストでは複数の日時フォーマットを用いて関数群の挙動確認ができます。
@@ -408,7 +410,7 @@ version 20160405T171612
   追加オプションでLTsv_overhour(徹夜日時)とLTsv_diffminute(時差)の設定を上書きできる。
 
  LTsv_putdaytimever(LTsv_verstr,overhour=None,diffminute=None)
-  「LTsv_time_ver()」などの「20160405T171612」形式(@000y@0m@0dm@wdec@0h@0n@0s)をLTsv_meridian_nowに格納。各種日時変数も計算。
+  「LTsv_time_ver()」などの「20160417U181212」形式(@000y@0m@0dm@wdec@0h@0n@0s)をLTsv_meridian_nowに格納。各種日時変数も計算。
   追加オプションでLTsv_overhour(徹夜日時)とLTsv_diffminute(時差)の設定を上書きできる。
 
  LTsv_putdaytimenow(overhour=None,diffminute=None)
@@ -849,13 +851,17 @@ version 20160405T171612
   LTsv_guistyleでUI指定できるがPuppyLinuxだと強制的に「GTK2」。Windowsだと今の所「Tkinter」。「WinAPI」は未実装。
 
   LTsv_global_GUI(); LTsv_global_Notify(); LTsv_global_libgtk(); LTsv_global_libgdk(); LTsv_global_libobj(); LTsv_global_widgetgetpage(LTsv_UUID): 
-  LTsv_global_widgetOBJ(LTsv_objid); LTsv_global_pictureOBJ(LTsv_objid): LTsv_global_iconOBJ(LTsv_objid): LTsv_global_notifyOBJ(LTsv_objid): 
-  global系はモジュール内の変数に直接アクセスする場合に使用。通常canvasmotion系(「canvas」上のマウスの座標)しか使わないはず。
-  詳細は使用している関数の説明を参考。
+  LTsv_global_widgetOBJ(LTsv_objid); LTsv_global_iconOBJ(LTsv_objid): LTsv_global_notifyOBJ(LTsv_objid): 
+  global系はモジュール内の変数に直接アクセスする場合に使用。
 
  LTsv_global_canvasmotionX(); LTsv_global_canvasmotionY();
-  「canvas」上のマウスの座標を取得。Canvasの解説は「LTsv_canvas_new()」を参照。
+  「canvas」上のマウスの座標を取得。「canvas」の解説は「LTsv_canvas_new()」を参照。
   「canvas」の外に出ると正しい値は取得できなくなるので「LTsv_canvas_leave()」系の対策は必須。
+
+ LTsv_global_pictureOBJ(LTsv_objid): LTsv_global_pictureW(LTsv_objid): LTsv_global_pictureH(LTsv_objid):
+  「canvas」用の画像を管理。解説は「LTsv_draw_picture_load()」を参照。
+  LTsv_global_pictureOBJ()がNoneを返す場合、画像の読み込みに失敗してる。
+  LTsv_global_pictureW()で画像の横幅。LTsv_global_pictureH()で画像の縦幅。
 
  LTsv_widget_newUUID(LTsv_widgetID=None)
   「uuid.uuid4().hex+'+'+str(time.time())」でユニークIDを発行する。
@@ -1052,6 +1058,7 @@ version 20160405T171612
 
  LTsv_draw_picture_load(LTsv_picturepath)
   「canvas」用の画像を読み込む。「image」GUIオブジェクトとは別腹。
+  画像の読み込みに失敗した場合Noneを帰す。
 
  LTsv_draw_picture_celldiv(LTsv_picturepath,picture_divw,picture_divh)
   「LTsv_draw_picture_load()」で読み込んだ(読み込んでなければ読み込む)画像を分割して「filepath[num]」の様に番号を付けることができる。
@@ -1064,9 +1071,6 @@ version 20160405T171612
 
  LTsv_draw_canvas_save(LTsv_canvasPAGENAME,LTsv_picturenewpath)
   「LTsv_canvas_new()」の「canvas」を画像保存。png推奨。
-
- LTsv_draw_picture_W(LTsv_picturepath); LTsv_draw_picture_H(LTsv_picturepath);
-  「LTsv_draw_picture_load()」で読み込んだ画像の縦サイズ横サイズ(画像を読み込んでなければ読み込む)。
 
  LTsv_drawGTK_selcanvas(LTsv_canvasPAGENAME); LTsv_drawTkinter_selcanvas(LTsv_canvasPAGENAME,draw_g="LTsv_draw_color")
   ポリゴンで絵を描く準備。事前に描画対象の「canvas」を指定することでループ内の選択肢排除。
@@ -1097,6 +1101,9 @@ version 20160405T171612
 
  LTsv_drawGTK_text(draw_t="",draw_x=0,draw_y=0); LTsv_drawTkinter_text(draw_t="",draw_x=0,draw_y=0)
   ポリゴンではないが文字描画。フォント指定を省略できる
+
+ LTsv_drawGTK_picture(draw_t="",draw_x=0,draw_y=0); LTsv_drawTkinter_picture(draw_t="",draw_x=0,draw_y=0)
+  「LTsv_draw_picture_load()」で読み込んだ画像を描画。座標は「draw_x」「draw_y」。
 
  LTsv_clockwise(*draw_xy)
   ポリゴンが時計回りなら正数、反時計回りなら負数、判定できない場合0のカウントを返す。
@@ -1298,9 +1305,9 @@ version 20160405T171612
   先頭文字が「今」                   日時などを取得。「平,干,年,月,日,週,曜,時,分,秒,今,版,印」の他に先述の日時フォーマットで詳細な指定も可能。
                                      「今年-月-日(週曜)時:分:秒」→「今@000y-@0m-@0dm(@0wnyi@wdj)@0h:@0n:@0s⇔2016-03-01(09火)02:15:15」
                                      「今今」→「今@000y-@0m-@0dm(@0wnyi@wdj)@0h:@0n:@0s⇔2016-03-01(09火)02:15:48」。[kantray.tsv]の「eval_now」を返す。
-                                     「今版」→「今20160405T171612⇔20160405T171612」。[LTsv_time.py]の「LTsv_time_ver()」を返す。
-                                     「今印」→「今@000y@0m@0dm@wdec@0h@0n@0s⇔20160405T171612」。[kantray.tsv]の「eval_branch」を返す。
-                                     「今枝」→「今枝⇔20160405T171612」。「今印」同様に「eval_branch」を返すが、「枝」が含まれてると「今枝」以外が省略される。
+                                     「今版」→「今20160417U181212⇔20160417U181212」。[LTsv_time.py]の「LTsv_time_ver()」を返す。
+                                     「今印」→「今@000y@0m@0dm@wdec@0h@0n@0s⇔20160417U181212」。[kantray.tsv]の「eval_branch」を返す。
+                                     「今枝」→「今枝⇔20160417U181212」。「今印」同様に「eval_branch」を返すが、「枝」が含まれてると「今枝」以外が省略される。
                                      日時の詳しい使い方は「１-3b．日時フォーマットの概要」を参考。
   先頭文字が「⑧」                   UTF-8文字列を256進数としての8点点字(UTF-8点字)に変換。一般的な点字ではないので注意。
                                      「⑧点字に類似したもの⇔⣧⢂⢹⣥⢭⢗⣣⢁⢫⣩⢡⢞⣤⢼⢼⣣⢁⢗⣣⢁⢟⣣⢂⢂⣣⢁⢮」。

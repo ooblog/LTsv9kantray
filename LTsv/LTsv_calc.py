@@ -264,6 +264,7 @@ def LTsv_calc_multiplication(LTsv_calcQbase):
 
 if __name__=="__main__":
     from LTsv_printf import *
+    from LTsv_file   import *
     print("__main__ Python{0.major}.{0.minor}.{0.micro},{1},{2}".format(sys.version_info,sys.platform,sys.stdout.encoding))
     print("")
     LTsv_calcQlist=[ "1/3","1|3*3","1-m2",
@@ -276,7 +277,7 @@ if __name__=="__main__":
     for LTsv_calcQ in LTsv_calcQlist:
         LTsv_libc_printf("{0}⇔{1}".format(LTsv_calcQ,LTsv_calc(LTsv_calcQ)))
     print("")
-    print("__main__",LTsv_calc_ver())
+    print("__main__",LTsv_file_ver())
 
 
 # Copyright (c) 2016 ooblog

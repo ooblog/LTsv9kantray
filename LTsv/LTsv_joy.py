@@ -261,6 +261,7 @@ def LTsv_joyaxis_label():
 
 if __name__=="__main__":
     from LTsv_printf import *
+    from LTsv_file   import *
     print("__main__ Python{0.major}.{0.minor}.{0.micro},{1},{2}".format(sys.version_info,sys.platform,sys.stdout.encoding))
     print("")
     joylabel="１\t２\t３\t４\t５\t６\t７\t８\t９\t10\t11\t12"
@@ -282,7 +283,7 @@ if __name__=="__main__":
         LTsv_libc_printf(LTsv_getjoystr(LTsv_joyidcount))
         time.sleep(0.5)
     print("")
-    print("__main__",LTsv_joy_ver())
+    print("__main__",LTsv_file_ver())
 
 
 # Copyright (c) 2016 ooblog

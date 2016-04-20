@@ -188,6 +188,7 @@ def LTsv_ink2utf(LTsv_text):
 
 
 if __name__=="__main__":
+    from LTsv_file   import *
     print("__main__ Python{0.major}.{0.minor}.{0.micro},{1},{2}".format(sys.version_info,sys.platform,sys.stdout.encoding))
     print("")
     print("hello world",type("hello world"))
@@ -228,7 +229,7 @@ if __name__=="__main__":
         kanare_replace=LTsv_kanare(kanare_value,kanare_key)
         LTsv_libc_printf("LTsv_kanare(kanare_value,'{0}')\n{1}↓\n{2}\n".format(kanare_key,kanare_value,kanare_replace))
     print("")
-    print("__main__",LTsv_printf_ver())
+    print("__main__",LTsv_file_ver())
 
 
 # Copyright (c) 2016 ooblog

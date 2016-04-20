@@ -35,7 +35,7 @@ LTsv_widgetOBJ={}; LTsv_widgetOBJcount=0
 LTsv_timerOBJ={}; LTsv_timer_cbk={}
 LTsv_canvas_motion_X,LTsv_canvas_motion_Y=0,0
 canvas_EMLtimeout,canvas_EMLenter,canvas_EMLmotion,canvas_EMLleave,canvas_EMLafter={},{},{},{},{}
-LTsv_pictureOBJ={}
+LTsv_pictureOBJ,LTsv_pictureW,LTsv_pictureH={},{},{}
 LTsv_iconOBJ={}; LTsv_iconOBJnotify=[]
 LTsv_popupmenuOBJ={}
 LTsv_default_iconuri=""
@@ -105,6 +105,8 @@ def LTsv_global_widgetgetltsv():                    return LTsv_widgetLTSV
 def LTsv_global_widgetgetpage(LTsv_widgetPAGENAME): return LTsv_getpage(LTsv_widgetLTSV,LTsv_widgetPAGENAME)
 def LTsv_global_widgetOBJ(LTsv_objid):              return LTsv_widgetOBJ[LTsv_objid]
 def LTsv_global_pictureOBJ(LTsv_objid):             return LTsv_pictureOBJ[LTsv_objid]
+def LTsv_global_pictureW(LTsv_objid):               return LTsv_pictureW[LTsv_objid]
+def LTsv_global_pictureH(LTsv_objid):               return LTsv_pictureH[LTsv_objid]
 def LTsv_global_iconOBJ(LTsv_objid):                return LTsv_iconOBJ[LTsv_objid]
 def LTsv_global_popupmenuOBJ(LTsv_objid):           return LTsv_popupmenuOBJ[LTsv_objid]
 
@@ -1005,14 +1007,20 @@ def LTsv_draw_color(LTsv_canvasPAGENAME,draw_k="line",draw_t="draw_t",draw_x=0,d
                 canvas_o.create_image(draw_x,draw_y,image=picture_o,anchor="nw",tag=draw_g)
 
 def LTsv_draw_picture_load(LTsv_picturepath):
-    global LTsv_pictureOBJ
+    global LTsv_pictureOBJ,LTsv_pictureW,LTsv_pictureH
     if os.path.isfile(LTsv_picturepath):
         if LTsv_GUI == LTsv_GUI_GTK2:
             LTsv_pictureOBJ[LTsv_picturepath]=LTsv_libgdk.gdk_pixbuf_new_from_file(LTsv_picturepath.encode("utf-8","xmlcharrefreplace"),0)
+            LTsv_pictureW[LTsv_picturepath]=LTsv_libgdk.gdk_pixbuf_get_width(LTsv_pictureOBJ[LTsv_picturepath])
+            LTsv_pictureH[LTsv_picturepath]=LTsv_libgdk.gdk_pixbuf_get_height(LTsv_pictureOBJ[LTsv_picturepath])
         if LTsv_GUI == LTsv_GUI_Tkinter:
             LTsv_pictureOBJ[LTsv_picturepath]=Tk.PhotoImage(file=LTsv_picturepath)
+            LTsv_pictureW[LTsv_picturepath]=LTsv_pictureOBJ[LTsv_picturepath].width()
+            LTsv_pictureH[LTsv_picturepath]=LTsv_pictureOBJ[LTsv_picturepath].height()
     else:
         LTsv_pictureOBJ[LTsv_picturepath]=None
+        LTsv_pictureW[LTsv_picturepath]=0
+        LTsv_pictureH[LTsv_picturepath]=0
     return LTsv_pictureOBJ[LTsv_picturepath]
 
 def LTsv_draw_picture_celldiv(LTsv_picturepath,picture_divw,picture_divh):
@@ -1030,8 +1038,12 @@ def LTsv_draw_picture_celldiv(LTsv_picturepath,picture_divw,picture_divh):
         if LTsv_GUI == LTsv_GUI_GTK2:
             for picture_y in range(picture_divh):
                 for picture_x in range(picture_divw):
-                    LTsv_pictureOBJ["{0}[{1}]".format(LTsv_picturepath,picture_y*picture_divw+picture_x)]= \
-                    LTsv_libgdk.gdk_pixbuf_new_subpixbuf(ctypes.c_char_p(picture_o),picture_x*cell_w,picture_y*cell_h,cell_w,cell_h)
+#                    LTsv_pictureOBJ["{0}[{1}]".format(LTsv_picturepath,picture_y*picture_divw+picture_x)]= \
+#                    LTsv_libgdk.gdk_pixbuf_new_subpixbuf(ctypes.c_char_p(picture_o),picture_x*cell_w,picture_y*cell_h,cell_w,cell_h)
+                    picture_t="{0}[{1}]".format(LTsv_picturepath,picture_y*picture_divw+picture_x)
+                    LTsv_pictureOBJ[picture_t]=LTsv_libgdk.gdk_pixbuf_new_subpixbuf(ctypes.c_char_p(picture_o),picture_x*cell_w,picture_y*cell_h,cell_w,cell_h)
+                    LTsv_pictureW[picture_t]=LTsv_libgdk.gdk_pixbuf_get_width(LTsv_pictureOBJ[picture_t])
+                    LTsv_pictureH[picture_t]=LTsv_libgdk.gdk_pixbuf_get_height(LTsv_pictureOBJ[picture_t])
         if LTsv_GUI == LTsv_GUI_Tkinter:
             pass
 
@@ -1067,30 +1079,6 @@ def LTsv_draw_canvas_save(LTsv_canvasPAGENAME,LTsv_picturenewpath):
 #        canvas_d=Image.new("RGB",(canvas_w,canvas_h),(255,255,255))
 #        canvas_d.paste(canvas_o,(0,0))
 #        canvas_d.save(fileName,returnFormat(LTsv_picturenewext))
-
-def LTsv_draw_picture_W(LTsv_picturepath):
-    picture_w=0
-    if not LTsv_picturepath in LTsv_pictureOBJ:
-        LTsv_draw_picture_load(LTsv_picturepath)
-    picture_o=LTsv_pictureOBJ[LTsv_picturepath]
-    if picture_o != None:
-        if LTsv_GUI == LTsv_GUI_GTK2:
-            picture_w=LTsv_libgdk.gdk_pixbuf_get_width(LTsv_pictureOBJ[LTsv_picturepath])
-        if LTsv_GUI == LTsv_GUI_Tkinter:
-            picture_w=LTsv_pictureOBJ[LTsv_picturepath].width()
-    return picture_w
-
-def LTsv_draw_picture_H(LTsv_picturepath):
-    picture_h=0
-    if not LTsv_picturepath in LTsv_pictureOBJ:
-        LTsv_draw_picture_load(LTsv_picturepath)
-    picture_o=LTsv_pictureOBJ[LTsv_picturepath]
-    if picture_o != None:
-        if LTsv_GUI == LTsv_GUI_GTK2:
-            picture_h=LTsv_libgdk.gdk_pixbuf_get_height(LTsv_pictureOBJ[LTsv_picturepath])
-        if LTsv_GUI == LTsv_GUI_Tkinter:
-            picture_h=LTsv_pictureOBJ[LTsv_picturepath].height()
-    return picture_h
 
 LTsv_GTKcanvasPAGE,LTsv_GTKcanvas_o,LTsv_GTKcanvas_m,LTsv_GTKcanvas_g,LTsv_GTKcanvas_gccolor,LTsv_GTKcanvas_font=None,None,None,None,None,""
 def LTsv_drawGTK_selcanvas(LTsv_canvasPAGENAME):
@@ -1203,6 +1191,14 @@ def LTsv_drawGTK_text(draw_t="",draw_x=0,draw_y=0):
 
 def LTsv_drawTkinter_text(draw_t="",draw_x=0,draw_y=0):
     LTsv_Tkintercanvas_o.create_text(draw_x,draw_y,text=draw_t,font=LTsv_Tkintercanvas_font,anchor="nw",fill=LTsv_Tkintercanvas_color,tag=LTsv_Tkintercanvas_TAG)
+
+def LTsv_drawGTK_picture(draw_t="",draw_x=0,draw_y=0):
+    picture_o,picture_w,picture_h=LTsv_pictureOBJ[draw_t],LTsv_pictureW[draw_t],LTsv_pictureH[draw_t]
+    LTsv_libgdk.gdk_draw_pixbuf(LTsv_GTKcanvas_m,LTsv_GTKcanvas_g,picture_o,0,0,draw_x,draw_y,picture_w,picture_h,0,0,0)
+
+def LTsv_drawTkinter_picture(draw_t="",draw_x=0,draw_y=0):
+    picture_o,picture_w,picture_h=LTsv_pictureOBJ[draw_t],LTsv_pictureW[draw_t],LTsv_pictureH[draw_t]
+    LTsv_Tkintercanvas_o.create_image(draw_x,draw_y,image=picture_o,anchor="nw",tag=LTsv_Tkintercanvas_TAG)
 
 def LTsv_clockwise(*draw_xy):
     clockwise=0
@@ -1653,6 +1649,8 @@ def debug_canvas(window_objvoid=None,window_objptr=None):
     LTsv_drawtk_selcanvas(debug_keysetup_canvas)
     LTsv_drawtk_color(draw_c=debug_scaleRGB)
     LTsv_drawtk_polygon(*tuple(debug_polygonpointlist))
+    if LTsv9_logoOBJ:
+        LTsv_drawtk_picture(LTsv9_logoPATH,debug_canvas_W-LTsv_global_pictureW(LTsv9_logoPATH),debug_canvas_H-LTsv_global_pictureH(LTsv9_logoPATH))
     LTsv_draw_queue(debug_keysetup_canvas)
     LTsv_window_after(debug_keysetup_window,event_b=debug_canvas,event_i="debug_canvas",event_w=50)
 
@@ -1745,9 +1743,10 @@ if __name__=="__main__":
         debug_keysetup_timebutton=LTsv_button_new(debug_keysetup_window,widget_t="reset",widget_x=debug_keysetup_W-debug_keyspin_W*1,widget_y=0,widget_w=debug_keyspin_W*1,widget_h=debug_label_WH,widget_f=debug_font_entry,event_b=debug_timebutton)
         debug_keysetup_canvas=LTsv_canvas_new(debug_keysetup_window,widget_x=debug_canvas_X,widget_y=debug_canvas_Y,widget_w=debug_canvas_W,widget_h=debug_canvas_H,event_w=50,event_p=debug_canvas_press)
         if LTsv_GUI == LTsv_GUI_GTK2:
-            LTsv_drawtk_selcanvas,LTsv_drawtk_color,LTsv_drawtk_polygon=LTsv_drawGTK_selcanvas,LTsv_drawGTK_color,LTsv_drawGTK_polygon
+            LTsv_drawtk_selcanvas,LTsv_drawtk_color,LTsv_drawtk_polygon,LTsv_drawtk_picture=LTsv_drawGTK_selcanvas,LTsv_drawGTK_color,LTsv_drawGTK_polygon,LTsv_drawGTK_picture
         if LTsv_GUI == LTsv_GUI_Tkinter:
-            LTsv_drawtk_selcanvas,LTsv_drawtk_color,LTsv_drawtk_polygon=LTsv_drawTkinter_selcanvas,LTsv_drawTkinter_color,LTsv_drawTkinter_polygon
+            LTsv_drawtk_selcanvas,LTsv_drawtk_color,LTsv_drawtk_polygon,LTsv_drawtk_picture=LTsv_drawTkinter_selcanvas,LTsv_drawTkinter_color,LTsv_drawTkinter_polygon,LTsv_drawTkinter_picture
+        LTsv9_logoPATH="../icon/LTsv9_logo.png"; LTsv9_logoOBJ=LTsv_draw_picture_load(LTsv9_logoPATH)
         debug_polygonpointlist=[1, 1, 28, 1, 28, 8, 18, 8, 18, 10, 28, 10, 28, 17, 18, 17, 18, 28, 11, 28, 11, 17, 1, 17, 1, 10, 11, 10, 11, 8, 1, 8]
         debug_kanzip_DLprogres_WH=30
         debug_keysetup_scaleR=LTsv_scale_new(debug_keysetup_window,widget_x=debug_scale_X+debug_scale_W*0//3,widget_y=debug_scale_Y,widget_w=debug_scale_W//3,widget_h=debug_scale_H,widget_s=0,widget_e=255,widget_a=1,event_b=debug_color_scale)
@@ -1806,7 +1805,7 @@ if __name__=="__main__":
     else:
         LTsv_libc_printf("GUIの設定に失敗しました。")
     print("")
-    print("__main__",LTsv_gui_ver())
+    print("__main__",LTsv_file_ver())
 
 
 # Copyright (c) 2016 ooblog

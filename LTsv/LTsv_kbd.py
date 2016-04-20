@@ -447,6 +447,7 @@ def LTsv_keyboard_findNX():
 
 if __name__=="__main__":
     from LTsv_printf import *
+    from LTsv_file   import *
     print("__main__ Python{0.major}.{0.minor}.{0.micro},{1},{2}".format(sys.version_info,sys.platform,sys.stdout.encoding))
     print("")
     LTsv_libc_printcat("\nLTsv_kbdgettypename()")
@@ -475,7 +476,7 @@ if __name__=="__main__":
         time.sleep(0.2)
     LTsv_kbdEVIOCGRAB(0)
     print("")
-    print("__main__",LTsv_kbd_ver())
+    print("__main__",LTsv_file_ver())
 
 
 # Copyright (c) 2016 ooblog
