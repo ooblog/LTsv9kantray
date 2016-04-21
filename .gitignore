@@ -63,7 +63,7 @@ target/
 
 
 # git push github:ooblog/LTsv9kantray.git master
-# git push github:ooblog/LTsv9kantray.git 20160405T171612
+# git push github:ooblog/LTsv9kantray.git 20160417U181212
 # git log
 # git commit -a -m ""
 # git branch
