@@ -72,7 +72,7 @@ version 20160417U181212
  「LTsv_savedir()」「LTsv_savedirs()」追加。「LTsv_savefile()」「LTsv_saveplain()」ファイル保存時のフォルダ作成を半自動で(os.mkdirを使った１階層)。
  「LTsv_file_ver()」以外のバージョン関数などをリソースの都合で省略。
  「LTsv_draw_picture_W」「LTsv_draw_picture_H」を「LTsv_global_pictureW」「LTsv_global_pictureH」に移行。
- 「LTsv_draw_color()」を消す予定。
+ 「LTsv_draw_color()」の撤去。
 
 
 ０-3． その他現在わかっている不具合や今後の課題。
@@ -838,7 +838,6 @@ version 20160417U181212
  ・「LTsv_window_main()」を呼び出した後はGUIのイベント(「LTsv_window_after()」の様なタイマー系含む)が発生するまでPythonスクリプトが停止するので注意。
  ・「LTsv_」を付加してないローカル変数が多々あるので変数名の衝突が心配。
  ・「LTsv_widgetPAGE」はほぼ「LTsv_widget_newUUID()」で生成するユニークIDっぽいIDの事。
- ・「LTsv_draw_color()」は分岐が多くて重いので「LTsv_drawGTK_selcanvas」「LTsv_drawTkinter_selcanvas」系統の描画推奨。
  ・通知タスクトレイ(Notify)関連は「Tkinter」で使えないので注意。他にも「Tkinter」で動かない命令はいくつか。
  ・「LTsv_window_main()」実行前に「print()」「LTsv_libc_printf()」などターミナル(stdout)系命令が実行されるとGUIが表示されない場合があります。
  ・単体風テストではGUIはもちろん、キーボードやジョイスティック(ゲームPAD)、日時フォーマットや電卓フォーマットなどの挙動確認もできます。
@@ -1036,25 +1035,12 @@ version 20160417U181212
 
  LTsv_canvas_new(LTsv_windowPAGENAME,widget_n=None,widget_x=0,widget_y=0,widget_w=16,widget_h=16,event_p=None,event_r=None,event_e=None,event_m=None,event_l=None,event_w=100)
   GUIオブジェクト「canvas」を作成。画像やテキストの表示。マウスクリックやマウスポインタの移動でイベント。
-  「Tkinter」はベクトル(Flashの類)「GTK2」はラスタ(PNGなどドット絵)の違いに注意。
-  「LTsv_draw_delete(draw_g="LTsv_draw_color")」←「Tkinter」は「draw_g」タグのベクトル消去。「GTK2」は白で塗り潰し。
-  「LTsv_draw_color()」←描画命令
+  「Tkinter」はベクトル(Flashの類)と「GTK2」はラスタ(PNGなどドット絵)の違いに注意。
+  「LTsv_draw_delete(draw_g="LTsv_draw_tkTAG")」←「Tkinter」は「draw_g」タグのベクトル消去。「GTK2」は白で塗り潰し。
+  「LTsv_drawGTK_polygon()」←描画命令
   「LTsv_draw_queue()」←「GTK2」の場合queueしないと描画が反映されない。
   deleteとqueueで描画命令を挟むのが基本。
   マウス座標は「LTsv_global_canvasmotionX(),LTsv_global_canvasmotionY()」で取得。
-
- LTsv_draw_color(LTsv_canvasPAGENAME,draw_k="line",draw_t="draw_t",draw_x=0,draw_y=0,draw_w=16,draw_h=16,draw_s=0,draw_e=math.pi*2,draw_c=None,draw_b=None,draw_l=False,draw_f=None,draw_g="LTsv_draw_color")
-  「canvas」にとりあえず絵を描く。動作は遅いがプログラミング初心者向け。
-  後述のポリゴン関連は動作は速いがプログラミング中級者以上(ループ内の分岐排除のため関数を変数に格納するテクニックが理解できるレベル)向け。
-
-   draw_k="line"                      直線を描画。「draw_x」「draw_y」が始点「draw_w」「draw_h」が終点(相対位置)。
-   draw_k="rect"                      長方形を描画。「draw_x」「draw_y」が左上「draw_w」「draw_h」が右下(相対位置)。「draw_l=True」で塗り潰し。
-   draw_k="arc"                       楕円または弧を描画。「draw_x」「draw_y」が左上「draw_w」「draw_h」が右下(相対位置)。「draw_s=0」「draw_e=math.pi*2」で弧の始点終点。「draw_l=True」で塗り潰し。
-   draw_k="point"                     「draw_x」「draw_y」に点を描画。
-   draw_k="circle"                    円を描画(楕円もける)。「draw_x」「draw_y」は中心になる。「draw_l=True」で塗り潰し。
-   draw_k="square"                    正方形を描画(長方形も描ける)。「draw_x」「draw_y」は中心になる。「draw_l=True」で塗り潰し。
-   draw_k="text"                      「draw_t="draw_t"」でテキストを描画。「draw_f="kantray5x5comic,12"」の様にフォント指定。「GTK2」では「draw_b」で背景色が使用可能。
-   draw_k="picture"                   「LTsv_draw_picture_load()」で読み込んだ画像を描画。「draw_x」「draw_y」が左上。
 
  LTsv_draw_picture_load(LTsv_picturepath)
   「canvas」用の画像を読み込む。「image」GUIオブジェクトとは別腹。
@@ -1072,11 +1058,12 @@ version 20160417U181212
  LTsv_draw_canvas_save(LTsv_canvasPAGENAME,LTsv_picturenewpath)
   「LTsv_canvas_new()」の「canvas」を画像保存。png推奨。
 
- LTsv_drawGTK_selcanvas(LTsv_canvasPAGENAME); LTsv_drawTkinter_selcanvas(LTsv_canvasPAGENAME,draw_g="LTsv_draw_color")
-  ポリゴンで絵を描く準備。事前に描画対象の「canvas」を指定することでループ内の選択肢排除。
+ LTsv_drawGTK_selcanvas(LTsv_canvasPAGENAME); LTsv_drawTkinter_selcanvas(LTsv_canvasPAGENAME,draw_g="LTsv_draw_tkTAG")
+  ポリゴン等で絵を描く準備。事前に描画対象の「canvas」を指定する。
+  「Tkinter」の場合描画図形に添付するタグ「LTsv_draw_tkTAG」も指定する。
 
  LTsv_drawGTK_color(draw_c=""); LTsv_drawTkinter_color(draw_c="")
-  ポリゴンの色指定。事前に描画色を指定することでループ内の選択肢排除。
+  ポリゴン等の色指定。
 
  LTsv_drawGTK_polygon(*draw_xy); LTsv_drawTkinter_polygon(*draw_xy)
   ポリゴンの描画(ワイヤフレーム)。座標は(x,y,x,y…)とX座標とY座標が交互に来るタプル。
@@ -1096,6 +1083,14 @@ version 20160417U181212
  LTsv_drawGTK_circlesfill(draw_wh=16,*draw_xy); LTsv_drawTkinter_circlesfill(draw_wh=16,*draw_xy)
   ポリゴンの座標に円を表示(塗り潰し)。座標は(x,y,x,y…)とX座標とY座標が交互に来るタプル。
 
+LTsv_drawGTK_arc(draw_x,draw_y,draw_w,draw_h,draw_s=-math.pi,draw_e=math.pi); LTsv_drawTkinter_arc(draw_x,draw_y,draw_w,draw_h,draw_s=-math.pi,draw_e=math.pi)
+  「GTK2」では楕円の弧(視力検査ランドルト環)、「Tkinter」では扇(パックマン)を描く。「arc」の挙動が「GTK2」と「Tkinter」で事なる。
+  左上座標はdraw_x,draw_y。相対位置をdraw_w,draw_h。draw_sが弧の開始角度。draw_eは開始位置からの相対角度。角度の単位はラジアン(2π)。
+
+LTsv_drawTkinter_arcfill(draw_x,draw_y,draw_w,draw_h,draw_s=-math.pi,draw_e=math.pi); LTsv_drawGTK_arcfill(draw_x,draw_y,draw_w,draw_h,draw_s=-math.pi,draw_e=math.pi)
+  弧の塗り潰しは扇なので「GTK2」と「Tkinter」が結果的にほぼ同じ挙動。
+  左上座標はdraw_x,draw_y。相対位置をdraw_w,draw_h。draw_sが弧の開始角度。draw_eは開始位置からの相対角度。角度の単位はラジアン(2π)。
+
  LTsv_drawGTK_font(draw_f=""); LTsv_drawTkinter_font(draw_f=None)
   ポリゴンではないが同じロジックによるフォント指定。事前にフォントを指定することでループ内の選択肢排除。
 
@@ -1112,8 +1107,8 @@ version 20160417U181212
  LTsv_draw_queue(LTsv_canvasPAGENAME)
   「GTK2」で「canvas」の更新を「X window」に通知する。OS(厳密にはX)に描画更新を通知しないと描画が即時反映されません。
 
- LTsv_draw_delete(LTsv_canvasPAGENAME,draw_g="LTsv_draw_color")
-  「Tkinter」の「canvas」からタグ(初期値は「LTsv_draw_color」)が付けられた図形を消去する。
+ LTsv_draw_delete(LTsv_canvasPAGENAME,draw_g="LTsv_draw_tkTAG")
+  「Tkinter」の「canvas」からタグ(初期値は「LTsv_draw_tkTAG」)が付けられた図形を消去する。
   「GTK2」だと白い長方形を描画(図形を消去)する。
 
  LTsv_keyboard_size(keyboard_fontsize=12)
@@ -1503,6 +1498,11 @@ version 20160417U181212
  Ａ．以前はHSP版(tsvtool6)やBaCon版(tsvtool7)を作ってたので資産流用です。
      逆に言うとクラスとかタプルとか存在しない言語でも「L:Tsv」を使うことで代用できるみたいな。
 
+ Ｑ．「LTsv_drawtk_polygon」といった関数が見つかりません。
+ Ａ．描画命令高速化のため「LTsv_drawtk_polygon=LTsv_drawGTK_polygon」のように、変数に関数を代入してます。
+     「GTK2」「Tkinter」の判定を関数に内蔵すると、ループの中にif文という構造になるので描画が遅くなります。
+     PythonはC言語で言う所の関数ポインタを使わなくとも関数オブジェクトとして変数に代入できるので、if文を1回にする事が可能になります。
+
 
 ３-2． 「kantray」のＦＡＱ
 
@@ -1585,7 +1585,7 @@ version 20160417U181212
      https://ja.wikipedia.org/wiki/%E3%81%B5%E3%81%8D%E3%81%A0%E3%81%97
 
  Ｑ．[kanmap.tsv]の編集を「kanfont」で１個ずつやれと？
- Ａ．ぶっちゃけ表計算ソフト(例えばgnumericなど)で編集する方が簡単だと思います。「'」記号がエスケープ挙動になるので注意。
+ Ａ．表計算ソフト(例えばgnumericなど)で編集する方が簡単だと思います。「'」記号がエスケープ挙動になるので注意。
 
 
 ３-4． 「kantzip」のＦＡＱ
