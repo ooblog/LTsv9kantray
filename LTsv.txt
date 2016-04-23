@@ -1,11 +1,11 @@
 「LTsv9kantray(tsvtool9)」は「L:Tsv」の読み書きを中心としたモジュール群と漢字入力「kantray」のPythonによる実装です。
-version 20160417U181212
+version 20160423S022604
 
 目次
 
  ０-0． ライセンス及びソフトの使用の補足ガイドライン
  ０-1． インストール＆アンインストール方法・その他セットアップ方法
- ０-2． バージョン「20160314M010029(それ以前も含む)」から「20160417U181212」への変更にあたる注意点など。
+ ０-2． バージョン「20160314M010029(それ以前も含む)」から「20160423S022604」への変更にあたる注意点など。
  ０-3． その他現在わかっている不具合や今後の課題。
  １-0a．「L:Tsv」の解説。
  １-0b．「L:Tsv」ファイルの構造。
@@ -63,7 +63,7 @@ version 20160417U181212
  ※Pythonは別途インストールされているものとします(Pythonの導入分からない人は「３-0． ＦＡＱ(そもそも起動しないなどの疑問はこちら)」も参考)。
 
 
-０-2． バージョン「20160328M231906(それ以前も含む)」から「20160417U181212」への変更にあたる注意点など。
+０-2． バージョン「20160328M231906(それ以前も含む)」から「20160423S022604」への変更にあたる注意点など。
 
  [readme.txt]を[README.md][LTsv.txt][kantray.txt]の３ファイルに分割。
  「L;Tsv」関連を「LTsv」フォルダに格納。「sys.path.append("LTsv")」を付加。
@@ -186,7 +186,7 @@ version 20160417U181212
   データ破損を補完する機能はないので注意。
 
  LTsv_printf_ver()
-   [LTsv_printf.py]のバージョン表示(20160417U181212)。
+   [LTsv_printf.py]のバージョン表示(20160423S022604)。
 
 
 １-2． [LTsv_file.py]の関数一覧
@@ -366,14 +366,14 @@ version 20160417U181212
  PuppyLinux571JPなど「Tkinter」が使えないディストリビューションとかあるので注意。
 
  LTsv_file_ver()
-  [LTsv_file.py]のバージョン表示(20160417U181212)。
+  [LTsv_file.py]のバージョン表示(20160423S022604)。
 
 
 １-3a．[LTsv_time.py]の関数一覧
 
  日時フォーマットモジュールです。FPSも扱います。徹夜日時という概念があります。
  ・とりあえず日時を取得する場合は「LTsv_getdaytimestr(overhour=24,diffminute=0)」で。
- ・20160417U181212形式(@000y@0m@0dm@wdec@0h@0n@0s)だと困るのであればフォーマット指定。
+ ・20160423S022604形式(@000y@0m@0dm@wdec@0h@0n@0s)だと困るのであればフォーマット指定。
  ・徹夜日時とは正子(夜中の午前0時)を24時として日付を切り替えずに25時(夜中の1時)、26時(夜中の2時)…と時だけが過ぎる状態です。
  ・ISOカレンダーの週はISO8601の1月4日を含む週(最初の木曜日を含む週)を第1週と数える方法。曜日は月曜から始まるので土日は週末。ISOカレンダーの曜は月曜が1で土曜が6、日曜が7。
  ・単体風テストでは複数の日時フォーマットを用いて関数群の挙動確認ができます。
@@ -410,7 +410,7 @@ version 20160417U181212
   追加オプションでLTsv_overhour(徹夜日時)とLTsv_diffminute(時差)の設定を上書きできる。
 
  LTsv_putdaytimever(LTsv_verstr,overhour=None,diffminute=None)
-  「LTsv_time_ver()」などの「20160417U181212」形式(@000y@0m@0dm@wdec@0h@0n@0s)をLTsv_meridian_nowに格納。各種日時変数も計算。
+  「LTsv_time_ver()」などの「20160423S022604」形式(@000y@0m@0dm@wdec@0h@0n@0s)をLTsv_meridian_nowに格納。各種日時変数も計算。
   追加オプションでLTsv_overhour(徹夜日時)とLTsv_diffminute(時差)の設定を上書きできる。
 
  LTsv_putdaytimenow(overhour=None,diffminute=None)
@@ -1045,6 +1045,7 @@ version 20160417U181212
  LTsv_draw_picture_load(LTsv_picturepath)
   「canvas」用の画像を読み込む。「image」GUIオブジェクトとは別腹。
   画像の読み込みに失敗した場合Noneを帰す。
+  「Tkinter」では先に「LTsv_canvas_new()」で「canvas」を作って置く必要がある。
 
  LTsv_draw_picture_celldiv(LTsv_picturepath,picture_divw,picture_divh)
   「LTsv_draw_picture_load()」で読み込んだ(読み込んでなければ読み込む)画像を分割して「filepath[num]」の様に番号を付けることができる。
@@ -1212,8 +1213,8 @@ LTsv_drawTkinter_arcfill(draw_x,draw_y,draw_w,draw_h,draw_s=-math.pi,draw_e=math
     ┃ 　┃　 ││　　　　│＼　　　　　　　　　　　　　─────┘│　　　　　　　　　　　　　　　　　　｢ ↓ ｣┃
     ┃ 　┃　 ││　　　　│　＼　　　　　　　　　　　／　　　　　　│｢kanchar.tsv｣  ゔぶぁぅぇぉゃゅょをぼべヶ ┃
     ┃ 　┃　 ││　　　　│　　＼　　　　　　　　　／　　　　　　　│｢kanmap.tsv ｣   だでぃずがゎゐっゑぜ゛゜  ┃
-    ┃ 　┃ 　││　　　　│　　　＼　　　　　　　／　　　　　　　　│｢kanfont.svg｣ ぷ ぢどじばぎぐぱ…「」げぷ ┃
-    ┃[12401日│└────┘　　　　───────　　　　　　　　　│　　　　　　  ＿名づざぞびごぴぽ、。ぺ〜σ┃
+    ┃[12401日││　　　　│　　　＼　　　　　　　／　　　　　　　　│｢kanfont.svg｣ ぷ ぢどじばぎぐぱ…「」げぷ ┃
+    ┃ 0x3071 │└────┘　　　　───────　　　　　　　　　│　　　　　　  ＿名づざぞびごぴぽ、。ぺ〜σ┃
     ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
  鍵盤のフリック操作(フリックもスワイプもマウス的にはドラッグ操作です)
@@ -1300,9 +1301,9 @@ LTsv_drawTkinter_arcfill(draw_x,draw_y,draw_w,draw_h,draw_s=-math.pi,draw_e=math
   先頭文字が「今」                   日時などを取得。「平,干,年,月,日,週,曜,時,分,秒,今,版,印」の他に先述の日時フォーマットで詳細な指定も可能。
                                      「今年-月-日(週曜)時:分:秒」→「今@000y-@0m-@0dm(@0wnyi@wdj)@0h:@0n:@0s⇔2016-03-01(09火)02:15:15」
                                      「今今」→「今@000y-@0m-@0dm(@0wnyi@wdj)@0h:@0n:@0s⇔2016-03-01(09火)02:15:48」。[kantray.tsv]の「eval_now」を返す。
-                                     「今版」→「今20160417U181212⇔20160417U181212」。[LTsv_time.py]の「LTsv_time_ver()」を返す。
-                                     「今印」→「今@000y@0m@0dm@wdec@0h@0n@0s⇔20160417U181212」。[kantray.tsv]の「eval_branch」を返す。
-                                     「今枝」→「今枝⇔20160417U181212」。「今印」同様に「eval_branch」を返すが、「枝」が含まれてると「今枝」以外が省略される。
+                                     「今版」→「今20160423S022604⇔20160423S022604」。[LTsv_time.py]の「LTsv_time_ver()」を返す。
+                                     「今印」→「今@000y@0m@0dm@wdec@0h@0n@0s⇔20160423S022604」。[kantray.tsv]の「eval_branch」を返す。
+                                     「今枝」→「今枝⇔20160423S022604」。「今印」同様に「eval_branch」を返すが、「枝」が含まれてると「今枝」以外が省略される。
                                      日時の詳しい使い方は「１-3b．日時フォーマットの概要」を参考。
   先頭文字が「⑧」                   UTF-8文字列を256進数としての8点点字(UTF-8点字)に変換。一般的な点字ではないので注意。
                                      「⑧点字に類似したもの⇔⣧⢂⢹⣥⢭⢗⣣⢁⢫⣩⢡⢞⣤⢼⢼⣣⢁⢗⣣⢁⢟⣣⢂⢂⣣⢁⢮」。
@@ -1441,6 +1442,7 @@ LTsv_drawTkinter_arcfill(draw_x,draw_y,draw_w,draw_h,draw_s=-math.pi,draw_e=math
    font_name                         フォント名を指定。初期値は「kantray5x5comic」
    font_widths                       グリフの全角半角を指定。「kantray5x5comic」の推奨値は「1024	624」。
    font_grid                         グリフキャンバスのグリッドを変更する。「kantray5x5comic」の推奨値は「25」。
+   gridimage                         標準グリッドとは別に下書き画像を表示する。
 
 
  ２-3.  「kanzip」基本操作方法

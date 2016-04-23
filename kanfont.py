@@ -17,7 +17,7 @@ from LTsv_gui    import *
 kanfont_ltsv,kanfont_config="",""
 kanfont_chartype=["英","名","音","訓","送","異","俗","熙","簡","繁","越","地","顔","鍵","代","逆","非","難","活","幅"]
 kanfont_chartype_label,kanfont_chartype_entry=[None]*len(kanfont_chartype),[None]*len(kanfont_chartype)
-kanfont_dicname,kanfont_mapname,kanfont_svgname,kanfont_fontname,kanfont_fontwidths,kanfont_fontgrid="kanchar.tsv","kanmap.tsv","kanfont.svg","kantray5x5comic","1024,624",25
+kanfont_dicname,kanfont_mapname,kanfont_svgname,kanfont_fontname,kanfont_fontwidths,kanfont_fontgrid,kanfont_gridimage="kanchar.tsv","kanmap.tsv","kanfont.svg","kantray5x5comic","1024,624",25,""
 kanfont_char,kanfont_setchar,kanfont_kanline,kanfont_path,kanfont_glyphnote,kanfont_half="□","","","","",1024
 kanfont_dic,kanfont_alpha="名","α"
 kanfont_getkbdstr,kanfont_cursorLCR="MouseL:0\tMouseC:0\tMouseR:0",""
@@ -26,6 +26,7 @@ kantray_kanchar=""
 keyboard_gridX,keyboard_gridY,keyboard_removeX,keyboard_removeY,keyboard_gridZ,keyboard_gridM=0,0,0,0,-1,False
 LTsv_keyboard_irohamax,LTsv_keyboard_alphapos,LTsv_keyboard_guidepos,LTsv_keyboard_dicinppos,LTsv_keyboard_dicselpos=48,49,50,51,52
 
+kanfont_gridimageOBJ=None
 kanfont_gridxy=[[0]*(6*5*2*2),[0]*(5*5*2),[0]*(6*6*2)]
 for gridy in range(6):
     for gridx in range(5):
@@ -92,6 +93,7 @@ def kanfont_scale_shell(window_objvoid=None,window_objptr=None):
     if LTsv_widget_getnumber(kanfont_char_spin) != LTsv_widget_getnumber(kanfont_char_scale):
         LTsv_widget_setnumber(kanfont_char_spin,LTsv_widget_getnumber(kanfont_char_scale))
         kanfont_entry_setchar(LTsv_widget_getnumber(kanfont_char_scale))
+        LTsv_widget_settext(kanfont_char_label,hex(LTsv_widget_getnumber(kanfont_char_scale)))
     return
 
 def LTsv_entry_diccolumn_shell(LTsv_windowPAGENAME,LTsv_called=None):
@@ -235,11 +237,15 @@ def kanfont_fontdraw(callback_void=None,callback_ptr=None):
     LTsv_setkbddata(25,0); kanfont_getkbdstr=LTsv_getkbdlabels("MouseL\tMouseR\tMouseC")
     LTsv_draw_delete(kanfont_canvas)
     LTsv_drawtk_selcanvas(kanfont_canvas)
-    LTsv_drawtk_color(draw_c="#9F6C00"); gridx=kanfont_half//2; LTsv_drawtk_squares(7,*(gridx,PSchar_ZW//2+8))
+    if kanfont_gridimageOBJ:
+        if keyboard_gridM:
+            LTsv_drawtk_picture(kanfont_gridimage,0,0)
+    LTsv_drawtk_color(draw_c="#9F6C00"); gridx=kanfont_half//2
     for gridy in range(11):
         LTsv_drawtk_squares(7,*(gridx,gridy*50))
-    for gridxy in range(3):
-        LTsv_drawtk_circles(gridxy*2+1,*tuple(kanfont_gridxy[gridxy]))
+    LTsv_drawtk_squares(7,*(gridx,PSchar_ZW//2+8))
+#    for gridxy in range(3):
+#        LTsv_drawtk_circles(gridxy*2+1,*tuple(kanfont_gridxy[gridxy]))
     if keyboard_gridM:
         LTsv_drawtk_font(kanfont_font_grid)
         LTsv_drawtk_text(draw_t="X{0:3}Y{1:3}".format(keyboard_gridX,keyboard_gridY),draw_x=keyboard_gridX,draw_y=keyboard_gridY)
@@ -374,7 +380,7 @@ def kanfont_canvas_leave(callback_void=None,callback_ptr=None):
 def kanfont_configload():
     global kanfont_ltsv,kanfont_config
     global kanfont_char,kanfont_dic,kanfont_alpha
-    global kanfont_dicname,kanfont_mapname,kanfont_svgname,kanfont_fontname,kanfont_fontwidths,kanfont_fontgrid
+    global kanfont_dicname,kanfont_mapname,kanfont_svgname,kanfont_fontname,kanfont_fontwidths,kanfont_fontgrid,kanfont_gridimage
     kanfont_ltsv=LTsv_loadfile("kanfont.tsv")
     kanfont_config=LTsv_getpage(kanfont_ltsv,"kanfont")
     kanfont_alpha=LTsv_readlinerest(kanfont_config,"find_alpha",kanfont_alpha)
@@ -384,6 +390,7 @@ def kanfont_configload():
     kanfont_fontname=LTsv_readlinerest(kanfont_config,"font_name",kanfont_fontname)
     kanfont_fontwidths=LTsv_readlinerest(kanfont_config,"font_widths",kanfont_fontwidths)
     kanfont_fontgrid=min(max(LTsv_intstr0x(LTsv_readlinerest(kanfont_config,"font_grid")),10),100)
+    kanfont_gridimage=LTsv_readlinerest(kanfont_config,"gridimage",kanfont_gridimage)
     LTsv_kbdltsv=LTsv_loadfile("LTsv_kbd.tsv")
     keyboard_mapdic_page=LTsv_getpage(LTsv_kbdltsv,"keyboard_mapdic")
     kanfont_mapname=LTsv_readlinerest(keyboard_mapdic_page,"mapname",kanfont_mapname)
@@ -417,16 +424,18 @@ if len(LTsv_GUI) > 0:
     PSfont_ZW,PSfont_CW,PSchar_ZW,PSchar_CW=1024,624,1000,600
     kanfont_scale_W,kanfont_entry_W=kanfont_scale_WH,400; kanfont_canvas_WH=PSfont_ZW//2
     kanfont_canvas_X=kanfont_scale_W; kanfont_label_X=kanfont_canvas_X+kanfont_canvas_WH; kanfont_entry_X=kanfont_label_X+kanfont_label_WH; kanfont_W=kanfont_entry_X+kanfont_entry_W
-    kanfont_H=kanfont_canvas_WH; kanfont_scale_H=kanfont_H-kanfont_scale_WH-kanfont_label_WH-2; kanfont_scale_X,kanfont_scale_Y=0,kanfont_scale_WH
+    kanfont_H=kanfont_canvas_WH; kanfont_scale_H=kanfont_H-kanfont_scale_WH-kanfont_label_WH-kanfont_label_WH; kanfont_scale_X,kanfont_scale_Y=0,kanfont_scale_WH
     kantray_kbdcanvasWH=LTsv_keyboard_size(12); kantray_kbdcanvasW,kantray_kbdcanvasH=LTsv_intstr0x(LTsv_pickdatanum(kantray_kbdcanvasWH,0)),LTsv_intstr0x(LTsv_pickdatanum(kantray_kbdcanvasWH,1))
     kanfont_button_W,kanfont_button_H=kanfont_W-kanfont_label_X-kanfont_label_WH-kantray_kbdcanvasW-kanfont_label_WH,kantray_kbdcanvasH//3
     kanfont_half=PSfont_ZW
     kanfont_window=LTsv_window_new(widget_t="kanfont",event_b=kanfont_exit_configsave,widget_w=kanfont_W,widget_h=kanfont_H)
     kanfont_canvas=LTsv_canvas_new(kanfont_window,widget_x=kanfont_canvas_X,widget_y=0,widget_w=kanfont_canvas_WH,widget_h=kanfont_canvas_WH,
      event_p=kanfont_canvas_press,event_r=kanfont_canvas_release,event_e=kanfont_canvas_enter,event_m=kanfont_canvas_motion,event_l=kanfont_canvas_leave,event_w=50)
+    kanfont_gridimageOBJ=LTsv_draw_picture_load(kanfont_gridimage)
     kanfont_char_entry=LTsv_entry_new(kanfont_window,widget_t="",widget_x=0,widget_y=0,widget_w=kanfont_scale_WH,widget_h=kanfont_scale_WH,widget_f=kanfont_font_scale,event_b=kanfont_entry_shell)
     kanfont_char_scale=LTsv_scale_new(kanfont_window,widget_x=kanfont_scale_X,widget_y=kanfont_scale_Y,widget_w=kanfont_scale_W,widget_h=kanfont_scale_H,widget_s=1,widget_e=kanfont_max,widget_a=1,event_b=kanfont_scale_shell)
     kanfont_char_spin=LTsv_spin_new(kanfont_window,widget_x=0,widget_y=kanfont_scale_Y+kanfont_scale_H,widget_w=kanfont_scale_WH,widget_h=kanfont_label_WH,widget_s=1,widget_e=kanfont_max,widget_a=1,widget_f=kanfont_font_entry,event_b=kanfont_spin_shell)
+    kanfont_char_label=LTsv_label_new(kanfont_window,widget_t="0xf080",widget_x=0,widget_y=kanfont_scale_Y+kanfont_scale_H+kanfont_label_WH,widget_w=kanfont_scale_WH,widget_h=kanfont_label_WH,widget_f=kanfont_font_entry)
     for chartype_cnt,chartype_split in enumerate(kanfont_chartype):
         if chartype_split in "活":
             kanfont_chartype_label[chartype_cnt]=LTsv_label_new(kanfont_window,widget_t=chartype_split,widget_x=kanfont_label_X,widget_y=chartype_cnt*kanfont_label_WH,widget_w=kanfont_label_WH,widget_h=kanfont_label_WH,widget_f=kanfont_font_entry)
@@ -442,11 +451,12 @@ if len(LTsv_GUI) > 0:
             kanfont_chartype_entry[chartype_cnt]=LTsv_entry_new(kanfont_window,widget_n=False,widget_t=chartype_split,widget_x=kanfont_entry_X,widget_y=chartype_cnt*kanfont_label_WH,widget_w=kanfont_entry_W,widget_h=kanfont_label_WH,widget_f=kanfont_font_entry,event_b=kanfont_entry_diccolumn_callback)
     kantray_kbdcanvas=LTsv_keyboard_new(kanfont_window,widget_x=kanfont_W-kantray_kbdcanvasW,widget_y=kanfont_H-kantray_kbdcanvasH,keyboard_getkey=kanfont_getkey,keyboard_setkey=kanfont_setkey,widget_f=kanfont_font_keyboard)
     if LTsv_GUI == LTsv_GUI_GTK2:
-        LTsv_drawtk_selcanvas,LTsv_drawtk_font,LTsv_drawtk_color,LTsv_drawtk_text=LTsv_drawGTK_selcanvas,LTsv_drawGTK_font,LTsv_drawGTK_color,LTsv_drawGTK_text
+        LTsv_drawtk_selcanvas,LTsv_drawtk_font,LTsv_drawtk_color,LTsv_drawtk_text,LTsv_drawtk_picture=LTsv_drawGTK_selcanvas,LTsv_drawGTK_font,LTsv_drawGTK_color,LTsv_drawGTK_text,LTsv_drawGTK_picture
         LTsv_drawtk_squares,LTsv_drawtk_squaresfill,LTsv_drawtk_circles,LTsv_drawtk_circlesfill=LTsv_drawGTK_squares,LTsv_drawGTK_squaresfill,LTsv_drawGTK_circles,LTsv_drawGTK_circlesfill
         LTsv_drawtk_polygon,LTsv_drawtk_polygonfill=LTsv_drawGTK_polygon,LTsv_drawGTK_polygonfill
+        
     if LTsv_GUI == LTsv_GUI_Tkinter:
-        LTsv_drawtk_selcanvas,LTsv_drawtk_font,LTsv_drawtk_color,LTsv_drawtk_text=LTsv_drawTkinter_selcanvas,LTsv_drawTkinter_font,LTsv_drawTkinter_color,LTsv_drawTkinter_text
+        LTsv_drawtk_selcanvas,LTsv_drawtk_font,LTsv_drawtk_color,LTsv_drawtk_text,LTsv_drawtk_picture=LTsv_drawTkinter_selcanvas,LTsv_drawTkinter_font,LTsv_drawTkinter_color,LTsv_drawTkinter_text,LTsv_drawTkinter_picture
         LTsv_drawtk_squares,LTsv_drawtk_squaresfill,LTsv_drawtk_circles,LTsv_drawtk_circlesfill=LTsv_drawTkinter_squares,LTsv_drawTkinter_squaresfill,LTsv_drawTkinter_circles,LTsv_drawTkinter_circlesfill
         LTsv_drawtk_polygon,LTsv_drawtk_polygonfill=LTsv_drawTkinter_polygon,LTsv_drawTkinter_polygonfill
     kanfont_path_scale=LTsv_scale_new(kanfont_window,widget_x=kanfont_entry_X,widget_y=(len(kanfont_chartype)-1)*kanfont_label_WH,widget_w=kanfont_entry_W*5//8,widget_h=kanfont_label_WH*2,widget_s=0,widget_e=9,widget_a=1)
