@@ -1064,46 +1064,59 @@ version 20160423S022604
   「Tkinter」の場合描画図形に添付するタグ「LTsv_draw_tkTAG」も指定する。
 
  LTsv_drawGTK_color(draw_c=""); LTsv_drawTkinter_color(draw_c="")
-  ポリゴン等の色指定。
+  「canvas」内のポリゴン等の色指定。
 
  LTsv_drawGTK_polygon(*draw_xy); LTsv_drawTkinter_polygon(*draw_xy)
-  ポリゴンの描画(ワイヤフレーム)。座標は(x,y,x,y…)とX座標とY座標が交互に来るタプル。
+  「canvas」にポリゴンの描画(ワイヤフレーム)。座標は(x,y,x,y…)とX座標とY座標が交互に来るタプル。
 
  LTsv_drawGTK_polygonfill(*draw_xy); LTsv_drawTkinter_polygonfill(*draw_xy)
-  ポリゴンの描画(塗り潰し)。座標は(x,y,x,y…)とX座標とY座標が交互に来るタプル。
+  「canvas」にポリゴンの描画(塗り潰し)。座標は(x,y,x,y…)とX座標とY座標が交互に来るタプル。
 
  LTsv_drawGTK_squares(draw_wh=16,*draw_xy); LTsv_drawTkinter_squares(draw_wh=16,*draw_xy)
-  ポリゴンの座標に正方形を表示(ワイヤフレーム)。座標は(x,y,x,y…)とX座標とY座標が交互に来るタプル。
+  「canvas」にポリゴンの座標で正方形を描画(ワイヤフレーム)。座標は(x,y,x,y…)とX座標とY座標が交互に来るタプル。
 
  LTsv_drawGTK_squaresfill(draw_wh=16,*draw_xy); LTsv_drawTkinter_squaresfill(draw_wh=16,*draw_xy)
-  ポリゴンの座標に正方形を表示(塗り潰し)。座標は(x,y,x,y…)とX座標とY座標が交互に来るタプル。
+  「canvas」にポリゴンの座標で正方形を描画(塗り潰し)。座標は(x,y,x,y…)とX座標とY座標が交互に来るタプル。
 
  LTsv_drawGTK_circles(draw_wh=16,*draw_xy); LTsv_drawTkinter_circles(draw_wh=16,*draw_xy)
-  ポリゴンの座標に円を表示(ワイヤフレーム)。座標は(x,y,x,y…)とX座標とY座標が交互に来るタプル。
+  「canvas」にポリゴンの座標に円を描画(ワイヤフレーム)。座標は(x,y,x,y…)とX座標とY座標が交互に来るタプル。
 
  LTsv_drawGTK_circlesfill(draw_wh=16,*draw_xy); LTsv_drawTkinter_circlesfill(draw_wh=16,*draw_xy)
-  ポリゴンの座標に円を表示(塗り潰し)。座標は(x,y,x,y…)とX座標とY座標が交互に来るタプル。
+  「canvas」にポリゴンの座標に円を描画(塗り潰し)。座標は(x,y,x,y…)とX座標とY座標が交互に来るタプル。
 
 LTsv_drawGTK_arc(draw_x,draw_y,draw_w,draw_h,draw_s=-math.pi,draw_e=math.pi); LTsv_drawTkinter_arc(draw_x,draw_y,draw_w,draw_h,draw_s=-math.pi,draw_e=math.pi)
-  「GTK2」では楕円の弧(視力検査ランドルト環)、「Tkinter」では扇(パックマン)を描く。「arc」の挙動が「GTK2」と「Tkinter」で事なる。
+  「canvas」に弧または扇を描画(ワイヤフレーム)。「arc」の挙動が「GTK2」と「Tkinter」で事なる。
+  「GTK2」では楕円の弧(視力検査ランドルト環)、「Tkinter」では扇(パックマン)を描画。
   左上座標はdraw_x,draw_y。相対位置をdraw_w,draw_h。draw_sが弧の開始角度。draw_eは開始位置からの相対角度。角度の単位はラジアン(2π)。
 
 LTsv_drawTkinter_arcfill(draw_x,draw_y,draw_w,draw_h,draw_s=-math.pi,draw_e=math.pi); LTsv_drawGTK_arcfill(draw_x,draw_y,draw_w,draw_h,draw_s=-math.pi,draw_e=math.pi)
-  弧の塗り潰しは扇なので「GTK2」と「Tkinter」が結果的にほぼ同じ挙動。
+  「canvas」に弧または扇を描画(塗り潰し)。弧の塗り潰しは扇なので「GTK2」と「Tkinter」が結果的にほぼ同じ挙動。
   左上座標はdraw_x,draw_y。相対位置をdraw_w,draw_h。draw_sが弧の開始角度。draw_eは開始位置からの相対角度。角度の単位はラジアン(2π)。
 
  LTsv_drawGTK_font(draw_f=""); LTsv_drawTkinter_font(draw_f=None)
-  ポリゴンではないが同じロジックによるフォント指定。事前にフォントを指定することでループ内の選択肢排除。
+  「canvas」のフォント指定。
+  「kantray5x5comic,16」のようにカンマでフォント名とフォントサイズを区切る。
 
  LTsv_drawGTK_text(draw_t="",draw_x=0,draw_y=0); LTsv_drawTkinter_text(draw_t="",draw_x=0,draw_y=0)
-  ポリゴンではないが文字描画。フォント指定を省略できる
+  「canvas」でフォントによる文字描画。
+  draw_tに文字列。左上座標はdraw_x,draw_y。
 
  LTsv_drawGTK_picture(draw_t="",draw_x=0,draw_y=0); LTsv_drawTkinter_picture(draw_t="",draw_x=0,draw_y=0)
-  「LTsv_draw_picture_load()」で読み込んだ画像を描画。座標は「draw_x」「draw_y」。
+  「LTsv_draw_picture_load()」で読み込んである画像を描画。
+  draw_tに読み込みした画像と同じパス。左上座標はdraw_x,draw_y。
+  「LTsv_draw_picture_celldiv()」で画像を分割した場合「filepath[num]」の様に番号指定。
 
  LTsv_clockwise(*draw_xy)
   ポリゴンが時計回りなら正数、反時計回りなら負数、判定できない場合0のカウントを返す。
   時計回りの判定は簡易的(角度のみ面積無視)なので８の字にねじった形状を扱う場合注意。
+
+ LTsv_glyphpath(glyphcode):
+  「kanchar.tsv」の「活」項目のフォントパスの座標変換を指示。
+  通常は後述の「kanfont_drawGTK_glyph()」「kanfont_drawTkinter_glyph()」から自動呼び出し。
+
+ LTsv_drawGTK_glyph(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1); LTsv_drawTkinter_glyph(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1):
+  「kantray5x5comic」フォントをインストールしなくても「kanchar.tsv」からグリフを取得して「canvas」に描画(ワイヤフレーム)。
+  draw_tに文字列。左上座標はdraw_x,draw_y。draw_fでフォントサイズ。draw_wで文字の隙間。draw_hで行間。
 
  LTsv_draw_queue(LTsv_canvasPAGENAME)
   「GTK2」で「canvas」の更新を「X window」に通知する。OS(厳密にはX)に描画更新を通知しないと描画が即時反映されません。
@@ -1504,6 +1517,10 @@ LTsv_drawTkinter_arcfill(draw_x,draw_y,draw_w,draw_h,draw_s=-math.pi,draw_e=math
  Ａ．描画命令高速化のため「LTsv_drawtk_polygon=LTsv_drawGTK_polygon」のように、変数に関数を代入してます。
      「GTK2」「Tkinter」の判定を関数に内蔵すると、ループの中にif文という構造になるので描画が遅くなります。
      PythonはC言語で言う所の関数ポインタを使わなくとも関数オブジェクトとして変数に代入できるので、if文を1回にする事が可能になります。
+
+ Ｑ．「kanfont_drawGTK_glyph」でGUIのフォントを変更するにはどうすればいいですか。
+ Ａ．「kanfont_drawGTK_glyph」「kanfont_drawTkinter_glyph」は「canvas」に描画する命令なのでGUIのボタン等には使えません。
+     GUIで表示する場合は付属の「kantray5x5comic.woff」を「kantray5x5comic.ttf」に変換する等してフォントのインストール。
 
 
 ３-2． 「kantray」のＦＡＱ

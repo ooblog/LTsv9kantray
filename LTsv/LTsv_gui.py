@@ -1165,25 +1165,35 @@ def LTsv_glyphpath(glyphcode):
     LTsv_kanclockOBJ[glyphcode]=LTsv_glyphclock
     LTsv_kanwideOBJ[glyphcode]=int(LTsv_glyph_wide) if len(LTsv_glyph_wide) else LTsv_PSfont_ZW
 
-def kanfont_drawGTK_glyph(glyphtext,draw_x=0,draw_y=0,draw_f=10):
+def LTsv_drawGTK_glyph(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1):
     global LTsv_kanglyphOBJ,LTsv_kanclockOBJ,LTsv_kanwideOBJ
-    for glyphcode in glyphtext:
+    draw_xf,draw_yf=draw_x,draw_y; draw_fd=draw_f/1024
+    for glyphcode in draw_t:
+        if glyphcode == '\n':
+            draw_xf,draw_yf=draw_x,draw_yf+draw_f+draw_h
+            continue
         if not glyphcode in LTsv_kanglyphOBJ:
             LTsv_glyphpath(glyphcode)
         LTsv_glyphnote=LTsv_kanglyphOBJ[glyphcode]
         for LTsv_glyphpointlist_count,LTsv_glyphpointlist in enumerate(LTsv_glyphnote):
-            LTsv_glyphpointresize=[xy//10+draw_y if odd%2 else xy//10+draw_x for odd,xy in enumerate(LTsv_glyphpointlist)]
+            LTsv_glyphpointresize=[int(xy*draw_fd)+draw_yf if odd%2 else int(xy*draw_fd)+draw_xf for odd,xy in enumerate(LTsv_glyphpointlist)]
             LTsv_drawGTK_polygon(*tuple(LTsv_glyphpointresize))
+        draw_xf=draw_xf+int(LTsv_kanwideOBJ[glyphcode]*draw_fd)+draw_w
 
-def kanfont_drawTkinter_glyph(glyphtext,draw_x=0,draw_y=0,draw_f=10):
+def LTsv_drawTkinter_glyph(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1):
     global LTsv_kanglyphOBJ,LTsv_kanclockOBJ,LTsv_kanwideOBJ
-    for glyphcode in glyphtext:
+    draw_xf,draw_yf=draw_x,draw_y; draw_fd=draw_f/1024
+    for glyphcode in draw_t:
+        if glyphcode == '\n':
+            draw_xf,draw_yf=draw_x,draw_yf+draw_f+draw_h
+            continue
         if not glyphcode in LTsv_kanglyphOBJ:
             LTsv_glyphpath(glyphcode)
         LTsv_glyphnote=LTsv_kanglyphOBJ[glyphcode]
         for LTsv_glyphpointlist_count,LTsv_glyphpointlist in enumerate(LTsv_glyphnote):
-            LTsv_glyphpointresize=[xy//10+draw_y if odd%2 else xy//10+draw_x for odd,xy in enumerate(LTsv_glyphpointlist)]
+            LTsv_glyphpointresize=[int(xy*draw_fd)+draw_yf if odd%2 else int(xy*draw_fd)+draw_xf for odd,xy in enumerate(LTsv_glyphpointlist)]
             LTsv_drawTkinter_polygon(*tuple(LTsv_glyphpointresize))
+        draw_xf=draw_xf+int(LTsv_kanwideOBJ[glyphcode]*draw_fd)+draw_w
 
 def LTsv_draw_queue(LTsv_canvasPAGENAME):
     global LTsv_widgetLTSV
@@ -1593,7 +1603,12 @@ def debug_canvas(window_objvoid=None,window_objptr=None):
     LTsv_drawtk_color("white"); LTsv_drawtk_polygonfill(0,0,debug_kanzip_DLprogres_WH,0,debug_kanzip_DLprogres_WH,debug_kanzip_DLprogres_WH,0,debug_kanzip_DLprogres_WH)
     mouse_x,mouse_y=LTsv_global_canvasmotionX(),LTsv_global_canvasmotionY()
     LTsv_drawtk_color(debug_scaleRGB); LTsv_drawtk_text("mouseX,Y\n[{0},{1}]".format(mouse_x,mouse_y),draw_x=mouse_x,draw_y=mouse_y)
-    LTsv_drawtk_glyph("ぱぴぷ",draw_x=200,draw_y=60,draw_f=10) #kanfont_drawGTK_glyph
+    if sys.version_info.major == 2:
+        LTsv_drawtk_glyph("ぱぴぷ\nぺぽ{0}".format(unichr(61568)),draw_x=debug_canvas_W-90,draw_y=debug_joypad_H-100,draw_f=20) #LTsv_drawGTK_glyph
+        LTsv_drawtk_glyph("ぱぴぷ\nぺぽ{0}".format(unichr(61568)),draw_x=debug_canvas_W-90,draw_y=debug_joypad_H-20,draw_f=20)
+    if sys.version_info.major == 3:
+        LTsv_drawtk_glyph("ぱぴぷ\nぺぽ{0}".format(chr(61568)),draw_x=debug_canvas_W-90,draw_y=debug_joypad_H-100,draw_f=20) #LTsv_drawGTK_glyph
+        LTsv_drawtk_glyph("ぱぴぷ\nぺぽ{0}".format(chr(61568)),draw_x=debug_canvas_W-90,draw_y=debug_joypad_H-20,draw_f=20)
     LTsv_putdaytimenow(); LTsv_checkFPS()
     LTsv_drawtk_color("black"); LTsv_drawtk_text(LTsv_getdaytimestr(LTsv_widget_gettext(debug_keysetup_timentry)),draw_x=debug_kanzip_DLprogres_WH,draw_y=0)
     LTsv_setkbddata(25,0)
@@ -1719,11 +1734,11 @@ if __name__=="__main__":
         if LTsv_GUI == LTsv_GUI_GTK2:
             LTsv_drawtk_selcanvas,LTsv_drawtk_color,LTsv_drawtk_font,LTsv_drawtk_text,LTsv_drawtk_picture=LTsv_drawGTK_selcanvas,LTsv_drawGTK_color,LTsv_drawGTK_font,LTsv_drawGTK_text,LTsv_drawGTK_picture
             LTsv_drawtk_polygon,LTsv_drawtk_polygonfill,LTsv_drawtk_squares,LTsv_drawtk_circles,LTsv_drawtk_arc=LTsv_drawGTK_polygon,LTsv_drawGTK_polygonfill,LTsv_drawGTK_squares,LTsv_drawGTK_circles,LTsv_drawGTK_arc
-            LTsv_drawtk_glyph=kanfont_drawGTK_glyph
+            LTsv_drawtk_glyph=LTsv_drawGTK_glyph
         if LTsv_GUI == LTsv_GUI_Tkinter:
             LTsv_drawtk_selcanvas,LTsv_drawtk_color,LTsv_drawtk_font,LTsv_drawtk_text,LTsv_drawtk_picture=LTsv_drawTkinter_selcanvas,LTsv_drawTkinter_color,LTsv_drawTkinter_font,LTsv_drawTkinter_text,LTsv_drawTkinter_picture
             LTsv_drawtk_polygon,LTsv_drawtk_polygonfill,LTsv_drawtk_squares,LTsv_drawtk_circles,LTsv_drawtk_arc=LTsv_drawTkinter_polygon,LTsv_drawTkinter_polygonfill,LTsv_drawTkinter_squares,LTsv_drawTkinter_circles,LTsv_drawTkinter_arc
-            LTsv_drawtk_glyph=kanfont_drawTkinter_glyph
+            LTsv_drawtk_glyph=LTsv_drawTkinter_glyph
         LTsv9_logoPATH="../icon/LTsv9_logo.png"; LTsv9_logoOBJ=LTsv_draw_picture_load(LTsv9_logoPATH)
         debug_polygonpointlist=[1, 1, 28, 1, 28, 8, 18, 8, 18, 10, 28, 10, 28, 17, 18, 17, 18, 28, 11, 28, 11, 17, 1, 17, 1, 10, 11, 10, 11, 8, 1, 8]
         debug_kanzip_DLprogres_WH=30
