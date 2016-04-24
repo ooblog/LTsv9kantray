@@ -3,8 +3,8 @@ code	UTF-8
 enter	LF
 tab	8
 program	LTsv_kbd.py
-LTsvver	20160328M231906
-modify	20160328M231906
+LTsvver	20160423S022604
+modify	20160423S022604
 |L:Tsv]
 
 [LTsv_deviceL|
@@ -168,8 +168,8 @@ tofu		✖
 irohatype	ぬ	ふ	あ	う	え	お	や	ゆ	よ	わ	ほ	へ	た	て	い	す	か	ん	な	に	ら	せ	゛	゜	ち	と	し	は	き	く	ま	の	り	れ	け	む	つ	さ	そ	ひ	こ	み	も	ね	る	め	ろ	￥
 alphatype	α	β	γ	δ	ε	ζ	η	θ	ι	κ	λ	μ	ν	ξ	ο	π	ρ	σ	τ	υ	φ	χ	ψ	ω	○	△	□
 dictype		英	名	音	訓	送	異	俗	熙	簡	繁	越	地	顔	鍵	代	逆	非	難	活	幅
-mapname		kanmap.tsv
-dicname		kanchar.tsv
+mapname		../kanmap.tsv
+dicname		../kanchar.tsv
 |keyboard_mapdic]
 
 

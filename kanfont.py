@@ -235,17 +235,18 @@ def kanfont_fontdraw(callback_void=None,callback_ptr=None):
     keyboard_irohamax,keyboard_alphapos,keyboard_guidepos,keyboard_dicinppos,keyboard_dicselpos,keyboard_iroha,keyboard_guideN,keyboard_guideX,keyboard_guideK,keyboard_guideKN,keyboard_guideKX=LTsv_keyboard_iroha_guide()
     keyboard_cursorMS,keyboard_cursorIR,keyboard_cursorAF,keyboard_cursorOLD,keyboard_cursorDIC,keyboard_cursorNX,keyboard_cursorK,keyboard_cursorLCR=LTsv_keyboard_NXK()
     LTsv_setkbddata(25,0); kanfont_getkbdstr=LTsv_getkbdlabels("MouseL\tMouseR\tMouseC")
-    LTsv_draw_delete(kanfont_canvas)
     LTsv_drawtk_selcanvas(kanfont_canvas)
-    if kanfont_gridimageOBJ:
-        if keyboard_gridM:
-            LTsv_drawtk_picture(kanfont_gridimage,0,0)
+    LTsv_draw_delete(kanfont_canvas)
     LTsv_drawtk_color(draw_c="#9F6C00"); gridx=kanfont_half//2
+    if keyboard_gridM:
+        if kanfont_gridimageOBJ:
+            LTsv_drawtk_picture(kanfont_gridimage,0,0)
+        else:
+            for gridxy in range(3):
+                LTsv_drawtk_circles(gridxy*2+1,*tuple(kanfont_gridxy[gridxy]))
     for gridy in range(11):
         LTsv_drawtk_squares(7,*(gridx,gridy*50))
     LTsv_drawtk_squares(7,*(gridx,PSchar_ZW//2+8))
-#    for gridxy in range(3):
-#        LTsv_drawtk_circles(gridxy*2+1,*tuple(kanfont_gridxy[gridxy]))
     if keyboard_gridM:
         LTsv_drawtk_font(kanfont_font_grid)
         LTsv_drawtk_text(draw_t="X{0:3}Y{1:3}".format(keyboard_gridX,keyboard_gridY),draw_x=keyboard_gridX,draw_y=keyboard_gridY)

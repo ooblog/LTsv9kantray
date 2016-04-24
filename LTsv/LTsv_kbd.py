@@ -125,6 +125,7 @@ def LTsv_kbdreset(LTsv_tsvpath):
     global LTsv_keyboard_kanmapN,LTsv_keyboard_kanmapX,LTsv_keyboard_tofu,LTsv_keyboard_kandic,LTsv_keyboard_irohatype,LTsv_keyboard_alphatype,LTsv_keyboard_dictype
     global LTsv_keyboard_findN,LTsv_keyboard_findX,LTsv_keyboard_findNr,LTsv_keyboard_findXr
 
+    LTsv_tsvdir=os.path.normpath(os.path.dirname(LTsv_tsvpath))+"/"
     LTsv_kbdltsv=LTsv_loadfile(LTsv_tsvpath)
     LTsv_deviceL_page=LTsv_getpage(LTsv_kbdltsv,"LTsv_deviceL")
     if len(LTsv_deviceL_page) > 0:
@@ -204,7 +205,7 @@ def LTsv_kbdreset(LTsv_tsvpath):
         LTsv_keyboard_alphatype=LTsv_joindatanum(keyboard_alphatypeT,0,"").strip('\n').split('\t') if len(keyboard_alphatypeT) > 0 else keyboard_alphatype
         keyboard_dictypeT=LTsv_readlinerest(keyboard_mapdic_page,"dictype")
         LTsv_keyboard_dictype=LTsv_joindatanum(keyboard_dictypeT,0,"").strip('\n').split('\t') if len(keyboard_dictypeT) > 0 else keyboard_dictype
-        keyboard_kanmapT=LTsv_loadfile(LTsv_readlinerest(keyboard_mapdic_page,"mapname"))
+        keyboard_kanmapT=LTsv_loadfile(LTsv_tsvdir+LTsv_readlinerest(keyboard_mapdic_page,"mapname"))
         LTsv_keyboard_guide=LTsv_keyboard_guideN.keys()
         for keyboard_guide in LTsv_keyboard_guide:
             keyboard_lineT=LTsv_readlinerest(keyboard_kanmapT,keyboard_guide)
@@ -214,7 +215,7 @@ def LTsv_kbdreset(LTsv_tsvpath):
             LTsv_keyboard_kanmapX[keyboard_guide]=keyboard_line[LTsv_keyboard_alphapos:LTsv_keyboard_alphapos*2]
         LTsv_keyboard_kanmapN["　"],LTsv_keyboard_kanmapX["　"]=LTsv_keyboard_kanmapN[LTsv_keyboard_alphatype[0]],LTsv_keyboard_kanmapX[LTsv_keyboard_alphatype[0]]
         LTsv_keyboard_guideN["　"],LTsv_keyboard_guideX["　"]=LTsv_keyboard_guideN[LTsv_keyboard_alphatype[0]],LTsv_keyboard_guideX[LTsv_keyboard_alphatype[0]]
-        LTsv_keyboard_kandic=LTsv_loadfile(LTsv_readlinerest(keyboard_mapdic_page,"dicname"),LTsv_keyboard_kandic)
+        LTsv_keyboard_kandic=LTsv_loadfile(LTsv_tsvdir+LTsv_readlinerest(keyboard_mapdic_page,"dicname"),LTsv_keyboard_kandic)
 
 def LTsv_kbdgettypename(LTsv_code):
     LTsv_name=""

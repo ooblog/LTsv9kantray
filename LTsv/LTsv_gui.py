@@ -39,6 +39,7 @@ LTsv_pictureOBJ,LTsv_pictureW,LTsv_pictureH={},{},{}
 LTsv_iconOBJ={}; LTsv_iconOBJnotify=[]
 LTsv_popupmenuOBJ={}
 LTsv_default_iconuri=""
+LTsv_kanglyphOBJ,LTsv_kanclockOBJ,LTsv_kanwideOBJ={},{},{}
 
 def LTsv_guiCDLLver(LTsv_libname,LTsv_libvermin,LTsv_libvermax):
     LTsv_min,LTsv_max=(LTsv_libvermin,LTsv_libvermax) if LTsv_libvermin <= LTsv_libvermax else (LTsv_libvermax,LTsv_libvermin)
@@ -1145,6 +1146,89 @@ def LTsv_clockwise(*draw_xy):
             clockwise=clockwise+1 if PCQ < 0 else clockwise-1 if PCQ > 0 else clockwise
     return clockwise
 
+LTsv_PSfont_ZW,LTsv_PSfont_CW,LTsv_PSchar_ZW,LTsv_PSchar_CW=1024,624,1000,600
+def LTsv_glyphpath(glyphcode):
+    global LTsv_kanglyphOBJ,LTsv_kanclockOBJ,LTsv_kanwideOBJ
+    LTsv_glyph_kandic=LTsv_keyboard_dic(); LTsv_glyph_kanline=LTsv_readlinerest(LTsv_glyph_kandic,glyphcode)
+    LTsv_glyph_path,LTsv_glyph_wide=LTsv_pickdatalabel(LTsv_glyph_kanline,"活"),LTsv_pickdatalabel(LTsv_glyph_kanline,"幅")
+    print("LTsv_glyph_path",LTsv_glyph_path)
+    LTsv_glyph_pathZ=LTsv_glyph_path.strip(' ').replace('Z','z').rstrip('z').split('z') if len(LTsv_glyph_path) else []
+    LTsv_glyphnote,LTsv_glyphclock=[],[]
+    for LTsv_glyphline in LTsv_glyph_pathZ:
+        LTsv_glyphdata=LTsv_glyphline.split(' '); LTsv_glyphpointlist=[]
+        for LTsv_glyphpoint in LTsv_glyphdata:
+            if LTsv_glyphpoint.count(',') != 1: continue;
+            LTsv_glyphpoints=LTsv_glyphpoint.strip(' ').split(',')
+            LTsv_glyphpointlist+=[int(LTsv_glyphpoints[0]) if LTsv_glyphpoints[0].isdigit() else 0]
+            LTsv_glyphpointlist+=[(LTsv_PSchar_ZW-int(LTsv_glyphpoints[1])) if LTsv_glyphpoints[1].isdigit() else 0]
+        LTsv_glyphnote.append(LTsv_glyphpointlist); LTsv_glyphclock.append(LTsv_clockwise(*tuple(LTsv_glyphpointlist)))
+    LTsv_kanglyphOBJ[glyphcode]=LTsv_glyphnote
+    LTsv_kanclockOBJ[glyphcode]=LTsv_glyphclock
+    LTsv_kanwideOBJ[glyphcode]=int(LTsv_glyph_wide) if len(LTsv_glyph_wide) else LTsv_PSfont_ZW
+    print("LTsv_kanglyphOBJ[glyphcode]",LTsv_kanglyphOBJ[glyphcode])
+    print("LTsv_kanclockOBJ[glyphcode]",LTsv_kanclockOBJ[glyphcode])
+    print("LTsv_kanwideOBJ[glyphcode]",LTsv_kanwideOBJ[glyphcode])
+#    global kanfont_char,kanfont_setchar,kanfont_kanline,kanfont_path,kanfont_glyphnote,kanfont_half
+#    glyphnote=[]
+#    glyphpathZ=glyphpath.strip(' ').replace('Z','z').rstrip('z').split('z') if len(glyphpath) else []
+#    for glyphline in glyphpathZ:
+#        glyphdata=glyphline.split(' '); glyphpointlist=[]
+#        for glyphpoint in glyphdata:
+#            if glyphpoint.count(',') != 1: continue;
+#            glyphpoints=glyphpoint.strip(' ').split(',')
+#            glyphpointlist+=[int(glyphpoints[0])//2 if glyphpoints[0].isdigit() else 0]
+#            glyphpointlist+=[(PSchar_ZW-int(glyphpoints[1]))//2 if glyphpoints[1].isdigit() else 0]
+#        glyphnote.append(glyphpointlist)
+#    kanfont_glyphnoteadjustment(glyphnote=glyphnote)
+#    return glyphnote
+
+def kanfont_drawGTK_glyph(glyphtext,draw_x=0,draw_y=0,draw_f=10):
+    global LTsv_kanglyphOBJ,LTsv_kanclockOBJ,LTsv_kanwideOBJ
+    for glyphcode in glyphtext:
+        if not glyphcode in LTsv_kanglyphOBJs:
+            LTsv_glyphpath(glyphcode)
+        glyphnote=LTsv_kanglyphOBJs[glyphcode]
+#        LTsv_drawtk_polygon(*tuple(glyphpointlist))
+def kanfont_drawTkinter_glyph(glyphtext,draw_x=0,draw_y=0,draw_f=10):
+    global LTsv_kanglyphOBJ,LTsv_kanclockOBJ,LTsv_kanwideOBJ
+    for glyphcode in glyphtext:
+        if not glyphcode in LTsv_kanglyphOBJs:
+            LTsv_glyphpath(glyphcode)
+        glyphnote=LTsv_kanglyphOBJs[glyphcode]
+#    global kanfont_getkbdstr,kanfont_cursorLCR
+#    global kanfont_char,kanfont_setchar,kanfont_kanline,kanfont_path,kanfont_glyphnote,kanfont_half
+#    global keyboard_gridX,keyboard_gridY,keyboard_removeX,keyboard_removeY,keyboard_gridZ,keyboard_gridM
+#    keyboard_irohamax,keyboard_alphapos,keyboard_guidepos,keyboard_dicinppos,keyboard_dicselpos,keyboard_iroha,keyboard_guideN,keyboard_guideX,keyboard_guideK,keyboard_guideKN,keyboard_guideKX=LTsv_keyboard_iroha_guide()
+#    keyboard_cursorMS,keyboard_cursorIR,keyboard_cursorAF,keyboard_cursorOLD,keyboard_cursorDIC,keyboard_cursorNX,keyboard_cursorK,keyboard_cursorLCR=LTsv_keyboard_NXK()
+#    LTsv_setkbddata(25,0); kanfont_getkbdstr=LTsv_getkbdlabels("MouseL\tMouseR\tMouseC")
+#    LTsv_drawtk_selcanvas(kanfont_canvas)
+#    LTsv_draw_delete(kanfont_canvas)
+#    LTsv_drawtk_color(draw_c="#9F6C00"); gridx=kanfont_half//2
+#    if keyboard_gridM:
+#        if kanfont_gridimageOBJ:
+#            LTsv_drawtk_picture(kanfont_gridimage,0,0)
+#        else:
+#            for gridxy in range(3):
+#                LTsv_drawtk_circles(gridxy*2+1,*tuple(kanfont_gridxy[gridxy]))
+#    for gridy in range(11):
+#        LTsv_drawtk_squares(7,*(gridx,gridy*50))
+#    LTsv_drawtk_squares(7,*(gridx,PSchar_ZW//2+8))
+#    if keyboard_gridM:
+#        LTsv_drawtk_font(kanfont_font_grid)
+#        LTsv_drawtk_text(draw_t="X{0:3}Y{1:3}".format(keyboard_gridX,keyboard_gridY),draw_x=keyboard_gridX,draw_y=keyboard_gridY)
+#    glyphlayer=LTsv_widget_getnumber(kanfont_path_scale)
+#    for glyphpointlist_count,glyphpointlist in enumerate(kanfont_glyphnote):
+#        glyphclockwise=LTsv_clockwise(*tuple(glyphpointlist))
+#        LTsv_drawtk_color(draw_c="#6E81D9" if glyphclockwise > 0 else "#6ED997" if glyphclockwise < 0 else "#D96ED3")
+#        LTsv_drawtk_polygon(*tuple(glyphpointlist))
+#        if glyphlayer == glyphpointlist_count:
+#            LTsv_drawtk_circlesfill(10,*tuple(glyphpointlist))
+#            if 0 <= keyboard_gridZ*2 < len(glyphpointlist):
+#                LTsv_drawtk_squaresfill(10,*tuple(glyphpointlist[keyboard_gridZ*2:keyboard_gridZ*2+2]))
+#    LTsv_draw_queue(kanfont_canvas)
+#    LTsv_widget_disableenable(kanfont_exchange_button,True if keyboard_cursorOLD < LTsv_keyboard_alphapos and len(LTsv_widget_gettext(kanfont_exchange_entry)) > 0 else False)
+#    LTsv_window_after(kanfont_window,event_b=kanfont_fontdraw,event_i="kanfont_fontdraw",event_w=50)
+
 def LTsv_draw_queue(LTsv_canvasPAGENAME):
     global LTsv_widgetLTSV
     LTsv_canvasPAGE=LTsv_getpage(LTsv_widgetLTSV,LTsv_canvasPAGENAME)
@@ -1658,7 +1742,8 @@ if __name__=="__main__":
         import math
         from LTsv_joy    import *
         from LTsv_calc   import *
-        LTsv_kbdinit()
+        from LTsv_kbd    import *
+        LTsv_kbdinit("LTsv_kbd.tsv")
         LTsv_joymax=LTsv_joyinit()
         debug_fontname="kantray5x5comic"
         debug_fontsize_entry=10; debug_font_entry="{0},{1}".format(debug_fontname,debug_fontsize_entry); debug_label_WH=debug_fontsize_entry*2
@@ -1682,6 +1767,7 @@ if __name__=="__main__":
             LTsv_drawtk_polygon,LTsv_drawtk_polygonfill,LTsv_drawtk_squares,LTsv_drawtk_circles,LTsv_drawtk_arc=LTsv_drawTkinter_polygon,LTsv_drawTkinter_polygonfill,LTsv_drawTkinter_squares,LTsv_drawTkinter_circles,LTsv_drawTkinter_arc
         LTsv9_logoPATH="../icon/LTsv9_logo.png"; LTsv9_logoOBJ=LTsv_draw_picture_load(LTsv9_logoPATH)
         debug_polygonpointlist=[1, 1, 28, 1, 28, 8, 18, 8, 18, 10, 28, 10, 28, 17, 18, 17, 18, 28, 11, 28, 11, 17, 1, 17, 1, 10, 11, 10, 11, 8, 1, 8]
+        LTsv_glyphpath("ぱ")
         debug_kanzip_DLprogres_WH=30
         debug_keysetup_scaleR=LTsv_scale_new(debug_keysetup_window,widget_x=debug_scale_X+debug_scale_W*0//3,widget_y=debug_scale_Y,widget_w=debug_scale_W//3,widget_h=debug_scale_H,widget_s=0,widget_e=255,widget_a=1,event_b=debug_color_scale)
         debug_keysetup_scaleG=LTsv_scale_new(debug_keysetup_window,widget_x=debug_scale_X+debug_scale_W*1//3,widget_y=debug_scale_Y,widget_w=debug_scale_W//3,widget_h=debug_scale_H,widget_s=0,widget_e=255,widget_a=1,event_b=debug_color_scale)
