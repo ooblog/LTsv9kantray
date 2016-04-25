@@ -1118,12 +1118,12 @@ LTsv_drawTkinter_arcfill(draw_x,draw_y,draw_w,draw_h,draw_s=-math.pi,draw_e=math
   「kantray5x5comic」フォントをインストールしなくても「kanchar.tsv」からグリフを取得して「canvas」に描画(ワイヤフレーム)。
   draw_tに文字列。左上座標はdraw_x,draw_y。draw_fでフォントサイズ。draw_wで文字の隙間。draw_hで行間。
 
- LTsv_draw_queue(LTsv_canvasPAGENAME)
-  「GTK2」で「canvas」の更新を「X window」に通知する。OS(厳密にはX)に描画更新を通知しないと描画が即時反映されません。
-
  LTsv_draw_delete(LTsv_canvasPAGENAME,draw_g="LTsv_draw_tkTAG")
   「Tkinter」の「canvas」からタグ(初期値は「LTsv_draw_tkTAG」)が付けられた図形を消去する。
   「GTK2」だと白い長方形を描画(図形を消去)する。
+
+ LTsv_draw_queue(LTsv_canvasPAGENAME)
+  「GTK2」で「canvas」の更新を「X window」に通知する。OS(厳密にはX)に描画更新を通知しないと描画が即時反映されません。
 
  LTsv_keyboard_size(keyboard_fontsize=12)
   漢直キーボードのサイズをフォントサイズから計算する。
