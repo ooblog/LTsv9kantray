@@ -1035,12 +1035,14 @@ version 20160423S022604
 
  LTsv_canvas_new(LTsv_windowPAGENAME,widget_n=None,widget_x=0,widget_y=0,widget_w=16,widget_h=16,event_p=None,event_r=None,event_e=None,event_m=None,event_l=None,event_w=100)
   GUIオブジェクト「canvas」を作成。画像やテキストの表示。マウスクリックやマウスポインタの移動でイベント。
-  「Tkinter」はベクトル(Flashの類)と「GTK2」はラスタ(PNGなどドット絵)の違いに注意。
-  「LTsv_draw_delete(draw_g="LTsv_draw_tkTAG")」←「Tkinter」は「draw_g」タグのベクトル消去。「GTK2」は白で塗り潰し。
-  「LTsv_drawGTK_polygon()」←描画命令
-  「LTsv_draw_queue()」←「GTK2」の場合queueしないと描画が反映されない。
-  deleteとqueueで描画命令を挟むのが基本。
+  「Tkinter」はベクトル(Flashの類)と「GTK2」はラスタ(PNGなどドット絵の類)の挙動の違いに注意。
   マウス座標は「LTsv_global_canvasmotionX(),LTsv_global_canvasmotionY()」で取得。
+
+  canvasを指定してdeleteとqueueで描画命令を挟むのが基本。
+  「LTsv_drawGTK_selcanvas(LTsv_canvasPAGENAME)・LTsv_drawTkinter_selcanvas(LTsv_canvasPAGENAME,draw_g="LTsv_draw_tkTAG")」←描画する「canvas」を指定。
+  「LTsv_drawGTK_delete(draw_c="white")・LTsv_drawTkinter_delete()」←「Tkinter」は「draw_g」タグのベクトル消去。「GTK2」は指定色で塗り潰し。
+  「LTsv_drawGTK_polygon(*draw_xy)・LTsv_drawTkinter_polygon(*draw_xy)」←描画命令。
+  「LTsv_drawGTK_queue()・LTsv_drawTkinter_queue()」←「GTK2」の場合queueもしないと描画が反映されない。
 
  LTsv_draw_picture_load(LTsv_picturepath)
   「canvas」用の画像を読み込む。「image」GUIオブジェクトとは別腹。
@@ -1071,6 +1073,9 @@ version 20160423S022604
 
  LTsv_drawGTK_polygonfill(*draw_xy); LTsv_drawTkinter_polygonfill(*draw_xy)
   「canvas」にポリゴンの描画(塗り潰し)。座標は(x,y,x,y…)とX座標とY座標が交互に来るタプル。
+
+ LTsv_drawTkinter_fontfill(*draw_xy)
+  LTsv_drawTkinter_polygonfill()」と同じだが「LTsv_drawTkinter_glyphfill()」の実装上の都合で色違いを追加。
 
  LTsv_drawGTK_squares(draw_wh=16,*draw_xy); LTsv_drawTkinter_squares(draw_wh=16,*draw_xy)
   「canvas」にポリゴンの座標で正方形を描画(ワイヤフレーム)。座標は(x,y,x,y…)とX座標とY座標が交互に来るタプル。
@@ -1118,12 +1123,26 @@ LTsv_drawTkinter_arcfill(draw_x,draw_y,draw_w,draw_h,draw_s=-math.pi,draw_e=math
   「kantray5x5comic」フォントをインストールしなくても「kanchar.tsv」からグリフを取得して「canvas」に描画(ワイヤフレーム)。
   draw_tに文字列。左上座標はdraw_x,draw_y。draw_fでフォントサイズ。draw_wで文字の隙間。draw_hで行間。
 
+ LTsv_drawGTK_glyphfill(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1); LTsv_drawTkinter_glyphfill(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1):
+  「kantray5x5comic」フォントをインストールしなくても「kanchar.tsv」からグリフを取得して「canvas」に描画(塗り潰し)。
+  反時計周りのパスは「LTsv_drawGTK_delete()」「LTsv_drawTkinter_delete()」で初期化に使う色。初期値は「draw_c="white"」。
+  draw_tに文字列。左上座標はdraw_x,draw_y。draw_fでフォントサイズ。draw_wで文字の隙間。draw_hで行間。
+
  LTsv_draw_delete(LTsv_canvasPAGENAME,draw_g="LTsv_draw_tkTAG")
   「Tkinter」の「canvas」からタグ(初期値は「LTsv_draw_tkTAG」)が付けられた図形を消去する。
   「GTK2」だと白い長方形を描画(図形を消去)する。
 
+ LTsv_drawGTK_delete(draw_c="white",draw_g="LTsv_draw_tkTAG"); LTsv_drawTkinter_delete(draw_c="white",draw_g="LTsv_draw_tkTAG")
+  「GTK2」だと長方形を上描き描画して図形を消去する。
+  「Tkinter」ではタグ(初期値は「LTsv_draw_tkTAG」)が付けられた図形を消去する。
+  「GTK2」でもdraw_g引数があるのは文法上の都合。
+
  LTsv_draw_queue(LTsv_canvasPAGENAME)
   「GTK2」で「canvas」の更新を「X window」に通知する。OS(厳密にはX)に描画更新を通知しないと描画が即時反映されません。
+
+ LTsv_drawGTK_queue(); LTsv_drawTkinter_queue()
+  「GTK2」で「canvas」の更新を「X window」に通知する。OS(厳密にはX)に描画更新を通知しないと描画が即時反映されません。
+  何もしない「LTsv_drawTkinter_queue()」もあるのは構文上の都合。LTsv_drawtk_queue=LTsv_drawTkinter_queueのような抽象化用途。
 
  LTsv_keyboard_size(keyboard_fontsize=12)
   漢直キーボードのサイズをフォントサイズから計算する。

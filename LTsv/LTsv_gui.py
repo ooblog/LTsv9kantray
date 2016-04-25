@@ -1006,7 +1006,7 @@ def LTsv_draw_canvas_save(LTsv_canvasPAGENAME,LTsv_picturenewpath):
 
 LTsv_GTKcanvasPAGE,LTsv_GTKcanvas_o,LTsv_GTKcanvas_m,LTsv_GTKcanvas_g,LTsv_GTKcanvas_gccolor,LTsv_GTKcanvas_font=None,None,None,None,None,None
 LTsv_GTKcanvasW,LTsv_GTKcanvasH,LTsv_GTKfont_gccolor=None,None,None
-def LTsv_drawGTK_selcanvas(LTsv_canvasPAGENAME):
+def LTsv_drawGTK_selcanvas(LTsv_canvasPAGENAME,draw_g="LTsv_draw_tkTAG"):
     global LTsv_GTKcanvasPAGE,LTsv_GTKcanvas_o,LTsv_GTKcanvas_m,LTsv_GTKcanvas_g,LTsv_GTKcanvas_gccolor,LTsv_GTKcanvas_font
     global LTsv_GTKcanvasW,LTsv_GTKcanvasH,LTsv_GTKfont_gccolor
     LTsv_GTKcanvasPAGE=LTsv_getpage(LTsv_widgetLTSV,LTsv_canvasPAGENAME)
@@ -1187,7 +1187,7 @@ def LTsv_drawGTK_glyph(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1):
         if not glyphcode in LTsv_kanglyphOBJ:
             LTsv_glyphpath(glyphcode)
         LTsv_glyphnote=LTsv_kanglyphOBJ[glyphcode]
-        for LTsv_glyphpointlist_count,LTsv_glyphpointlist in enumerate(LTsv_glyphnote):
+        for LTsv_glyphpointlist in LTsv_glyphnote:
             LTsv_glyphpointresize=[int(xy*draw_fd)+draw_yf if odd%2 else int(xy*draw_fd)+draw_xf for odd,xy in enumerate(LTsv_glyphpointlist)]
             LTsv_drawGTK_polygon(*tuple(LTsv_glyphpointresize))
         draw_xf=draw_xf+int(LTsv_kanwideOBJ[glyphcode]*draw_fd)+draw_w
@@ -1202,7 +1202,7 @@ def LTsv_drawTkinter_glyph(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1)
         if not glyphcode in LTsv_kanglyphOBJ:
             LTsv_glyphpath(glyphcode)
         LTsv_glyphnote=LTsv_kanglyphOBJ[glyphcode]
-        for LTsv_glyphpointlist_count,LTsv_glyphpointlist in enumerate(LTsv_glyphnote):
+        for LTsv_glyphpointlist in LTsv_glyphnote:
             LTsv_glyphpointresize=[int(xy*draw_fd)+draw_yf if odd%2 else int(xy*draw_fd)+draw_xf for odd,xy in enumerate(LTsv_glyphpointlist)]
             LTsv_drawTkinter_polygon(*tuple(LTsv_glyphpointresize))
         draw_xf=draw_xf+int(LTsv_kanwideOBJ[glyphcode]*draw_fd)+draw_w
@@ -1260,16 +1260,16 @@ def LTsv_draw_delete(LTsv_canvasPAGENAME,draw_g="LTsv_draw_tkTAG"):
         canvas_o=LTsv_widgetOBJ[LTsv_readlinerest(LTsv_canvasPAGE,"widgetobj")]
         canvas_o.delete(draw_g)
 
-def LTsv_drawGTK_delete(draw_c="white",draw_g="LTsv_draw_tkTAG"):
+def LTsv_drawGTK_delete(draw_c="white"):
     global LTsv_GTKcanvasW,LTsv_GTKcanvasH,LTsv_GTKfont_gccolor
     LTsv_libgdk.gdk_color_parse(draw_c.encode("utf-8"),ctypes.pointer(LTsv_GTKfont_gccolor))
     LTsv_libgdk.gdk_gc_set_rgb_fg_color(LTsv_GTKcanvas_g,ctypes.pointer(LTsv_GTKfont_gccolor))
     LTsv_libgdk.gdk_draw_rectangle(LTsv_GTKcanvas_m,LTsv_GTKcanvas_g,True,0,0,LTsv_GTKcanvasW,LTsv_GTKcanvasH)
 
-def LTsv_drawTkinter_delete(draw_c="white",draw_g="LTsv_draw_tkTAG"):
-    global LTsv_Tkinterfont_color
+def LTsv_drawTkinter_delete(draw_c="white"):
+    global LTsv_Tkinterfont_color,LTsv_Tkintercanvas_o
     LTsv_Tkinterfont_color=draw_c
-    LTsv_Tkintercanvas_o.delete(draw_g)
+    LTsv_Tkintercanvas_o.delete(LTsv_Tkintercanvas_TAG)
 
 def LTsv_draw_queue(LTsv_canvasPAGENAME):
     global LTsv_widgetLTSV
@@ -1281,6 +1281,7 @@ def LTsv_draw_queue(LTsv_canvasPAGENAME):
         pass
 
 def LTsv_drawGTK_queue():
+    global LTsv_GTKcanvas_o
     LTsv_libgtk.gtk_widget_queue_draw(LTsv_GTKcanvas_o)
 
 def LTsv_drawTkinter_queue():
