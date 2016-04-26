@@ -1316,9 +1316,11 @@ def LTsv_keyboard_new(LTsv_windowPAGENAME,widget_n=None,widget_x=0,widget_y=0,ev
     def LTsv_setkey_None(): pass
     if LTsv_GUI == LTsv_GUI_GTK2:
         LTsv_drawtk_selcanvas,LTsv_drawtk_font,LTsv_drawtk_color,LTsv_drawtk_text,LTsv_drawtk_squares,LTsv_drawtk_squaresfill,LTsv_drawtk_polygonfill=LTsv_drawGTK_selcanvas,LTsv_drawGTK_font,LTsv_drawGTK_color,LTsv_drawGTK_text,LTsv_drawGTK_squares,LTsv_drawGTK_squaresfill,LTsv_drawGTK_polygonfill
+        LTsv_drawtk_delete,LTsv_drawtk_queue=LTsv_drawGTK_delete,LTsv_drawGTK_queue
         def LTsv_drawtk_bmp(drawtk_bmp=""): return drawtk_bmp[0]
     if LTsv_GUI == LTsv_GUI_Tkinter:
         LTsv_drawtk_selcanvas,LTsv_drawtk_font,LTsv_drawtk_color,LTsv_drawtk_text,LTsv_drawtk_squares,LTsv_drawtk_squaresfill,LTsv_drawtk_polygonfill=LTsv_drawTkinter_selcanvas,LTsv_drawTkinter_font,LTsv_drawTkinter_color,LTsv_drawTkinter_text,LTsv_drawTkinter_squares,LTsv_drawTkinter_squaresfill,LTsv_drawTkinter_polygonfill
+        LTsv_drawtk_delete,LTsv_drawtk_queue=LTsv_drawTkinter_delete,LTsv_drawTkinter_queue
         def LTsv_drawtk_bmp(drawtk_bmp=""): return drawtk_bmp[0] if ord(drawtk_bmp[0]) < 65535 else keyboard_tofu
     def LTsv_keyboard_draw():
         keyboard_kanmapN,keyboard_kanmapX,keyboard_dicinput=LTsv_keyboard_map()
@@ -1329,7 +1331,8 @@ def LTsv_keyboard_new(LTsv_windowPAGENAME,widget_n=None,widget_x=0,widget_y=0,ev
         keyboard_guideN["　"],keyboard_guideX["　"]=keyboard_guideN[keyboard_cursor_alpha],keyboard_guideX[keyboard_cursor_alpha]
         keyboard_findN,keyboard_findX,keyboard_findNr,keyboard_findXr=LTsv_keyboard_findNX()
         LTsv_drawtk_selcanvas(kantray_kbdcanvas); LTsv_drawtk_font(widget_f)
-        LTsv_draw_delete(kantray_kbdcanvas)
+#        LTsv_draw_delete(kantray_kbdcanvas)
+        LTsv_drawtk_delete("white")
         LTsv_drawtk_color(keyboard_colorN); LTsv_drawtk_polygonfill(0,0,keyboard_W,0,keyboard_W,keyboard_H,0,keyboard_H)
         LTsv_drawtk_color(keyboard_colorX); LTsv_drawtk_polygonfill(keyboard_W,0,keyboard_cursorNXx[str(keyboard_cursorNX)],0,keyboard_cursorNXx[str(keyboard_cursorNX)],keyboard_H,keyboard_W,keyboard_H)
         LTsv_drawtk_color(keyboard_colorK); LTsv_drawtk_polygonfill(0,keyboard_cursorKy[str(keyboard_cursorK)],keyboard_W,keyboard_cursorKy[str(keyboard_cursorK)],keyboard_W,keyboard_H,0,keyboard_H)
@@ -1375,7 +1378,8 @@ def LTsv_keyboard_new(LTsv_windowPAGENAME,widget_n=None,widget_x=0,widget_y=0,ev
             LTsv_drawtk_squares(keyboard_buttonsize,*tuple(keyboard_keyXY[keyboard_cursorMS*2:keyboard_cursorMS*2+2]))
         if keyboard_cursorOLD < keyboard_alphapos:
             LTsv_drawtk_color(keyboard_colorO); LTsv_drawtk_squares(keyboard_buttonsize,*tuple(keyboard_keyXY[keyboard_cursorOLD*2:keyboard_cursorOLD*2+2]))
-        LTsv_draw_queue(kantray_kbdcanvas)
+#        LTsv_draw_queue(kantray_kbdcanvas)
+        LTsv_drawtk_queue()
     def LTsv_keyboard_press(callback_void=None,callback_ptr=None):
         keyboard_mouseX,keyboard_mouseY=LTsv_global_canvasmotionX(),LTsv_global_canvasmotionY()
         keyboard_mouseX,keyboard_mouseY=min(max(keyboard_mouseX,keyboard_fontKP+1),keyboard_W-keyboard_fontKP-1),min(max(keyboard_mouseY,keyboard_fontKP+1),keyboard_H-keyboard_fontKP-1)
