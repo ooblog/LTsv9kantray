@@ -73,6 +73,7 @@ version 20160423S022604
  「LTsv_file_ver()」以外のバージョン関数などをリソースの都合で省略。
  「LTsv_draw_picture_W」「LTsv_draw_picture_H」を「LTsv_global_pictureW」「LTsv_global_pictureH」に移行。
  「LTsv_draw_color()」の撤去。
+ 「LTsv_puppy_issue」の廃止。
 
 
 ０-3． その他現在わかっている不具合や今後の課題。
@@ -360,10 +361,6 @@ version 20160423S022604
 
  LTsv_dict2label(LTsv_dict)
   Pythonの辞書「{"label":data,"label":data,…}」をラベル有りLTSV「label:data	label:data	…」に。dataは文字列化。
-
- LTsv_puppy_issue()
- 「/etc/issue」ファイルを調べて「Puppy Linux」か確認(精確には"Puppy Linux"という文字列が[/etc/issue]ファイルに含まれるか確認)する。
- PuppyLinux571JPなど「Tkinter」が使えないディストリビューションとかあるので注意。
 
  LTsv_file_ver()
   [LTsv_file.py]のバージョン表示(20160423S022604)。

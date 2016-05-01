@@ -443,7 +443,7 @@ def kantray_exit_configsave(window_objvoid=None,window_objptr=None):
     LTsv_window_exit()
 kantray_exit_configsave_cbk=LTsv_CALLBACLTYPE(kantray_exit_configsave)
 
-LTsv_GUI=LTsv_guiinit(LTsv_GUI_Tkinter)
+LTsv_GUI=LTsv_guiinit()
 kantray_max=0x2ffff if LTsv_GUI != "Tkinter" else 0xffff
 if len(LTsv_GUI) > 0:
     LTsv_kbdinit(); kantray_kanchar=LTsv_keyboard_dic()

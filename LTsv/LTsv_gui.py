@@ -56,9 +56,6 @@ def LTsv_guiinit(LTsv_guistyle=LTsv_GUI_GTK2,LTsv_libvermin=0,LTsv_libvermax=0):
     global LTsv_GUI,LTsv_Notify,LTsv_default_iconuri
     global LTsv_libgtk,LTsv_libgdk,LTsv_libobj,LTsv_user32,LTsv_shell32,LTsv_kernel32,LTsv_gdi32
     LTsv_GUI=LTsv_guistyle
-    if sys.platform.startswith("linux"):
-        if len(LTsv_puppy_issue()) > 0:
-            LTsv_GUI=LTsv_GUI_GTK2
     if LTsv_GUI == LTsv_GUI_GTK2:
         LTsv_Notify=LTsv_GUI_GTK2; LTsv_default_iconuri="/usr/share/pixmaps/python.xpm"
         if sys.platform.startswith("linux"): #"/usr/lib/libgtk-x11-2.0.so.0"

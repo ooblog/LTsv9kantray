@@ -104,8 +104,8 @@ def kanzip_buzyicon(kanzip_ken,kanzip_buzy):
     else:
         for ken in range(kanzip_prefectureMAX+1):
             LTsv_widget_disableenable(kanzip_DLbutton[ken],False)
-        LTsv_drawtk_color(draw_c="gray"); LTsv_drawtk_glyphfill("{0}".format(unichr(61568)),draw_x=0,draw_y=0,draw_f=kanzip_DLlabel_H)
-        LTsv_drawtk_color(draw_c="black"); LTsv_drawtk_glyph("{0}".format(unichr(61568)),draw_x=0,draw_y=0,draw_f=kanzip_DLlabel_H)
+        LTsv_drawtk_color(draw_c="gray"); LTsv_drawtk_glyphfill(kanzip_prefectures_glyph[kanzip_prefecturesKAN[kanzip_ken]],draw_x=0,draw_y=0,draw_f=kanzip_DLlabel_H)
+        LTsv_drawtk_color(draw_c="black"); LTsv_drawtk_glyph(kanzip_prefectures_glyph[kanzip_prefecturesKAN[kanzip_ken]],draw_x=0,draw_y=0,draw_f=kanzip_DLlabel_H)
 #    LTsv_draw_queue(kanzip_DLprogres[kanzip_ken])
     LTsv_drawtk_queue()
     LTsv_widget_showhide(kanzip_DLprogres[kanzip_ken],True)

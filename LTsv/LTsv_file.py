@@ -454,14 +454,6 @@ def LTsv_dict2label(LTsv_dict):
         LTsv_line+=LTsv_label+':'+str(LTsv_data)+'\t'
     return LTsv_line.rstrip('\t')
 
-def LTsv_puppy_issue():
-    LTsv_issue=""
-    if sys.platform.startswith("linux"):
-        LTsv_etc_issue=LTsv_loadfile("/etc/issue")
-        if "Puppy Linux" in LTsv_etc_issue:
-            LTsv_issue=LTsv_etc_issue.rstrip('\n').replace('\n','\t')
-    return LTsv_issue
-
 def LTsv_file_ver():
     return "20160423S022604"
 
@@ -476,8 +468,6 @@ if __name__=="__main__":
     newpage=LTsv_getpage(newfile,"LTsv8Py")
     newpage=LTsv_pushlinerest(newpage,"tsvtool","print\nfile\ntime\njoy\nkbd\ngui\nsdl")
     newpage=LTsv_pushlinerest(newpage,"tstfile","before:testfile.tsv\tafter:testfile.txt\treadme:readme.txt")
-    puppyissue=LTsv_puppy_issue(); puppyissue="issue\t"+puppyissue;
-    newpage=LTsv_pushlinerest(newpage,puppyissue)
     newfile=LTsv_putpage(newfile,"LTsv8Py",newpage)
     LTsv_savefile(tsvpath,newfile); printlog=LTsv_libc_printf("LTsv_savefile('{0}',newfile)".format(tsvpath),printlog)
     loadfile=LTsv_loadfile(tsvpath,newfile); printlog=LTsv_libc_printf("LTsv_loadfile(tsvpath)↓\n{0}-eof-".format(loadfile),printlog)
