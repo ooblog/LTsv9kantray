@@ -4,28 +4,28 @@
 
     ┏kantray「貼付モード(マウス) ┓┏kantray「貼付モード(マウス) ┓┏kantray「貼付モード(マウス) ┓
     ┃ ぬふあうえおやゆよわほへﾇ  ┃┃ 1 2 3 4 5 6 7 8 9 0 - ^ Σ ┃┃ 名音訓送異俗簡繁越地逆非￥ ┃
-    ┃  たていすかんなにらせ沼濡  ┃┃  ! 全# ｅ＋－×÷√π| (   ┃┃  英顔ερτυθιοπ゛゜  ┃
+    ┃  たていすかんなにらせ沼濡  ┃┃  ! 全# ｅ＋－×÷√π| (    ┃┃  英顔ερτυθιοπ゛゜  ┃
     ┃ﾇ  ちとしはきくまのりれけむ ┃┃Σ 半小大⑩⑯平枝片干+ * )  ┃┃   ασδφγηξκλ代鍵ぬ ┃
     ┃＿代つさそひこみもねるめろα┃┃＿名濁清c L G 今m , . / ＼Σ┃┃σ越ζχψωβνμ熙○△□Σ┃
-    ┃[代ま⇔ぱ          ]Ｃ← ⇔ ┃┃[算1÷3⇔1|3       ]Ｃ← ⇔ ┃┃[照_⇔&#95;        ]Ｃ← ⇔ ┃
+    ┃[代ま⇔ぱ          ]Ｃ← ⇔ ┃┃[算1/3⇔1|3        ]Ｃ← ⇔ ┃┃[照_⇔&#95;        ]Ｃ← ⇔ ┃
     ┗━━━━━━━━━━━━━━┛┗━━━━━━━━━━━━━━┛┗━━━━━━━━━━━━━━┛
 
-通知タスクトレイ&#40;Notify&#41;に鍵盤アイコンを表示するので、漢字配列を丸暗記しなくても使えます。  
-※「[鍵盤アイコン(kanmap.png)](kanmap.png "https://github.com/ooblog/LTsv9kantray/blob/master/kanmap.png")」には描画途中の箇所があります。  
-※アイコン描画されてない&#40;α鍵盤&#41;にも未整頓ではありますが「[漢字配列(kanmap.tsv)](kanmap.tsv "https://github.com/ooblog/LTsv9kantray/blob/master/kanmap.tsv")」上に漢字があります。  
-※配列に無い漢字も「[単漢字辞書(kanchar.tsv)](kanchar.tsv "https://github.com/ooblog/LTsv9kantray/blob/master/kanchar.tsv")」からの字引入力で異体字なども漢直できます。  
+通知タスクトレイ&#40;Notify&#41;に鍵盤アイコンを表示するので、漢字配列を丸暗記しなくても使えます。
+※「[鍵盤アイコン(kanmap.png)](kanmap.png "https://github.com/ooblog/LTsv9kantray/blob/master/kanmap.png")」には描画途中の箇所があります。
+※アイコン描画されてない&#40;α鍵盤&#41;にも未整頓ではありますが「[漢字配列(kanmap.tsv)](kanmap.tsv "https://github.com/ooblog/LTsv9kantray/blob/master/kanmap.tsv")」上に漢字があります。
+※配列に無い漢字も「[単漢字辞書(kanchar.tsv)](kanchar.tsv "https://github.com/ooblog/LTsv9kantray/blob/master/kanchar.tsv")」からの字引入力で異体字なども漢直できます。
 
 ### 漢直の操作方法
 
-Tkinter環境&#40;Windows&#41;ならマウス操作「貼付モード」のみですが、  
-GTK2の通知タスクトレイ&#40;Notify&#41;が使える環境ならキーボード操作「漢直モード」も使用可能になります。  
-親指で&#91;NFER&#40;無変換&#41;&#93;,&#91;XFER&#40;変換&#41;&#93;,&#91;Space&#40;SandS&#41;&#93;,&#91;KANA&#93;キーを操作して鍵盤を交換しながら漢字を直接入力します。  
+Tkinter環境&#40;Windows&#41;ならマウス操作「貼付モード」のみですが、
+GTK2の通知タスクトレイ&#40;Notify&#41;が使える環境ならキーボード操作「漢直モード」も使用可能になります。
+親指で&#91;NFER&#40;無変換&#41;&#93;,&#91;XFER&#40;変換&#41;&#93;,&#91;Space&#40;SandS&#41;&#93;,&#91;KANA&#93;キーを操作して鍵盤を交換しながら漢字を直接入力します。
 
-漢直の実装はキーフック(EVIOCGRAB)でキーボード操作を吸収してクリップボード経由で文字入力するので、  
-&#91;Ctrl&#93;+&#91;V&#93;で貼り付けができないエディタでは漢直できません。逆にVim以外のエディタでもhjkl移動を可能にします。  
+漢直の実装はキーフック(EVIOCGRAB)でキーボード操作を吸収してクリップボード経由で文字入力するので、
+&#91;Ctrl&#93;+&#91;V&#93;で貼り付けができないエディタでは漢直できません。逆にVim以外のエディタでもhjkl移動を可能にします。
 
-「貼付モード(マウス)」の操作方法は「[LTsv.txt](LTsv.txt "https://github.com/ooblog/LTsv9kantray/blob/master/LTsv.txt")」の方に書いてます。  
-「漢直モード(キーボード)」の操作方法は「[kantray.txt](kantray.txt "https://github.com/ooblog/LTsv9kantray/blob/master/kantray.txt")」の方に書いてます。  
+「貼付モード(マウス)」の操作方法は「[LTsv.txt](LTsv.txt "https://github.com/ooblog/LTsv9kantray/blob/master/LTsv.txt")」の方に書いてます。
+「漢直モード(キーボード)」の操作方法は「[kantray.txt](kantray.txt "https://github.com/ooblog/LTsv9kantray/blob/master/kantray.txt")」の方に書いてます。
 
 ## 「kanfont」は単漢字辞書&#91;kanchar.tsv&#93;の管理するソフトです。辞書の項目にはフォントのグリフデザインも含まれます。
 
@@ -57,15 +57,15 @@ GTK2の通知タスクトレイ&#40;Notify&#41;が使える環境ならキーボ
     ┃ 0x3071 │└────┘　　　　───────　　　　　　　　　│　　　　　　  ＿名づざぞびごぴぽ、。ぺ〜σ┃
     ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-「kanfont.svg」を「kantray5x5comic.ttf」に変換するには「[FontForge](http://fontforge.github.io/ja/ "FontForge")」が別途必要です。  
-FontForgeの導入が困難なWindowsの場合、「kantray5x5comic.woff」を「[WOFFコンバータ](http://opentype.jp/woffconv.htm "WOFFコンバータ")」でTTFに変換してください。  
+「kanfont.svg」を「kantray5x5comic.ttf」に変換するには「[FontForge](http://fontforge.github.io/ja/ "FontForge")」が別途必要です。
+FontForgeの導入が困難なWindowsの場合、「kantray5x5comic.woff」を「[WOFFコンバータ](http://opentype.jp/woffconv.htm "WOFFコンバータ")」でTTFに変換してください。
 
 ### グリフキャンバスの座標とSVGパスの座標の違い。
 
-グリフキャンバスのサイズは512ですがフォントの想定サイズは1024です。  
-グリフキャンバスは左上が&#40;0,0&#41;ですがフォントは左下が&#40;0,0&#41;です。  
-「活」の項目には上下と縮尺二倍を修正したSVGパスが入ります。  
-「kanfont」は直線しか編集できない&#40;ポリゴン限定「M」と「z」しか対応してない&#41;ので注意。  
+グリフキャンバスのサイズは512ですがフォントの想定サイズは1024です。
+グリフキャンバスは左上が&#40;0,0&#41;ですがフォントは左下が&#40;0,0&#41;です。
+「活」の項目には上下と縮尺二倍を修正したSVGパスが入ります。
+「kanfont」は直線しか編集できない&#40;ポリゴン限定「M」と「z」しか対応してない&#41;ので注意。
 
 ## 「kanzip」は郵便番号辞書&#91;kanzip.tsv&#93;を作成するソフトです。
 
@@ -85,18 +85,18 @@ FontForgeの導入が困難なWindowsの場合、「kantray5x5comic.woff」を�
     ┃｢        都道府県と事業所をダウンロード＆コンバートし終えてから[kanzip.tsv]にマージ。        ｣□┃
     ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-「〒[郵便番号](http://www.post.japanpost.jp/zipcode/dl/readme.html "郵便番号データの説明 - 日本郵便")」からzipをダウンロードして郵便番号辞書「kanzip.tsv」を作成します。  
+「〒[郵便番号](http://www.post.japanpost.jp/zipcode/dl/readme.html "郵便番号データの説明 - 日本郵便")」からzipをダウンロードして郵便番号辞書「kanzip.tsv」を作成します。
 
 ## 「LTsv」はアプリを作るためのモジュール群です。
 
-モジュールの仕様や「kantray」の電卓で使う日時フォーマット・電卓フォーマットの仕様とかは[LTsv.txt](LTsv.txt)の方に書いてます。  
+モジュールの仕様や「kantray」の電卓で使う日時フォーマット・電卓フォーマットの仕様とかは[LTsv.txt](LTsv.txt)の方に書いてます。
 
 ## 動作環境。
 
-Python2.7.3(PuppyLinux571JP)およびPython3.4.3(Wine1.7.18)で動作を確認しています。  
+Python2.7.3(PuppyLinux571JP)およびPython3.4.3(Wine1.7.18)で動作を確認しています。
 
 ## ライセンス・著作権など。
 
-Copyright (c) 2016 ooblog  
-License: MIT  
-[https://github.com/ooblog/LTsv9kantray/blob/master/LICENSE](https://github.com/ooblog/LTsv9kantray/blob/master/LICENSE "https://github.com/ooblog/LTsv9kantray/blob/master/LICENSE")  
+Copyright (c) 2016 ooblog
+License: MIT
+[https://github.com/ooblog/LTsv9kantray/blob/master/LICENSE](https://github.com/ooblog/LTsv9kantray/blob/master/LICENSE "https://github.com/ooblog/LTsv9kantray/blob/master/LICENSE")

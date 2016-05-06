@@ -470,9 +470,10 @@ def LTsv_window_after(LTsv_windowPAGENAME,event_b=None,event_i="mousemotion",eve
     window_o=LTsv_widgetOBJ[LTsv_readlinerest(LTsv_windowPAGE,"widgetobj")]
     if LTsv_GUI == LTsv_GUI_GTK2:
         if event_i in LTsv_timerOBJ:
-            LTsv_libobj.g_source_remove(LTsv_timerOBJ[event_i])
-            LTsv_timerOBJ[event_i]=None
-            LTsv_timer_cbk[event_i]=None
+            if LTsv_timerOBJ[event_i] != None:
+#                LTsv_libobj.g_source_remove(LTsv_timerOBJ[event_i])
+                LTsv_timerOBJ[event_i]=None
+                LTsv_timer_cbk[event_i]=None
         if event_b != None:
             LTsv_timer_cbk[event_i]=LTsv_CALLBACLTYPE(event_b)
             LTsv_timerOBJ[event_i]=LTsv_libobj.g_timeout_add(max(event_w,10),LTsv_timer_cbk[event_i],None)

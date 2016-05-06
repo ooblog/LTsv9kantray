@@ -4,18 +4,18 @@ enter	LF
 tab	8
 program	kanfont
 LTsvver	20160423S022604
-modify	20160502M050825
+modify	20160506F051835
 |L:Tsv]
 
 [kanfont|
 find_alpha	ρ
 find_dic	代
-find_char	
+find_char	
 svg_name	kanfont.svg
 font_name	kantray5x5comic
 font_widths	1024	624
 font_grid	10
-gridimage	未整理漢字/都道府県/和歌山.png
+gridimage	未整理漢字/都道府県/高知.png
 |kanfont]
 
 

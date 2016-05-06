@@ -455,7 +455,7 @@ if len(LTsv_GUI) > 0:
         LTsv_drawtk_selcanvas,LTsv_drawtk_font,LTsv_drawtk_color,LTsv_drawtk_text,LTsv_drawtk_picture=LTsv_drawGTK_selcanvas,LTsv_drawGTK_font,LTsv_drawGTK_color,LTsv_drawGTK_text,LTsv_drawGTK_picture
         LTsv_drawtk_squares,LTsv_drawtk_squaresfill,LTsv_drawtk_circles,LTsv_drawtk_circlesfill=LTsv_drawGTK_squares,LTsv_drawGTK_squaresfill,LTsv_drawGTK_circles,LTsv_drawGTK_circlesfill
         LTsv_drawtk_polygon,LTsv_drawtk_polygonfill=LTsv_drawGTK_polygon,LTsv_drawGTK_polygonfill
-        
+
     if LTsv_GUI == LTsv_GUI_Tkinter:
         LTsv_drawtk_selcanvas,LTsv_drawtk_font,LTsv_drawtk_color,LTsv_drawtk_text,LTsv_drawtk_picture=LTsv_drawTkinter_selcanvas,LTsv_drawTkinter_font,LTsv_drawTkinter_color,LTsv_drawTkinter_text,LTsv_drawTkinter_picture
         LTsv_drawtk_squares,LTsv_drawtk_squaresfill,LTsv_drawtk_circles,LTsv_drawtk_circlesfill=LTsv_drawTkinter_squares,LTsv_drawTkinter_squaresfill,LTsv_drawTkinter_circles,LTsv_drawTkinter_circlesfill
