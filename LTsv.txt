@@ -1607,6 +1607,11 @@ LTsv_drawTkinter_arcfill(draw_x,draw_y,draw_w,draw_h,draw_s=-math.pi,draw_e=math
       Google Noto Fonts
       http://www.google.com/get/noto/
 
+      日本語と中国語のフォントをいれると漢字のほとんどがカバーされるはず。
+      /usr/share/fonts/TTF/NotoSansJP-Regular.otf
+      /usr/share/fonts/TTF/NotoSansHans-Regular.otf
+      /usr/share/fonts/TTF/NotoSansHant-Regular.otf
+
  Ｑ．「kantray5x5comic」はそもそも何でクセが強いのですか。
  Ａ．普通のフォントだと「ぱ(Pa)・ば(Ba)」「へ(ひらがな)・ヘ(カタカナ)」とか、「Ｏ(アルファベット)・Ο(ギリシャ文字)・О(キリル文字)・０(アラビア数字)・〇(漢数字)・○(記号)」とか。見分けが付きづらいグリフになってる気が。
      漢直タインピング学習ソフト「kanfast」という目標があって「Tkinter」でもBMP外(基本多言語面0xffff以上)の文字を扱いたいのでフォント描画ライブラリとか考えてるので、フォントを自前で用意しなければ。
