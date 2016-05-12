@@ -1506,6 +1506,10 @@ LTsv_drawTkinter_arcfill(draw_x,draw_y,draw_w,draw_h,draw_s=-math.pi,draw_e=math
       Welcome to Python.org
       https://www.python.org/
 
+ Ｑ．Pythonはもう3.5系出てますよね？
+ Ａ．[python-3.5.1.exe]が[wine-portable-1.7.18-1-p4.tar.gz]で動作しなかったのでどうしようも。
+     「Visual C++ 2015」のランタイムをインストールすれば動くかもだけどランタイム自体をwineにインストール方法とか未確認。
+
  Ｑ．[LTsv_gui.py]をダブルクリックしても起動しない。[kantray.py][kanfont.py][kanzip.py]とかは起動する。
  Ａ．LTsv_window_main()」実行前に「print()」「LTsv_libc_printf()」などターミナル(stdout)系命令が実行されるとGUIが表示されない場合があります。
      回避するには「if __name__=="__main__":」以下の「print」「LTsv_libc_printf」を含む行をコメントアウトするか、

@@ -236,7 +236,7 @@ def kanfont_fontdraw(callback_void=None,callback_ptr=None):
     keyboard_cursorMS,keyboard_cursorIR,keyboard_cursorAF,keyboard_cursorOLD,keyboard_cursorDIC,keyboard_cursorNX,keyboard_cursorK,keyboard_cursorLCR=LTsv_keyboard_NXK()
     LTsv_setkbddata(25,0); kanfont_getkbdstr=LTsv_getkbdlabels("MouseL\tMouseR\tMouseC")
     LTsv_drawtk_selcanvas(kanfont_canvas)
-    LTsv_draw_delete(kanfont_canvas)
+    LTsv_drawtk_delete("white")
     LTsv_drawtk_color(draw_c="#9F6C00"); gridx=kanfont_half//2
     if keyboard_gridM:
         if kanfont_gridimageOBJ:
@@ -259,7 +259,7 @@ def kanfont_fontdraw(callback_void=None,callback_ptr=None):
             LTsv_drawtk_circlesfill(10,*tuple(glyphpointlist))
             if 0 <= keyboard_gridZ*2 < len(glyphpointlist):
                 LTsv_drawtk_squaresfill(10,*tuple(glyphpointlist[keyboard_gridZ*2:keyboard_gridZ*2+2]))
-    LTsv_draw_queue(kanfont_canvas)
+    LTsv_drawtk_queue()
     LTsv_widget_disableenable(kanfont_exchange_button,True if keyboard_cursorOLD < LTsv_keyboard_alphapos and len(LTsv_widget_gettext(kanfont_exchange_entry)) > 0 else False)
     LTsv_window_after(kanfont_window,event_b=kanfont_fontdraw,event_i="kanfont_fontdraw",event_w=50)
 
@@ -455,11 +455,12 @@ if len(LTsv_GUI) > 0:
         LTsv_drawtk_selcanvas,LTsv_drawtk_font,LTsv_drawtk_color,LTsv_drawtk_text,LTsv_drawtk_picture=LTsv_drawGTK_selcanvas,LTsv_drawGTK_font,LTsv_drawGTK_color,LTsv_drawGTK_text,LTsv_drawGTK_picture
         LTsv_drawtk_squares,LTsv_drawtk_squaresfill,LTsv_drawtk_circles,LTsv_drawtk_circlesfill=LTsv_drawGTK_squares,LTsv_drawGTK_squaresfill,LTsv_drawGTK_circles,LTsv_drawGTK_circlesfill
         LTsv_drawtk_polygon,LTsv_drawtk_polygonfill=LTsv_drawGTK_polygon,LTsv_drawGTK_polygonfill
-
+        LTsv_drawtk_delete,LTsv_drawtk_queue=LTsv_drawGTK_delete,LTsv_drawGTK_queue
     if LTsv_GUI == LTsv_GUI_Tkinter:
         LTsv_drawtk_selcanvas,LTsv_drawtk_font,LTsv_drawtk_color,LTsv_drawtk_text,LTsv_drawtk_picture=LTsv_drawTkinter_selcanvas,LTsv_drawTkinter_font,LTsv_drawTkinter_color,LTsv_drawTkinter_text,LTsv_drawTkinter_picture
         LTsv_drawtk_squares,LTsv_drawtk_squaresfill,LTsv_drawtk_circles,LTsv_drawtk_circlesfill=LTsv_drawTkinter_squares,LTsv_drawTkinter_squaresfill,LTsv_drawTkinter_circles,LTsv_drawTkinter_circlesfill
         LTsv_drawtk_polygon,LTsv_drawtk_polygonfill=LTsv_drawTkinter_polygon,LTsv_drawTkinter_polygonfill
+        LTsv_drawtk_delete,LTsv_drawtk_queue=LTsv_drawTkinter_delete,LTsv_drawTkinter_queue
     kanfont_path_scale=LTsv_scale_new(kanfont_window,widget_x=kanfont_entry_X,widget_y=(len(kanfont_chartype)-1)*kanfont_label_WH,widget_w=kanfont_entry_W*5//8,widget_h=kanfont_label_WH*2,widget_s=0,widget_e=9,widget_a=1)
     kanfont_grid_label=LTsv_label_new(kanfont_window,widget_t="grid",widget_x=kanfont_entry_X+kanfont_entry_W*5//8,widget_y=(len(kanfont_chartype)-1)*kanfont_label_WH,widget_w=kanfont_entry_W*1//8,widget_h=kanfont_label_WH,widget_f=kanfont_font_entry)
     kanfont_grid_spin=LTsv_spin_new(kanfont_window,widget_x=kanfont_entry_X+kanfont_entry_W*5//8,widget_y=(len(kanfont_chartype)-1)*kanfont_label_WH+kanfont_label_WH,widget_w=kanfont_entry_W*1//8,widget_h=kanfont_label_WH,widget_s=1,widget_e=PSchar_ZW//5,widget_a=1,widget_f=kanfont_font_entry,event_b=kanfont_grid_shell)

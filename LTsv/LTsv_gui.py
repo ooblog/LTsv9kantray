@@ -1242,21 +1242,21 @@ def LTsv_drawTkinter_glyphfill(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_
                 LTsv_drawTkinter_fontfill(*tuple(LTsv_glyphpointresize))
         draw_xf=draw_xf+int(LTsv_kanwideOBJ[glyphcode]*draw_fd)+draw_w
 
-def LTsv_draw_delete(LTsv_canvasPAGENAME,draw_g="LTsv_draw_tkTAG"):
-    global LTsv_widgetLTSV
-    LTsv_canvasPAGE=LTsv_getpage(LTsv_widgetLTSV,LTsv_canvasPAGENAME)
-    if LTsv_GUI == LTsv_GUI_GTK2:
-        canvas_m=LTsv_widgetOBJ[LTsv_readlinerest(LTsv_canvasPAGE,"widgetpixmap")]
-        canvas_g=LTsv_widgetOBJ[LTsv_readlinerest(LTsv_canvasPAGE,"widgetgc")]
-        canvas_w=int(LTsv_readlinerest(LTsv_canvasPAGE,"widgetsizeW"))
-        canvas_h=int(LTsv_readlinerest(LTsv_canvasPAGE,"widgetsizeH"))
-        widget_gccolor=LTsv_GDKCOLOR(); LTsv_libgdk.gdk_color_parse("white".encode("utf-8"),ctypes.pointer(widget_gccolor))
-        LTsv_libgdk.gdk_gc_set_rgb_bg_color(canvas_g,ctypes.pointer(widget_gccolor))
-        LTsv_libgdk.gdk_gc_set_rgb_fg_color(canvas_g,ctypes.pointer(widget_gccolor))
-        LTsv_libgdk.gdk_draw_rectangle(canvas_m,canvas_g,True,0,0,canvas_w,canvas_h)
-    if LTsv_GUI == LTsv_GUI_Tkinter:
-        canvas_o=LTsv_widgetOBJ[LTsv_readlinerest(LTsv_canvasPAGE,"widgetobj")]
-        canvas_o.delete(draw_g)
+#def LTsv_draw_delete(LTsv_canvasPAGENAME,draw_g="LTsv_draw_tkTAG"):
+#    global LTsv_widgetLTSV
+#    LTsv_canvasPAGE=LTsv_getpage(LTsv_widgetLTSV,LTsv_canvasPAGENAME)
+#    if LTsv_GUI == LTsv_GUI_GTK2:
+#        canvas_m=LTsv_widgetOBJ[LTsv_readlinerest(LTsv_canvasPAGE,"widgetpixmap")]
+#        canvas_g=LTsv_widgetOBJ[LTsv_readlinerest(LTsv_canvasPAGE,"widgetgc")]
+#        canvas_w=int(LTsv_readlinerest(LTsv_canvasPAGE,"widgetsizeW"))
+#        canvas_h=int(LTsv_readlinerest(LTsv_canvasPAGE,"widgetsizeH"))
+#        widget_gccolor=LTsv_GDKCOLOR(); LTsv_libgdk.gdk_color_parse("white".encode("utf-8"),ctypes.pointer(widget_gccolor))
+#        LTsv_libgdk.gdk_gc_set_rgb_bg_color(canvas_g,ctypes.pointer(widget_gccolor))
+#        LTsv_libgdk.gdk_gc_set_rgb_fg_color(canvas_g,ctypes.pointer(widget_gccolor))
+#        LTsv_libgdk.gdk_draw_rectangle(canvas_m,canvas_g,True,0,0,canvas_w,canvas_h)
+#    if LTsv_GUI == LTsv_GUI_Tkinter:
+#        canvas_o=LTsv_widgetOBJ[LTsv_readlinerest(LTsv_canvasPAGE,"widgetobj")]
+#        canvas_o.delete(draw_g)
 
 def LTsv_drawGTK_delete(draw_c="white"):
     global LTsv_GTKcanvasW,LTsv_GTKcanvasH,LTsv_GTKfont_gccolor
@@ -1269,14 +1269,14 @@ def LTsv_drawTkinter_delete(draw_c="white"):
     LTsv_Tkinterfont_color=draw_c
     LTsv_Tkintercanvas_o.delete(LTsv_Tkintercanvas_TAG)
 
-def LTsv_draw_queue(LTsv_canvasPAGENAME):
-    global LTsv_widgetLTSV
-    LTsv_canvasPAGE=LTsv_getpage(LTsv_widgetLTSV,LTsv_canvasPAGENAME)
-    if LTsv_GUI == LTsv_GUI_GTK2:
-        canvas_o=LTsv_widgetOBJ[LTsv_readlinerest(LTsv_canvasPAGE,"widgetobj")]
-        LTsv_libgtk.gtk_widget_queue_draw(canvas_o)
-    if LTsv_GUI == LTsv_GUI_Tkinter:
-        pass
+#def LTsv_draw_queue(LTsv_canvasPAGENAME):
+#    global LTsv_widgetLTSV
+#    LTsv_canvasPAGE=LTsv_getpage(LTsv_widgetLTSV,LTsv_canvasPAGENAME)
+#    if LTsv_GUI == LTsv_GUI_GTK2:
+#        canvas_o=LTsv_widgetOBJ[LTsv_readlinerest(LTsv_canvasPAGE,"widgetobj")]
+#        LTsv_libgtk.gtk_widget_queue_draw(canvas_o)
+#    if LTsv_GUI == LTsv_GUI_Tkinter:
+#        pass
 
 def LTsv_drawGTK_queue():
     global LTsv_GTKcanvas_o
@@ -1329,7 +1329,6 @@ def LTsv_keyboard_new(LTsv_windowPAGENAME,widget_n=None,widget_x=0,widget_y=0,ev
         keyboard_guideN["　"],keyboard_guideX["　"]=keyboard_guideN[keyboard_cursor_alpha],keyboard_guideX[keyboard_cursor_alpha]
         keyboard_findN,keyboard_findX,keyboard_findNr,keyboard_findXr=LTsv_keyboard_findNX()
         LTsv_drawtk_selcanvas(kantray_kbdcanvas); LTsv_drawtk_font(widget_f)
-#        LTsv_draw_delete(kantray_kbdcanvas)
         LTsv_drawtk_delete("white")
         LTsv_drawtk_color(keyboard_colorN); LTsv_drawtk_polygonfill(0,0,keyboard_W,0,keyboard_W,keyboard_H,0,keyboard_H)
         LTsv_drawtk_color(keyboard_colorX); LTsv_drawtk_polygonfill(keyboard_W,0,keyboard_cursorNXx[str(keyboard_cursorNX)],0,keyboard_cursorNXx[str(keyboard_cursorNX)],keyboard_H,keyboard_W,keyboard_H)
@@ -1376,7 +1375,6 @@ def LTsv_keyboard_new(LTsv_windowPAGENAME,widget_n=None,widget_x=0,widget_y=0,ev
             LTsv_drawtk_squares(keyboard_buttonsize,*tuple(keyboard_keyXY[keyboard_cursorMS*2:keyboard_cursorMS*2+2]))
         if keyboard_cursorOLD < keyboard_alphapos:
             LTsv_drawtk_color(keyboard_colorO); LTsv_drawtk_squares(keyboard_buttonsize,*tuple(keyboard_keyXY[keyboard_cursorOLD*2:keyboard_cursorOLD*2+2]))
-#        LTsv_draw_queue(kantray_kbdcanvas)
         LTsv_drawtk_queue()
     def LTsv_keyboard_press(callback_void=None,callback_ptr=None):
         keyboard_mouseX,keyboard_mouseY=LTsv_global_canvasmotionX(),LTsv_global_canvasmotionY()
@@ -1666,21 +1664,25 @@ def LTsv_notifyicon_new(LTsv_windowPAGENAME,notify_n=None,widget_t="",widget_u="
 def debug_canvas(window_objvoid=None,window_objptr=None):
     global debug_scaleRGB
     LTsv_drawtk_selcanvas(debug_keysetup_canvas)
-#    LTsv_draw_delete(debug_keysetup_canvas)#LTsv_drawGTK_delete
     LTsv_drawtk_delete("white")
     LTsv_drawtk_font(debug_font_entry)
     LTsv_drawtk_color("#fffff0"); LTsv_drawtk_polygonfill(0,0,debug_canvas_W,0,debug_canvas_W,debug_canvas_H,0,debug_canvas_H)
-    LTsv_drawtk_color("white"); LTsv_drawtk_polygonfill(0,0,debug_kanzip_DLprogres_WH,0,debug_kanzip_DLprogres_WH,debug_kanzip_DLprogres_WH,0,debug_kanzip_DLprogres_WH)
+    LTsv_drawtk_color("white"); LTsv_drawtk_polygonfill(debug_kanzip_icon_X+0,debug_kanzip_icon_Y+0,debug_kanzip_icon_X+debug_kanzip_icon_WH,debug_kanzip_icon_Y+0,debug_kanzip_icon_X+debug_kanzip_icon_WH,debug_kanzip_icon_Y+debug_kanzip_icon_WH,debug_kanzip_icon_X+0,debug_kanzip_icon_Y+debug_kanzip_icon_WH)
+    LTsv_drawtk_color("green")
+    if sys.version_info.major == 2:
+        LTsv_drawtk_color("green")
+        LTsv_drawtk_glyph("{0}".format(unichr(61615)),draw_x=debug_kanzip_icon_X,draw_y=debug_kanzip_icon_Y,draw_f=debug_kanzip_icon_WH)
+        LTsv_drawtk_color("IndianRed")
+        LTsv_drawtk_glyph("{0}".format(unichr(12306)),draw_x=(debug_kanzip_icon_X+debug_kanzip_icon_WH//2),draw_y=(debug_kanzip_icon_Y+debug_kanzip_icon_WH//2),draw_f=debug_kanzip_icon_WH//2)
+    if sys.version_info.major == 3:
+        LTsv_drawtk_color("green")
+        LTsv_drawtk_glyph("{0}".format(chr(61615)),draw_x=debug_kanzip_icon_X,draw_y=debug_kanzip_icon_Y,draw_f=debug_kanzip_icon_WH)
+        LTsv_drawtk_color("IndianRed")
+        LTsv_drawtk_glyph("{0}".format(chr(12306)),draw_x=(debug_kanzip_icon_X+debug_kanzip_icon_WH//2),draw_y=(debug_kanzip_icon_Y+debug_kanzip_icon_WH//2),draw_f=debug_kanzip_icon_WH//2)
     mouse_x,mouse_y=LTsv_global_canvasmotionX(),LTsv_global_canvasmotionY()
     LTsv_drawtk_color(debug_scaleRGB); LTsv_drawtk_text("mouseX,Y\n[{0},{1}]".format(mouse_x,mouse_y),draw_x=mouse_x,draw_y=mouse_y)
-    if sys.version_info.major == 2:
-        LTsv_drawtk_glyph("ぱぴぷ\nぺぽ{0}".format(unichr(61568)),draw_x=debug_canvas_W-90,draw_y=debug_joypad_H-100,draw_f=20) #LTsv_drawGTK_glyph
-        LTsv_drawtk_glyphfill("ぱぴぷ\nぺぽ{0}".format(unichr(61568)),draw_x=debug_canvas_W-90,draw_y=debug_joypad_H-20,draw_f=20)
-    if sys.version_info.major == 3:
-        LTsv_drawtk_glyph("ぱぴぷ\nぺぽ{0}".format(chr(61568)),draw_x=debug_canvas_W-90,draw_y=debug_joypad_H-100,draw_f=20) #LTsv_drawGTK_glyph
-        LTsv_drawtk_glyphfill("ぱぴぷ\nぺぽ{0}".format(chr(61568)),draw_x=debug_canvas_W-90,draw_y=debug_joypad_H-20,draw_f=20)
     LTsv_putdaytimenow(); LTsv_checkFPS()
-    LTsv_drawtk_color("black"); LTsv_drawtk_text(LTsv_getdaytimestr(LTsv_widget_gettext(debug_keysetup_timentry)),draw_x=debug_kanzip_DLprogres_WH,draw_y=0)
+    LTsv_drawtk_color("black"); LTsv_drawtk_text(LTsv_getdaytimestr(LTsv_widget_gettext(debug_keysetup_timentry)),draw_x=0,draw_y=0)
     LTsv_setkbddata(25,0)
     kbdlabels=LTsv_getkbdlabels().replace('\t',' ').replace('た','\nた').replace('ち','\nち').replace('つ','\nつ').replace('NFER','\nNFER')
     if LTsv_joymax > 0:
@@ -1710,7 +1712,6 @@ def debug_canvas(window_objvoid=None,window_objptr=None):
     LTsv_drawtk_polygon(*tuple(debug_polygonpointlist))
     if LTsv9_logoOBJ:
         LTsv_drawtk_picture(LTsv9_logoPATH,debug_canvas_W-LTsv_global_pictureW(LTsv9_logoPATH),debug_canvas_H-LTsv_global_pictureH(LTsv9_logoPATH))
-#    LTsv_draw_queue(debug_keysetup_canvas)#LTsv_drawGTK_queue
     LTsv_drawtk_queue()
     LTsv_window_after(debug_keysetup_window,event_b=debug_canvas,event_i="debug_canvas",event_w=50)
 
@@ -1811,8 +1812,8 @@ if __name__=="__main__":
             LTsv_drawtk_polygon,LTsv_drawtk_polygonfill,LTsv_drawtk_squares,LTsv_drawtk_circles,LTsv_drawtk_arc=LTsv_drawTkinter_polygon,LTsv_drawTkinter_polygonfill,LTsv_drawTkinter_squares,LTsv_drawTkinter_circles,LTsv_drawTkinter_arc
             LTsv_drawtk_glyph,LTsv_drawtk_glyphfill,LTsv_drawtk_delete,LTsv_drawtk_queue=LTsv_drawTkinter_glyph,LTsv_drawTkinter_glyphfill,LTsv_drawTkinter_delete,LTsv_drawTkinter_queue
         LTsv9_logoPATH="../icon/LTsv9_logo.png"; LTsv9_logoOBJ=LTsv_draw_picture_load(LTsv9_logoPATH)
-        debug_polygonpointlist=[1, 1, 28, 1, 28, 8, 18, 8, 18, 10, 28, 10, 28, 17, 18, 17, 18, 28, 11, 28, 11, 17, 1, 17, 1, 10, 11, 10, 11, 8, 1, 8]
-        debug_kanzip_DLprogres_WH=30
+        debug_polygonpointlist=[556, 12, 566, 31, 583, 33, 574, 47, 581, 63, 561, 55, 537, 60, 547, 42, 529, 32, 552, 28]
+        debug_kanzip_icon_WH=48; debug_kanzip_icon_X,debug_kanzip_icon_Y=debug_canvas_W-debug_kanzip_icon_WH-2,debug_canvas_H-debug_kanzip_icon_WH-2
         debug_keysetup_scaleR=LTsv_scale_new(debug_keysetup_window,widget_x=debug_scale_X+debug_scale_W*0//3,widget_y=debug_scale_Y,widget_w=debug_scale_W//3,widget_h=debug_scale_H,widget_s=0,widget_e=255,widget_a=1,event_b=debug_color_scale)
         debug_keysetup_scaleG=LTsv_scale_new(debug_keysetup_window,widget_x=debug_scale_X+debug_scale_W*1//3,widget_y=debug_scale_Y,widget_w=debug_scale_W//3,widget_h=debug_scale_H,widget_s=0,widget_e=255,widget_a=1,event_b=debug_color_scale)
         debug_keysetup_scaleB=LTsv_scale_new(debug_keysetup_window,widget_x=debug_scale_X+debug_scale_W*2//3,widget_y=debug_scale_Y,widget_w=debug_scale_W//3,widget_h=debug_scale_H,widget_s=0,widget_e=255,widget_a=1,event_b=debug_color_scale)

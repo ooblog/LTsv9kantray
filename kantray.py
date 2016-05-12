@@ -464,7 +464,6 @@ if len(LTsv_GUI) > 0:
     if kantray_directnotifys > 0:
         for notifyLCRX in range(len(kantray_notifyID[kantray_directnotifys])):
             kantray_notifyOBJ[kantray_directnotifys][notifyLCRX]=LTsv_notifyicon_new(kantray_window,widget_t="kantray",widget_u="{0}[{1}]".format(kantray_directimage,kantray_directcellpos[kantray_notifyPD[kantray_directONOFF]]*4+kantray_notifyID[kantray_directnotifys][notifyLCRX]),menu_b=kantray_notify_menu(),menu_c=kantray_directswitch)
-#            kantray_notifyOBJ[kantray_directnotifys][notifyLCRX]=LTsv_notifyicon_new(kantray_window,widget_t="kantray",widget_u="{0}[{1}]".format(kantray_directimage,kantray_directcellpos[kantray_notifyPD[kantray_directONOFF]]*4+kantray_notifyID[kantray_directnotifys][notifyLCRX]))
             LTsv_widget_settext(kantray_notifyOBJ[kantray_directnotifys][notifyLCRX],kantray_title[kantray_directONOFF])
         LTsv_kbdEVIOCGRAB(kantray_directONOFF)
     LTsv_widget_showhide(kantray_window,True)

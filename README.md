@@ -2,6 +2,7 @@
 
 ## 「kantray」は日本語入力ソフトです。漢字を直接入力する(変換サジェストが存在しない)ので漢直のジャンルです。
 
+![kantray_512](icon_cap/kantray_512.png "kantray")
     ┏kantray「貼付モード(マウス) ┓┏kantray「貼付モード(マウス) ┓┏kantray「貼付モード(マウス) ┓
     ┃ ぬふあうえおやゆよわほへﾇ  ┃┃ 1 2 3 4 5 6 7 8 9 0 - ^ Σ ┃┃ 名音訓送異俗簡繁越地逆非￥ ┃
     ┃  たていすかんなにらせ沼濡  ┃┃  ! 全# ｅ＋－×÷√π| (    ┃┃  英顔ερτυθιοπ゛゜  ┃
@@ -30,6 +31,7 @@ GTK2の通知タスクトレイ&#40;Notify&#41;が使える環境ならキーボ
 
 ## 「kanfont」は単漢字辞書&#91;kanchar.tsv&#93;の管理するソフトです。辞書の項目にはフォントのグリフデザインも含まれます。
 
+![kanfont_512](icon_cap/kantray_512.png "kanfont")
     ┏kanfont ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
     ┃┌──┐│　　　　　　　　　　　　　　　　─────　　　　　│英[PA Japanese hiragana                  ]┃
     ┃│    ││　　　　　　　　　　　　　　　／　　　　　＼　　　　│名[ぱ                                    ]┃
@@ -72,6 +74,7 @@ FontForgeの導入が困難なWindowsの場合、「kantray5x5comic.woff」を�
 
 ## 「kanzip」は郵便番号辞書&#91;kanzip.tsv&#93;を作成するソフトです。
 
+![kanzip_512](icon_cap/kanzip_512.png "kanzip")
     ┏kanzip━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
     ┃  事業所  □  北海道  □  青森県  □  岩手県  □  宮城県  □  秋田県  □  山形県  □  福島県  □┃
     ┃｢ jigyosyo ｣｢ 01hokkai ｣｢ 02aomori ｣｢ 03iwate  ｣｢ 04miyagi ｣｢ 05akita  ｣｢ 06yamaga ｣｢ 07fukush ｣┃
@@ -97,8 +100,8 @@ FontForgeの導入が困難なWindowsの場合、「kantray5x5comic.woff」を�
 
 ## 動作環境。
 
-Python 2.7.6(Tahrpup6.0.5)でも動作を確認しています。  
-Python2.7.3(PuppyLinux571JP)およびPython3.4.3(Wine1.7.18)でも動作してたと思います(開発環境移行中)。  
+Python 2.7.6(Tahrpup6.0.5)およびPython3.4.4(Wine1.7.18)で動作を確認しています。  
+Python2.7.3(PuppyLinux571JP)およびPython3.4.3(Wine1.7.18)でも多分動くかと思います(旧開発環境)。  
 
 
 ## ライセンス・著作権など。
