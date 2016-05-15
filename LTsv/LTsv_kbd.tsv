@@ -8,8 +8,8 @@ modify	20160423S022604
 |L:Tsv]
 
 [LTsv_deviceL|
-kbd	/dev/input/event0
-mouse	/dev/input/event7
+kbd	/dev/input/event3
+mouse	/dev/input/event6
 |LTsv_deviceL]
 
 [LTsv_mouse_EV_KEY|

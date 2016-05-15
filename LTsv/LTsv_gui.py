@@ -1039,6 +1039,33 @@ def LTsv_drawTkinter_color(draw_c=""):
     global LTsv_Tkintercanvas_color
     LTsv_Tkintercanvas_color=draw_c
 
+#def LTsv_draw_delete(LTsv_canvasPAGENAME,draw_g="LTsv_draw_tkTAG"):
+#    global LTsv_widgetLTSV
+#    LTsv_canvasPAGE=LTsv_getpage(LTsv_widgetLTSV,LTsv_canvasPAGENAME)
+#    if LTsv_GUI == LTsv_GUI_GTK2:
+#        canvas_m=LTsv_widgetOBJ[LTsv_readlinerest(LTsv_canvasPAGE,"widgetpixmap")]
+#        canvas_g=LTsv_widgetOBJ[LTsv_readlinerest(LTsv_canvasPAGE,"widgetgc")]
+#        canvas_w=int(LTsv_readlinerest(LTsv_canvasPAGE,"widgetsizeW"))
+#        canvas_h=int(LTsv_readlinerest(LTsv_canvasPAGE,"widgetsizeH"))
+#        widget_gccolor=LTsv_GDKCOLOR(); LTsv_libgdk.gdk_color_parse("white".encode("utf-8"),ctypes.pointer(widget_gccolor))
+#        LTsv_libgdk.gdk_gc_set_rgb_bg_color(canvas_g,ctypes.pointer(widget_gccolor))
+#        LTsv_libgdk.gdk_gc_set_rgb_fg_color(canvas_g,ctypes.pointer(widget_gccolor))
+#        LTsv_libgdk.gdk_draw_rectangle(canvas_m,canvas_g,True,0,0,canvas_w,canvas_h)
+#    if LTsv_GUI == LTsv_GUI_Tkinter:
+#        canvas_o=LTsv_widgetOBJ[LTsv_readlinerest(LTsv_canvasPAGE,"widgetobj")]
+#        canvas_o.delete(draw_g)
+
+def LTsv_drawGTK_delete(draw_c="white"):
+    global LTsv_GTKcanvasW,LTsv_GTKcanvasH,LTsv_GTKfont_gccolor
+    LTsv_libgdk.gdk_color_parse(draw_c.encode("utf-8"),ctypes.pointer(LTsv_GTKfont_gccolor))
+    LTsv_libgdk.gdk_gc_set_rgb_fg_color(LTsv_GTKcanvas_g,ctypes.pointer(LTsv_GTKfont_gccolor))
+    LTsv_libgdk.gdk_draw_rectangle(LTsv_GTKcanvas_m,LTsv_GTKcanvas_g,True,0,0,LTsv_GTKcanvasW,LTsv_GTKcanvasH)
+
+def LTsv_drawTkinter_delete(draw_c="white"):
+    global LTsv_Tkinterfont_color,LTsv_Tkintercanvas_o
+    LTsv_Tkinterfont_color=draw_c
+    LTsv_Tkintercanvas_o.delete(LTsv_Tkintercanvas_TAG)
+
 def LTsv_drawGTK_polygon(*draw_xy):
     draw_xylen=len(draw_xy)//2; gdkpointsArrayType=LTsv_GDKPOINT*draw_xylen; gdkpointsArray=gdkpointsArrayType()
     for draw_xy_count,gdkpoint in enumerate(gdkpointsArray):
@@ -1241,33 +1268,6 @@ def LTsv_drawTkinter_glyphfill(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_
             else:
                 LTsv_drawTkinter_fontfill(*tuple(LTsv_glyphpointresize))
         draw_xf=draw_xf+int(LTsv_kanwideOBJ[glyphcode]*draw_fd)+draw_w
-
-#def LTsv_draw_delete(LTsv_canvasPAGENAME,draw_g="LTsv_draw_tkTAG"):
-#    global LTsv_widgetLTSV
-#    LTsv_canvasPAGE=LTsv_getpage(LTsv_widgetLTSV,LTsv_canvasPAGENAME)
-#    if LTsv_GUI == LTsv_GUI_GTK2:
-#        canvas_m=LTsv_widgetOBJ[LTsv_readlinerest(LTsv_canvasPAGE,"widgetpixmap")]
-#        canvas_g=LTsv_widgetOBJ[LTsv_readlinerest(LTsv_canvasPAGE,"widgetgc")]
-#        canvas_w=int(LTsv_readlinerest(LTsv_canvasPAGE,"widgetsizeW"))
-#        canvas_h=int(LTsv_readlinerest(LTsv_canvasPAGE,"widgetsizeH"))
-#        widget_gccolor=LTsv_GDKCOLOR(); LTsv_libgdk.gdk_color_parse("white".encode("utf-8"),ctypes.pointer(widget_gccolor))
-#        LTsv_libgdk.gdk_gc_set_rgb_bg_color(canvas_g,ctypes.pointer(widget_gccolor))
-#        LTsv_libgdk.gdk_gc_set_rgb_fg_color(canvas_g,ctypes.pointer(widget_gccolor))
-#        LTsv_libgdk.gdk_draw_rectangle(canvas_m,canvas_g,True,0,0,canvas_w,canvas_h)
-#    if LTsv_GUI == LTsv_GUI_Tkinter:
-#        canvas_o=LTsv_widgetOBJ[LTsv_readlinerest(LTsv_canvasPAGE,"widgetobj")]
-#        canvas_o.delete(draw_g)
-
-def LTsv_drawGTK_delete(draw_c="white"):
-    global LTsv_GTKcanvasW,LTsv_GTKcanvasH,LTsv_GTKfont_gccolor
-    LTsv_libgdk.gdk_color_parse(draw_c.encode("utf-8"),ctypes.pointer(LTsv_GTKfont_gccolor))
-    LTsv_libgdk.gdk_gc_set_rgb_fg_color(LTsv_GTKcanvas_g,ctypes.pointer(LTsv_GTKfont_gccolor))
-    LTsv_libgdk.gdk_draw_rectangle(LTsv_GTKcanvas_m,LTsv_GTKcanvas_g,True,0,0,LTsv_GTKcanvasW,LTsv_GTKcanvasH)
-
-def LTsv_drawTkinter_delete(draw_c="white"):
-    global LTsv_Tkinterfont_color,LTsv_Tkintercanvas_o
-    LTsv_Tkinterfont_color=draw_c
-    LTsv_Tkintercanvas_o.delete(LTsv_Tkintercanvas_TAG)
 
 #def LTsv_draw_queue(LTsv_canvasPAGENAME):
 #    global LTsv_widgetLTSV

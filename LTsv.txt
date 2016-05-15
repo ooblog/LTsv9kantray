@@ -1,5 +1,5 @@
 「LTsv9kantray(tsvtool9)」は「L:Tsv」の読み書きを中心としたモジュール群と漢字入力「kantray」のPythonによる実装です。
-version 20160423S022604
+version(branch) 20160423S022604
 
 目次
 
@@ -55,12 +55,13 @@ version 20160423S022604
    ・辞書などの翻訳ミスもしくは言い回しが古くなるなどの人間語の方の不具合に対してもメンテナンス義務はありません。
 
 
-０-1   インストール＆アンインストール方法・その他セットアップ方法
+０-1． インストール＆アンインストール方法・その他セットアップ方法
 
  「https://github.com/ooblog/LTsv9kantray」から「Download ZIP」でダウンロードした[LTsv9kantray-master.zip]を解凍するだけです。
  [kantray5x5comic.ttf]を用意する場合は[kanfont.svg]または[kantray5x5comic.woff]から変換。
- Wineを使う予定が無ければ「wine_sh」フォルダは削除可。Wineを使う予定がある場合はWineのパスを適宜修正。
+ Wineを使う予定がある場合は「wine_sh」フォルダ内の[*.sh]のWineパスを適宜修正。
  ※Pythonは別途インストールされているものとします(Pythonの導入分からない人は「３-0． ＦＡＱ(そもそも起動しないなどの疑問はこちら)」も参考)。
+ [LTsv/LTsv_kbd.tsv]の「LTsv_deviceL」の「/dev/input/event」を「(hexdump /dev/input/event3」の要領で修正。
 
 
 ０-2． バージョン「20160328M231906(それ以前も含む)」から「20160423S022604」への変更にあたる注意点など。
@@ -78,22 +79,22 @@ version 20160423S022604
 
 ０-3． その他現在わかっている不具合や今後の課題。
 
- Python2.7.3(PuppyLinux571JP)およびPython3.4.3(Wine1.7.18)で動作を確認しています。Windows,cygwin,darwinなどでの動作は確認しておりません。
- アスキーアートが崩れる場合はGeanyで"MSゴシック 12"を使うと半角全角が揃うかもです。
+ Python 2.7.6(Tahrpup6.0.5)およびPython3.4.4(Wine1.7.18)で動作を確認しています。Windows,cygwin,darwinなどでの動作は確認しておりません。
  フォント「kantray5x5comic」は半角と全角の幅の比率が約5:3(1024:624)なのでアスキーアートで問題になる場合があります。
  [kanmap.png]の「サ・ソ・ヒ・コ・ミ・ネ・ル」が今だにドット絵書いてる途中です。
- 「漢直モード」の実装方法がコピペ([Ctrl]+[V]paste)なのでクリップボード盗聴の類に脆弱性があります。パスワード等秘匿性の高い内容入力時には一時的に「貼付モード」できれば「kantray」を一旦停止すべきです。
+ 「/dev/input/event」の「0-9」どれがキーボードなのかマウスなのか手動で確認する必要。マウスホイールの取得は保留。
+ tkk方面は手を出さない予定(コンボボックスなどはGTKのみサポート)。
+ 「漢直モード」の実装方法がコピペ([Ctrl]+[V]paste)なのでクリップボード盗聴の脆弱性があります。パスワード等秘匿性の高い内容入力時には一時的に「貼付モード」できれば「kantray」を一旦停止すべきです。
  「探」コマンドは「異→簡→繁→代」の順番で探すので「探铺」した時に「鋪」ではなく「舗」が検索されてしまいます。
  「kantray」を２つ以上起動した状態で「漢直モード」と「貼付モード」が混在するとキーボード操作が困難になります。
  Tkinterで通知タスクトレイ(Notify)クリックからのポップアップメニュー出現方法が不明なので、「kantray」の「漢直モード」は当面Linux版のみになります。
  TkinterはBMP外(基本多言語面0xffff以上)の漢字を正しく扱えないので「kantray」「kanfont」で機能制限があります。その他不具合も発生するかもしれません。
  Tkinterのクリップボード操作が機能してません。
- Linuxでマウスボタン・マウスホイールの取得を保留。tkk方面は手を出さない予定(コンボボックスなどはGTKのみサポート)。
  [kantray5x5comic.svg]を[kantray5x5comic.ttf]に変換する手段として「FontForge」が必要。直接フォント生成とかできればベストだが優先順位は低い。
- 「kanzip」の都道府県アイコンの見た目をもう少しどうにかしたい。
  [kanchar.tsv]に異体字を移管して[kanmap.tsv]を圧縮していく作業は当分続く。現在人名に使える漢字の異体字の字引入力中心に作業中。
  漢直タインピング学習ソフト「kanfast」も用意する予定。ただし音源管理全般が未着手。
  通知タスクトレイ(Notify)が使えない環境にも対応するためテキストエディタ「kanedit」も用意する予定。
+ 「kantray」の内容はなるだけ[kantray.txt]に移動したい。
 
 
 １-0a．「L:Tsv」の解説。
@@ -792,8 +793,8 @@ version 20160423S022604
 
   [LTsv_deviceL|                      Linuxのデバイス指定。
    joy                                Linuxの場合デバイス名(から数字を省いた物)を指定。初期設定は「/dev/input/js」(「/dev/input/js0」の存在を想定)。
-   kbd                                初期設定は「/dev/input/event0」。
-   mouse                              初期想定は「/dev/input/event7」マウスデバイスの位置は環境毎の差異があるので「hexdump /dev/input/event7」のように探す。
+   kbd                                初期設定は「/dev/input/event3」。キーボードデバイスの位置は環境毎の差異があるので「hexdump /dev/input/event3」のように探す。
+   mouse                              初期想定は「/dev/input/event6」。マウスデバイスの位置は環境毎の差異があるので「hexdump /dev/input/event6」のように探す。
   [LTsv_mouse_EV_KEY|                 マウスボタンなどの入力をWindowsのGetAsyncKeyStateの1,2,4みたいにキーコード($00〜$FF)風に処理するための仮想キーコードの設定。
    BTN_LEFT:0x110	unused:250    マウスのボタン１(いわゆる左クリック「MouseL」)をキーコード250に設定する。
    BTN_RIGHT:0x111	unused:251    マウスのボタン２(いわゆる右クリック「MouseR」)をキーコード251に設定する。
@@ -1028,7 +1029,7 @@ version 20160423S022604
   「combobox」の項目を変更。
 
  LTsv_combobox_new(LTsv_windowPAGENAME,widget_n=None,event_b=None,widget_x=0,widget_y=0,widget_w=16,widget_h=16,widget_f=None)
-  GUIオブジェクト「combobox」を作成。項目を選択。項目変更でイベント。「Tkinter」は未実装。
+  GUIオブジェクト「combobox」を作成。項目を選択。項目変更でイベント。「Tkinter」版は未実装。
 
  LTsv_canvas_new(LTsv_windowPAGENAME,widget_n=None,widget_x=0,widget_y=0,widget_w=16,widget_h=16,event_p=None,event_r=None,event_e=None,event_m=None,event_l=None,event_w=100)
   GUIオブジェクト「canvas」を作成。画像やテキストの表示。マウスクリックやマウスポインタの移動でイベント。
@@ -1058,12 +1059,17 @@ version 20160423S022604
  LTsv_draw_canvas_save(LTsv_canvasPAGENAME,LTsv_picturenewpath)
   「LTsv_canvas_new()」の「canvas」を画像保存。png推奨。
 
- LTsv_drawGTK_selcanvas(LTsv_canvasPAGENAME); LTsv_drawTkinter_selcanvas(LTsv_canvasPAGENAME,draw_g="LTsv_draw_tkTAG")
+ LTsv_drawGTK_selcanvas(LTsv_canvasPAGENAME,draw_g="LTsv_draw_tkTAG"); LTsv_drawTkinter_selcanvas(LTsv_canvasPAGENAME,draw_g="LTsv_draw_tkTAG")
   ポリゴン等で絵を描く準備。事前に描画対象の「canvas」を指定する。
-  「Tkinter」の場合描画図形に添付するタグ「LTsv_draw_tkTAG」も指定する。
+  「Tkinter」の場合描画図形に添付するタグ「LTsv_draw_tkTAG」も指定できる。
 
  LTsv_drawGTK_color(draw_c=""); LTsv_drawTkinter_color(draw_c="")
-  「canvas」内のポリゴン等の色指定。
+  「canvas」内のポリゴン等の色指定。初期値は「white」。
+
+ LTsv_drawGTK_delete(draw_c="white"); LTsv_drawTkinter_delete(draw_c="white")
+  「GTK2」だと長方形を上描き描画して図形を消去する。
+  「Tkinter」ではタグ(初期値は「LTsv_draw_tkTAG」)が付けられた図形を消去する。
+  ここで図形の消去に使った色は後述の「LTsv_drawGTK_glyph()」「LTsv_drawTkinter_glyph()」のフォントグリフの穴空けにも使う。
 
  LTsv_drawGTK_polygon(*draw_xy); LTsv_drawTkinter_polygon(*draw_xy)
   「canvas」にポリゴンの描画(ワイヤフレーム)。座標は(x,y,x,y…)とX座標とY座標が交互に来るタプル。
@@ -1072,7 +1078,9 @@ version 20160423S022604
   「canvas」にポリゴンの描画(塗り潰し)。座標は(x,y,x,y…)とX座標とY座標が交互に来るタプル。
 
  LTsv_drawTkinter_fontfill(*draw_xy)
-  LTsv_drawTkinter_polygonfill()」と同じだが「LTsv_drawTkinter_glyphfill()」の実装上の都合で色違いを追加。
+  「LTsv_drawTkinter_color()」ではなく「LTsv_drawTkinter_delete()」で指定した色でポリゴンのを塗りつぶす。
+  後述の「LTsv_drawTkinter_glyph()」のフォントグリフ穴空けに使う。
+  描画関数の色指定が「gdk_gc_set_rgb_fg_color()」の様に独立してるGTK2と「create_polygon()」の描画関数の引数で色指定するTkinterとの仕様の違い調整用途。
 
  LTsv_drawGTK_squares(draw_wh=16,*draw_xy); LTsv_drawTkinter_squares(draw_wh=16,*draw_xy)
   「canvas」にポリゴンの座標で正方形を描画(ワイヤフレーム)。座標は(x,y,x,y…)とX座標とY座標が交互に来るタプル。
@@ -1110,32 +1118,20 @@ LTsv_drawTkinter_arcfill(draw_x,draw_y,draw_w,draw_h,draw_s=-math.pi,draw_e=math
 
  LTsv_clockwise(*draw_xy)
   ポリゴンが時計回りなら正数、反時計回りなら負数、判定できない場合0のカウントを返す。
-  時計回りの判定は簡易的(角度のみ面積無視)なので８の字にねじった形状を扱う場合注意。
+  時計回りの判定は簡易的(角度のみ面積無視)なので８の字にねじった形状や十字手裏剣のような凹みのある形状を扱う場合注意。
 
  LTsv_glyphpath(glyphcode):
   「kanchar.tsv」の「活」項目のフォントパスの座標変換を指示。
   通常は後述の「kanfont_drawGTK_glyph()」「kanfont_drawTkinter_glyph()」から自動呼び出し。
 
  LTsv_drawGTK_glyph(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1); LTsv_drawTkinter_glyph(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1):
-  「kantray5x5comic」フォントをインストールしなくても「kanchar.tsv」からグリフを取得して「canvas」に描画(ワイヤフレーム)。
+  フォント[kantray5x5comic.ttf]を用意しなくても「kanchar.tsv」から直接グリフを取得して「canvas」に描画(ワイヤフレーム)。
   draw_tに文字列。左上座標はdraw_x,draw_y。draw_fでフォントサイズ。draw_wで文字の隙間。draw_hで行間。
 
  LTsv_drawGTK_glyphfill(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1); LTsv_drawTkinter_glyphfill(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1):
-  「kantray5x5comic」フォントをインストールしなくても「kanchar.tsv」からグリフを取得して「canvas」に描画(塗り潰し)。
-  反時計周りのパスは「LTsv_drawGTK_delete()」「LTsv_drawTkinter_delete()」で初期化に使う色。初期値は「draw_c="white"」。
+  フォント[kantray5x5comic.ttf]を用意しなくても「kanchar.tsv」から直接グリフを取得して「canvas」に描画(塗り潰し)。
+  反時計周りのパスは「LTsv_drawGTK_delete()」「LTsv_drawTkinter_delete()」で初期化に使う色。初期値は「white」。
   draw_tに文字列。左上座標はdraw_x,draw_y。draw_fでフォントサイズ。draw_wで文字の隙間。draw_hで行間。
-
- LTsv_draw_delete(LTsv_canvasPAGENAME,draw_g="LTsv_draw_tkTAG")
-  「Tkinter」の「canvas」からタグ(初期値は「LTsv_draw_tkTAG」)が付けられた図形を消去する。
-  「GTK2」だと白い長方形を描画(図形を消去)する。
-
- LTsv_drawGTK_delete(draw_c="white",draw_g="LTsv_draw_tkTAG"); LTsv_drawTkinter_delete(draw_c="white",draw_g="LTsv_draw_tkTAG")
-  「GTK2」だと長方形を上描き描画して図形を消去する。
-  「Tkinter」ではタグ(初期値は「LTsv_draw_tkTAG」)が付けられた図形を消去する。
-  「GTK2」でもdraw_g引数があるのは文法上の都合。
-
- LTsv_draw_queue(LTsv_canvasPAGENAME)
-  「GTK2」で「canvas」の更新を「X window」に通知する。OS(厳密にはX)に描画更新を通知しないと描画が即時反映されません。
 
  LTsv_drawGTK_queue(); LTsv_drawTkinter_queue()
   「GTK2」で「canvas」の更新を「X window」に通知する。OS(厳密にはX)に描画更新を通知しないと描画が即時反映されません。
@@ -1523,6 +1519,9 @@ LTsv_drawTkinter_arcfill(draw_x,draw_y,draw_w,draw_h,draw_s=-math.pi,draw_e=math
  Ａ．GitHubで公開する際にメンテ放棄してるサンプルは削除しないとリポジトリが肥大化すると思ったので。あと[reamde.txt]が長かったので分割。
      今後「kanedit」「kanfast」「LTsv_sound.py」を追加予定なのでサンプルの多様性は回復するかと。
 
+ Ｑ．「sensortray」「DNS8888」を「LTsv9kantray」の「LTsv」で動かそうとするとエラーになります。
+ Ａ．「LTsv_file_ver()」で想定しているバージョン(ブランチ)が違うと実装している関数が事なる場合があります。
+
 
 ３-1． 「L:Tsv」のＦＡＱ
 
@@ -1545,7 +1544,19 @@ LTsv_drawTkinter_arcfill(draw_x,draw_y,draw_w,draw_h,draw_s=-math.pi,draw_e=math
 
 ３-2． 「kantray」のＦＡＱ
 
- Ｑ．漢直と聞いて来たのにキーボード入力が実装されてないのですが(Windows)。
+ Ｑ．漢直と聞いて来たのに漢直モードがエラー吐いてる気がするのですが(Linux)。
+ Ａ．「/dev/input/event」の「0-9」どれがキーボードなのか調べる方法が確立できてないです。
+     「hexdump /dev/input/event3」といった形でキーボードを取得できるか調べる事になります。
+
+     [LTsv/LTsv_kbd.tsv]の「LTsv_deviceL」を修正します。
+     PuppyLinux571JPの場合「kbd	/dev/input/event0」
+     Tahrpup6.0.5の場合「kbd	/dev/input/event3」
+     になると思うのですが環境によって違う値になると思います。
+
+     Linux Input Subsystemの使い方(hexdump /dev/input/event0)
+     http://www.tatapa.org/~takuo/input_subsystem/input_subsystem.html
+
+ Ｑ．漢直と聞いて来たのに漢直モードが実装されてないのですが(Windows)。
  Ａ．PythonでWindowsをキーフックする方法は今だ調査中です。あとTkinterで通知タスクトレイ(Notify)クリックからのポップアップメニュー出現方法も不明です。
      もしかしたら今後のWindows環境では漢直が作れないかもの懸念も抱えてます(法人じゃないとWindowsドライバの証明書が取れないはず)。
 
