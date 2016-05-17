@@ -63,12 +63,15 @@ target/
 
 
 # git push github:ooblog/LTsv9kantray.git master
-# git push github:ooblog/LTsv9kantray.git 20160423S022604
+# git push github:ooblog/LTsv9kantray.git 20160517T141820
 # git log
+# git ls-files
 # git commit -a -m ""
 # git branch
 # git checkout master
-# git merge 20160423S022604
+# git merge 20160517T141820
+# git branch -d 20160517T141820
+# git push github:ooblog/LTsv9kantray.git :20160517T141820
 kanfont.svg
 kanzip.tsv
 kanzip/
