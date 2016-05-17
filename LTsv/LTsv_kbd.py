@@ -73,8 +73,8 @@ LTsv_keyboard_kanmapN,LTsv_keyboard_kanmapX,LTsv_keyboard_kandic={},{},""
 
 LTsv_grabflagdef=0
 LTsv_EVIOCGRAB        =0x40044590
-LTsv_defkbddevpath    ="/dev/input/event0"; LTsv_kbddevpath=LTsv_defkbddevpath
-LTsv_defmousedevpath  ="/dev/input/event0"; LTsv_mousedevpath=LTsv_defmousedevpath
+LTsv_defkbddevpath    ="/dev/input/event3"; LTsv_kbddevpath=LTsv_defkbddevpath
+LTsv_defmousedevpath  ="/dev/input/event6"; LTsv_mousedevpath=LTsv_defmousedevpath
 LTsv_kbdhands         =None
 LTsv_mousehands       =None
 LTsv_INPUTEVENT_unpack=b"QhhL" if sys.version_info.major == 2 else "QhhL"
@@ -131,10 +131,12 @@ def LTsv_kbdreset(LTsv_tsvpath):
     if len(LTsv_deviceL_page) > 0:
         LTsv_kbddevpath=LTsv_readlinerest(LTsv_deviceL_page,"kbd")
         LTsv_mousedevpath=LTsv_readlinerest(LTsv_deviceL_page,"mouse")
-    if not os.path.exists(LTsv_kbddevpath):
-        LTsv_kbddevpath=LTsv_defkbddevpath
-    if not os.path.exists(LTsv_mousedevpath):
-        LTsv_mousedevpath=LTsv_defmousedevpath
+#    if not os.path.exists(LTsv_kbddevpath):
+#        LTsv_kbddevpath=LTsv_defkbddevpath
+    LTsv_kbddevpath=LTsv_defkbddevpath
+#    if not os.path.exists(LTsv_mousedevpath):
+#        LTsv_mousedevpath=LTsv_defmousedevpath
+    LTsv_mousedevpath=LTsv_defmousedevpath
     LTsv_typenameW_page=LTsv_getpage(LTsv_kbdltsv,"LTsv_typenameW")
     if len(LTsv_typenameW_page) > 0:
         for LTsv_code in range(256):
