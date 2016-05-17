@@ -4,13 +4,13 @@ enter	LF
 tab	8
 program	kanfont
 LTsvver	20160423S022604
-modify	20160514S064648
+modify	20160517T134555
 |L:Tsv]
 
 [kanfont|
 find_alpha	α
 find_dic	代
-find_char	呂
+find_char	ぱ
 svg_name	kanfont.svg
 font_name	kantray5x5comic
 font_widths	1024	624
