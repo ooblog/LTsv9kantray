@@ -25,6 +25,8 @@ readme			Q.この[kanword.tsv]は何ですか。 A.日本語入力「kantray」�
 キリル			АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ
 キリルコモジ		абвгдеёжзийклмнопрстуфхцчшщъыьэюя
 キリルオオモジ		АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ
+base64		ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=
+ベースロクヨン		ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=
 カンタイジ		簡体字
 ハンタイジ		繁体字
 チュノム			字喃

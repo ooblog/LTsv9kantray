@@ -1,11 +1,11 @@
 「LTsv9kantray(tsvtool9)」は「L:Tsv」の読み書きを中心としたモジュール群と漢字入力「kantray」のPythonによる実装です。
-version(branch) 20160423S022604
+version(branch) 20160517T141820
 
 目次
 
  ０-0． ライセンス及びソフトの使用の補足ガイドライン
  ０-1． インストール＆アンインストール方法・その他セットアップ方法
- ０-2． バージョン「20160314M010029(それ以前も含む)」から「20160423S022604」への変更にあたる注意点など。
+ ０-2． バージョン「20160423S022604(それ以前も含む)」から「20160517T141820」への変更にあたる注意点など。
  ０-3． その他現在わかっている不具合や今後の課題。
  １-0a．「L:Tsv」の解説(このドキュメントは「kantray」ではなく「L:Tsv」をメインに書いてます)。
  １-0b．「L:Tsv」ファイルの構造。
@@ -55,19 +55,10 @@ version(branch) 20160423S022604
  [LTsv/LTsv_kbd.tsv]の「LTsv_deviceL」の「/dev/input/event」を「(hexdump /dev/input/event3」の要領で修正。
 
 
-０-2． バージョン「20160328M231906(それ以前も含む)」から「20160423S022604」への変更にあたる注意点など。
+０-2． バージョン「20160423S022604(それ以前も含む)」から「20160517T141820」への変更にあたる注意点など。
 
- [readme.txt]を[README.md][LTsv.txt][kantray.txt]の３ファイルに分割。
- 「L;Tsv」関連を「LTsv」フォルダに格納。「sys.path.append("LTsv")」を付加。
- Wine関連のBashは「wine_sh」フォルダに格納。
- アイコン関連は「icon」フォルダに格納。
- 「LTsv_savedir()」「LTsv_savedirs()」追加。「LTsv_savefile()」「LTsv_saveplain()」ファイル保存時のフォルダ作成を半自動で(os.mkdirを使った１階層)。
- 「LTsv_file_ver()」以外のバージョン関数などをリソースの都合で省略。
- 「LTsv_draw_picture_W」「LTsv_draw_picture_H」を「LTsv_global_pictureW」「LTsv_global_pictureH」に移行。
- 「LTsv_draw_color()」の撤去。
- 「LTsv_puppy_issue」の廃止。
- 「LTsv_drawGTK_glyph」「LTsv_drawTkinter_glyph」追加。フォントのインストール無しに「kantray5x5comic」を表示可能。
  開発環が「Python2.7.3(PuppyLinux571JP)およびPython3.4.3(Wine1.7.18)」から「Python 2.7.6(Tahrpup6.0.5)およびPython3.4.4(Wine1.7.18)」に移行。
+ 「LTsv_window_new()」の「event_z」でウィンドウサイズ変更に対応。
 
 
 ０-3． その他現在わかっている不具合や今後の課題。
@@ -174,7 +165,7 @@ version(branch) 20160423S022604
   データ破損を補完する機能はないので注意。
 
  LTsv_printf_ver()
-   [LTsv_printf.py]のバージョン表示(20160423S022604)。
+   [LTsv_printf.py]のバージョン表示(20160517T141820)。
 
 
 １-2． [LTsv_file.py]の関数一覧
@@ -350,14 +341,14 @@ version(branch) 20160423S022604
   Pythonの辞書「{"label":data,"label":data,…}」をラベル有りLTSV「label:data	label:data	…」に。dataは文字列化。
 
  LTsv_file_ver()
-  [LTsv_file.py]のバージョン表示(20160423S022604)。
+  [LTsv_file.py]のバージョン表示(20160517T141820)。
 
 
 １-3a．[LTsv_time.py]の関数一覧
 
  日時フォーマットモジュールです。FPSも扱います。徹夜日時という概念があります。
  ・とりあえず日時を取得する場合は「LTsv_getdaytimestr(overhour=24,diffminute=0)」で。
- ・20160423S022604形式(@000y@0m@0dm@wdec@0h@0n@0s)だと困るのであればフォーマット指定。
+ ・20160517T141820形式(@000y@0m@0dm@wdec@0h@0n@0s)だと困るのであればフォーマット指定。
  ・徹夜日時とは正子(夜中の午前0時)を24時として日付を切り替えずに25時(夜中の1時)、26時(夜中の2時)…と時だけが過ぎる状態です。
  ・ISOカレンダーの週はISO8601の1月4日を含む週(最初の木曜日を含む週)を第1週と数える方法。曜日は月曜から始まるので土日は週末。ISOカレンダーの曜は月曜が1で土曜が6、日曜が7。
  ・単体風テストでは複数の日時フォーマットを用いて関数群の挙動確認ができます。
@@ -394,7 +385,7 @@ version(branch) 20160423S022604
   追加オプションでLTsv_overhour(徹夜日時)とLTsv_diffminute(時差)の設定を上書きできる。
 
  LTsv_putdaytimever(LTsv_verstr,overhour=None,diffminute=None)
-  「LTsv_time_ver()」などの「20160423S022604」形式(@000y@0m@0dm@wdec@0h@0n@0s)をLTsv_meridian_nowに格納。各種日時変数も計算。
+  「LTsv_time_ver()」などの「20160517T141820」形式(@000y@0m@0dm@wdec@0h@0n@0s)をLTsv_meridian_nowに格納。各種日時変数も計算。
   追加オプションでLTsv_overhour(徹夜日時)とLTsv_diffminute(時差)の設定を上書きできる。
 
  LTsv_putdaytimenow(overhour=None,diffminute=None)
@@ -888,9 +879,9 @@ version(branch) 20160423S022604
    widgetsizeY(widget_y)              GUIオブジェクトのウィンドウ内Y座標。
    widgetsizeW(widget_w)              GUIオブジェクトの横幅。
    widgetsizeH(widget_h)              GUIオブジェクトの縦幅。
-   widgetresize(widget_r)             「window」のサイズ変更許可。
    widgetcontainer(widget_c)          「LTsv_widgetOBJ[str(LTsv_widgetOBJcount)]」で管理されるオブジェクト配置するルールを格納するコンテナオブジェクト。
-   widgetcallback(event_b)            「LTsv_widgetOBJ[str(LTsv_widgetOBJcount)]」で管理されるコールバック関数(例えば「button」を押した時に呼び出す関数)。
+   widgetresize(event_z)             「LTsv_widgetOBJ[str(LTsv_widgetOBJcount)]」で管理される「window」のサイズ変更時のコールバック関数。
+   widgetcallback(event_b)            「LTsv_widgetOBJ[str(LTsv_widgetOBJcount)]」で管理される何かしらのコールバック関数(例えば「button」を押した時に呼び出す関数)。
    mouse_press(event_p)               「LTsv_widgetOBJ[str(LTsv_widgetOBJcount)]」で管理される「canvas」でマウスボタンを押した時のコールバック関数。
    mouse_release(event_r)             「LTsv_widgetOBJ[str(LTsv_widgetOBJcount)]」で管理される「canvas」でマウスボタンを離した時のコールバック関数。
    mouse_enter(event_e)               「LTsv_widgetOBJ[str(LTsv_widgetOBJcount)]」で管理される「canvas」にマウスポインタが入った時のコールバック関数。
@@ -914,13 +905,13 @@ version(branch) 20160423S022604
  LTsv_tkinter_hideondelete_shell(LTsv_windowPAGENAME)
   「Tkinter」でウィンドウの閉じるボタンを押してもプログラム続行するようにする(ウィンドウを隠すhide_on_delete)。
 
- LTsv_window_new(widget_n=None,event_b=None,widget_t="LTsv_window",widget_w=200,widget_h=120,widget_r=False)
+ LTsv_window_new(widget_n=None,event_b=None,widget_t="LTsv_window",widget_w=200,widget_h=120,event_z=None)
   「window」GUIオブジェクトを作成。通常「event_b=LTsv_window_exit」が必要。「widget_b=None」の場合「gtk_widget_hide_on_delete」。
   「widget_b=LTsv_window_exit」を使わないケースはウィンドウを閉じた後に別のコールバック関数でセーブする場合や通知タスクトレイ(Notify)に常駐する場合です。
   「LTsv_window_new()」のウィンドウを閉じた後に別のコールバック関数を指定した場合そのコールバック関数の最後に設定。
   「LTsv_widget_showhide()」でウィンドウを表示して「LTsv_window_main()」で待機させるまでが「window」作成の基本。
   「LTsv_window_main()」実行前に「print()」「LTsv_libc_printf()」などターミナル(stdout)系の命令があるとGUIが起動しない場合があります。
-  「widget_r=True」でウィンドウのサイズ変更できますが、サイズ変更のイベントは未実装だし、GUIオブジェクトの再配置は調査中です。
+  「widget_r」にコールバック関数を指定する事でウィンドウのサイズ変更できますが、可変レイアウトには対応してないので注意。
 
  LTsv_widget_settext(LTsv_widgetPAGENAME,widget_t="")
   GUIオブジェクトの文字列を設定。
@@ -979,6 +970,9 @@ version(branch) 20160423S022604
  LTsv_screen_w(LTsv_windowPAGENAME); LTsv_screen_h(LTsv_windowPAGENAME)
   ディスプレイの縦サイズ横サイズ。
   「Tkinter」ではルートウィンドウが設置されてからでないと「winfo_vrootwidth()」「winfo_vrootheight()」が使えないので注意。
+
+ LTsv_window_wh(LTsv_windowPAGENAME); LTsv_window_w(LTsv_windowPAGENAME); LTsv_window_h(LTsv_windowPAGENAME)
+  ウィンドウの縦サイズ横サイズ。
 
  LTsv_label_new(LTsv_windowPAGENAME,widget_n=None,widget_t="LTsv_label",widget_x=0,widget_y=0,widget_w=16,widget_h=16,widget_f=None)
   GUIオブジェクト「label」を作成。テキストを表示。

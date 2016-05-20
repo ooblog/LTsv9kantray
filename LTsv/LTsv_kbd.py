@@ -299,7 +299,7 @@ def LTsv_kbdEVIOCGRAB(LTsv_grabflag):
                 LTsv_grabflagdef = LTsv_grabflag
                 fcntl.ioctl(LTsv_kbdhands,LTsv_EVIOCGRAB,LTsv_grabflag)
 
-def LTsv_kbdwrite(LTsv_code,LTsv_value):
+def LTsv_kbdwrite(LTsv_code,LTsv_press):
     global LTsv_kbdhands,LTsv_INPUTEVENT,LTsv_timeval
     if sys.platform.startswith("win"):
         pass
@@ -308,7 +308,7 @@ def LTsv_kbdwrite(LTsv_code,LTsv_value):
             LTsv_kbdeve,LTsv_kbdtim=LTsv_INPUTEVENT,LTsv_timeval
             LTsv_meridian_now=datetime.datetime.now()
             LTsv_kbdtim.tv_sec,LTsv_kbdtim.tv_usec=LTsv_meridian_now.second,LTsv_meridian_now.microsecond
-            LTsv_kbdeve.time,LTsv_kbdeve.type,LTsv_kbdeve.code,LTsv_kbdeve.value=LTsv_kbdtim,LTsv_EV_KEY,min(max(LTsv_code,0),255),min(max(LTsv_value,0),1)
+            LTsv_kbdeve.time,LTsv_kbdeve.type,LTsv_kbdeve.code,LTsv_kbdeve.value=LTsv_kbdtim,LTsv_EV_KEY,min(max(LTsv_code,0),255),min(max(LTsv_press,0),1)
             LTsv_kbdeve_pack=bytearray([])
 #            LTsv_kbdeve_pack.extend(struct.pack("Q",Tsv_kbdtim))
             LTsv_kbdeve_pack.extend(struct.pack("L",LTsv_kbdtim.tv_sec))
@@ -468,7 +468,7 @@ if __name__=="__main__":
     print("")
     LTsv_kbdinit()
     print("LTsv_kbdinit()")
-    LTsv_kbdEVIOCGRAB(10)
+    LTsv_kbdEVIOCGRAB(1)
     for j in range(10):
         LTsv_setkbddata(25,0)
         LTsv_kf=LTsv_getkbdlabels().replace('\t',' ').replace('た','\nた').replace('ち','\nち').replace('つ','\nつ').replace('NFER','\nNFER')

@@ -119,12 +119,12 @@ def kantray_direct(callback_void=None,callback_ptr=None):
                                 kantray_direct_char(keyboard_kanmapN[keyboard_iroha[keyboard_cursorIR]][LTsv_keyboard_iroha.index(IROHAs)])
                             else:
                                 kantray_direct_char(keyboard_kanmapX[keyboard_iroha[keyboard_cursorIR]][LTsv_keyboard_iroha.index(IROHAs)])
-                if kantray_KEYNAMEsOLD != kantray_KEYNAMEs:
-                    for KEYNAMEs in kantray_KEYNAMEsOLD:
-                        if KEYNAMEs in kantray_input_OTHER.split('\t'):
-                            LTsv_kbdEVIOCGRAB(0)
-                            LTsv_kbdwriteCtrl(KEYNAMEs)
-                            LTsv_kbdEVIOCGRAB(1)
+#                if kantray_KEYNAMEsOLD != kantray_KEYNAMEs:
+#                    for KEYNAMEs in kantray_KEYNAMEsOLD:
+#                        if KEYNAMEs in kantray_input_OTHER.split('\t'):
+#                            LTsv_kbdEVIOCGRAB(0)
+#                            LTsv_kbdwriteCtrl(KEYNAMEs)
+#                            LTsv_kbdEVIOCGRAB(1)
             kantray_IROHAsOLD,kantray_KEYNAMEsOLD=kantray_IROHAs,kantray_KEYNAMEs
     if kantray_kbdSandSDraw != kantray_kbdSandS:
         kantray_kbdSandSDraw=kantray_kbdSandS

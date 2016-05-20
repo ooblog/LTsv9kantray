@@ -1,11 +1,11 @@
 「LTsv9kantray(tsvtool9)」は「L:Tsv」の読み書きを中心としたモジュール群と漢字入力「kantray」のPythonによる実装です。
-version(branch) 20160423S022604
+version(branch) 20160517T141820
 
 目次
 
  ０-0． ライセンス及びソフトの使用の補足ガイドライン
  ０-1． インストール＆アンインストール方法・その他セットアップ方法
- ０-2． バージョン「20160314M010029(それ以前も含む)」から「20160423S022604」への変更にあたる注意点など。
+ ０-2． バージョン「20160423S022604(それ以前も含む)」から「20160517T141820」への変更にあたる注意点など。
  ０-3． その他現在わかっている不具合や今後の課題。
  １-0． 「漢直」の解説(このドキュメントは「L:Tsv」ではなく「kantray」をメインに書いてます)。
  １-1a．「漢直モード(キーボード)」と「貼付モード(マウス)」の切替。特にパスワードなどの情報を入力する際の警告。
@@ -23,11 +23,12 @@ version(branch) 20160423S022604
  ２-2a. 「kanfont」基本操作方法
  ２-2b. 設定ファイル[kanfont.tsv]の解説
  ２-3.  「kanzip」基本操作方法
+ ２-4.  「kanedit」準備中
  ３-0． 漢直ＦＡＱ
  ３-1． 「kantray」のＦＡＱ
  ３-2． 「kanfont」と「kantray5x5comic」ＦＡＱ
  ３-3． 「kantzip」のＦＡＱ
- ３-4． Ｑ．辞書作成の際に参考になったサイトとか教えていただけますか？
+ ３-4． 「kanedit」のＦＡＱ
  ４．   作者について、例えば連絡先。
 
 ０-0． ライセンス及びソフトの使用の補足ガイドライン
@@ -55,24 +56,24 @@ version(branch) 20160423S022604
  セットアップ方法の詳細は[LTsv.txt]の「０-1． インストール＆アンインストール方法・その他セットアップ方法」を参考。
 
 
-０-2． バージョン「20160314M010029(それ以前も含む)」から「20160423S022604」への変更にあたる注意点など。
+０-2． バージョン「20160423S022604(それ以前も含む)」から「20160517T141820」への変更にあたる注意点など。
 
  「kanzip」の都道府県アイコンをF080-F0AFのUnicode私用領域を用いたフォントアイコンで実装。
  「LTsv_drawGTK_glyph」「LTsv_drawTkinter_glyph」を用いてるのでフォントを用いずに表示。
+ 「kantray」がマウス専用になるかもしれないので「kanedit」準備開始。
 
 
 ０-3． その他現在わかっている不具合や今後の課題。
 
-※「PuppyLinux571JP」と同じ方法が「Tahrpup6.0.5」で使えなかったのでキーボード入力は一旦保留にしました。  
+※「PuppyLinux571JP」と同じ方法が「Tahrpup6.0.5」で使えなかったのでキーボード入力は一旦保留にしました。
  「漢直モード」の実装方法がコピペ([Ctrl]+[V]paste)なのでクリップボード盗聴の脆弱性があります。パスワード等秘匿性の高い内容入力時には一時的に「貼付モード」できれば「kantray」を一旦停止すべきです。
  [kanmap.png]の「サ・ソ・ヒ・コ・ミ・ネ・ル」が今だにドット絵書いてる途中です。
- 漢直タインピング学習ソフト「kanfast」も用意する予定。ただし音源管理全般が未着手。
  「探」コマンドは「異→簡→繁→代」の順番で探すので「探铺」した時に「鋪」ではなく「舗」が検索されてしまいます。
- 「kantray」を２つ以上起動した状態で「漢直モード」と「貼付モード」が混在するとキーボード操作が困難になります。
  TkinterはBMP外(基本多言語面0xffff以上)の漢字を正しく扱えないので「kantray」「kanfont」で機能制限があります。その他不具合も発生するかもしれません。
  Tkinterで通知タスクトレイ(Notify)クリックからのポップアップメニュー出現方法が不明なので、「kantray」の「漢直モード」は当面Linux版のみになります。
  その他「L:Tsv」モジュールに起因する詳細は[LTsv.txt]の「０-3． その他現在わかっている不具合や今後の課題。」も参考。
  「L:Tsv」をgit-subtree化できるように「kantray」の内容はなるだけ[kantray.txt]に移動したい(ドキュメント未整理の部分あり)。
+ 漢直タインピング学習ソフト「kanfast」で使う予定の音源管理全般が未着手。
 
 
 １-0． 「漢直」の解説(このドキュメントは「L:Tsv」ではなく「kantray」をメインに書いてます)。
@@ -92,6 +93,7 @@ version(branch) 20160423S022604
 
 １-1a．「漢直モード(キーボード)」と「貼付モード(マウス)」の切替。特にパスワードなどの情報を入力する際の警告。
 
+※「PuppyLinux571JP」と同じ方法が「Tahrpup6.0.5」で使えなかったのでキーボード入力は一旦保留にしました。
  [NFER]+[XFER]で「漢直モード(キーボード)」が有効になります。もう一度[NFER]+[XFER]で「貼付モード(マウス)」が有効になります。
  通知タスクトレイ(Notify)ポップアップメニュー操作で「漢直モード(キーボード)」と「貼付モード(マウス)」の切替」を使っても切替可能です。
 
@@ -878,9 +880,9 @@ version(branch) 20160423S022604
   先頭文字が「今」                   日時などを取得。「平,干,年,月,日,週,曜,時,分,秒,今,版,印」の他に先述の日時フォーマットで詳細な指定も可能。
                                      「今年-月-日(週曜)時:分:秒」→「今@000y-@0m-@0dm(@0wnyi@wdj)@0h:@0n:@0s⇔2016-03-01(09火)02:15:15」
                                      「今今」→「今@000y-@0m-@0dm(@0wnyi@wdj)@0h:@0n:@0s⇔2016-03-01(09火)02:15:48」。[kantray.tsv]の「eval_now」を返す。
-                                     「今版」→「今20160423S022604⇔20160423S022604」。[LTsv_time.py]の「LTsv_time_ver()」を返す。
-                                     「今印」→「今@000y@0m@0dm@wdec@0h@0n@0s⇔20160423S022604」。[kantray.tsv]の「eval_branch」を返す。
-                                     「今枝」→「今枝⇔20160423S022604」。「今印」同様に「eval_branch」を返すが、「枝」が含まれてると「今枝」以外が省略される。
+                                     「今版」→「今20160517T141820⇔20160517T141820」。[LTsv_time.py]の「LTsv_time_ver()」を返す。
+                                     「今印」→「今@000y@0m@0dm@wdec@0h@0n@0s⇔20160517T141820」。[kantray.tsv]の「eval_branch」を返す。
+                                     「今枝」→「今枝⇔20160517T141820」。「今印」同様に「eval_branch」を返すが、「枝」が含まれてると「今枝」以外が省略される。
                                      日時の詳しい使い方は「１-3b．日時フォーマットの概要」を参考。
   先頭文字が「⑧」                   UTF-8文字列を256進数としての8点点字(UTF-8点字)に変換。一般的な点字ではないので注意。
                                      「⑧点字に類似したもの⇔⣧⢂⢹⣥⢭⢗⣣⢁⢫⣩⢡⢞⣤⢼⢼⣣⢁⢗⣣⢁⢟⣣⢂⢂⣣⢁⢮」。
@@ -1020,6 +1022,35 @@ version(branch) 20160423S022604
    font_widths                       グリフの全角半角を指定。「kantray5x5comic」の推奨値は「1024	624」。
    font_grid                         グリフキャンバスのグリッドを変更する。「kantray5x5comic」の推奨値は「25」。
    gridimage                         標準グリッドとは別に下書き画像を表示する。
+
+
+２-3.  「kanzip」基本操作方法
+
+ 都道府県の郵便番号と大口事業所個別番号の[*.zip]をダウンロードして[*.csv]を解凍し[*.tsv]に編集し[kanzip.tsv]に一本化までを半手動で行います。
+ 例えばボタンが「事業所」だと[jigyosyo.zip]→[jigyosyo.csv]→[jigyosyo.tsv]→「jigyosyo」の様にボタン名が工程毎に変化します。この辺が手動です。
+ 都道府県の同じ郵便番号は１行にまとめられます。重複部分「都道府県名」「市区町村名」を省略します。
+ 「町域名」が複数行にわたる記述なのか単に複数の地名の羅列なのかは判定せず半角空白で区切るだけなので場合によっては手動修正の必要もあるかもしれません。
+ [*.zip]→[*.csv]工程が進まない場合ダウンロードが失敗してファイルが壊れてるものと思われるので[*.zip]を手動削除して再ダウンロード。
+ 古い[kanzip.tsv]が既にあるとマージボタンの許可が降りないので古い[kanzip.tsv]は手動削除してから[kanzip.py]を再起動。
+ 作業工程中は都道府県アイコン表示状態でウィンドウが固まる(urllibがマルチスレッドではない)ので注意。
+
+  読み仮名データの促音・拗音を小書きで表記するもの - zip圧縮形式 日本郵便
+  http://www.post.japanpost.jp/zipcode/dl/kogaki-zip.html
+
+  郵便番号データの説明 - 日本郵便
+  http://www.post.japanpost.jp/zipcode/dl/readme.html
+
+  事業所の個別郵便番号のダウンロード zip形式 - 日本郵便
+  http://www.post.japanpost.jp/zipcode/dl/jigyosyo/index-zip.html
+
+  大口事業所個別番号データの説明 - 日本郵便
+  http://www.post.japanpost.jp/zipcode/dl/jigyosyo/readme.html
+
+
+２-4.  「kanedit」準備中
+
+ 「kantray」でキーボードデバイスの操作ができずにマウスのみになる危険性に備えて、漢直専用のテキストエディタも用意する予定。
+ 今のところ「LTsv_gui.py」にウィンドウの大きさ変更機能の動作確認程度。
 
 
 ３-0． 漢直ＦＡＱ
@@ -1195,145 +1226,9 @@ version(branch) 20160423S022604
       基本多言語面 - Wikipedia
       https://ja.wikipedia.org/wiki/%E5%9F%BA%E6%9C%AC%E5%A4%9A%E8%A8%80%E8%AA%9E%E9%9D%A2
 
-
- ２-3.  「kanzip」基本操作方法
-
- 都道府県の郵便番号と大口事業所個別番号の[*.zip]をダウンロードして[*.csv]を解凍し[*.tsv]に編集し[kanzip.tsv]に一本化までを半手動で行います。
- 例えばボタンが「事業所」だと[jigyosyo.zip]→[jigyosyo.csv]→[jigyosyo.tsv]→「jigyosyo」の様にボタン名が工程毎に変化します。この辺が手動です。
- 都道府県の同じ郵便番号は１行にまとめられます。重複部分「都道府県名」「市区町村名」を省略します。
- 「町域名」が複数行にわたる記述なのか単に複数の地名の羅列なのかは判定せず半角空白で区切るだけなので場合によっては手動修正の必要もあるかもしれません。
- [*.zip]→[*.csv]工程が進まない場合ダウンロードが失敗してファイルが壊れてるものと思われるので[*.zip]を手動削除して再ダウンロード。
- 古い[kanzip.tsv]が既にあるとマージボタンの許可が降りないので古い[kanzip.tsv]は手動削除してから[kanzip.py]を再起動。
- 作業工程中は都道府県アイコン表示状態でウィンドウが固まる(urllibがマルチスレッドではない)ので注意。
-
-  読み仮名データの促音・拗音を小書きで表記するもの - zip圧縮形式 日本郵便
-  http://www.post.japanpost.jp/zipcode/dl/kogaki-zip.html
-
-  郵便番号データの説明 - 日本郵便
-  http://www.post.japanpost.jp/zipcode/dl/readme.html
-
-  事業所の個別郵便番号のダウンロード zip形式 - 日本郵便
-  http://www.post.japanpost.jp/zipcode/dl/jigyosyo/index-zip.html
-
-  大口事業所個別番号データの説明 - 日本郵便
-  http://www.post.japanpost.jp/zipcode/dl/jigyosyo/readme.html
-
-
-３-1． 「kantray」のＦＡＱ
-
- Ｑ．漢直と聞いて来たのに漢直モードがエラー吐いてる気がするのですが(Linux)。
- Ａ．「/dev/input/event」の「0-9」どれがキーボードなのか調べる方法が確立できてないです。
-     「hexdump /dev/input/event3」といった形でキーボードを取得できるか調べる事になります。
-
-     [LTsv/LTsv_kbd.tsv]の「LTsv_deviceL」を修正します。
-     PuppyLinux571JPの場合「kbd	/dev/input/event0」
-     Tahrpup6.0.5の場合「kbd	/dev/input/event3」
-     になると思うのですが環境によって違う値になると思います。
-
-     Linux Input Subsystemの使い方(hexdump /dev/input/event0)
-     http://www.tatapa.org/~takuo/input_subsystem/input_subsystem.html
-
- Ｑ．漢直と聞いて来たのに漢直モードが実装されてないのですが(Windows)。
- Ａ．PythonでWindowsをキーフックする方法は今だ調査中です。あとTkinterで通知タスクトレイ(Notify)クリックからのポップアップメニュー出現方法も不明です。
-     もしかしたら今後のWindows環境では漢直が作れないかもの懸念も抱えてます(法人じゃないとWindowsドライバの証明書が取れないはず)。
-
-      Windows10では個人でのドライバ開発が不可能に？ | スラド セキュリティ(「申請書類に会社角印を押印して簡易書留で送付」「電話による所在確認」「審査」というステップが必要)
-      http://security.srad.jp/story/15/11/18/0610220/
-
-      準備OK？　EVコードサイニング証明書の現状とその実際 | OSDN Magazine(ハードウェアデベロッパーセンターにEVコードサイン証明書と企業名の登録を行ってアカウントを開設し、その後Microsoftとの契約を交わす必要がある)
-      https://osdn.jp/magazine/15/11/16/113000
-
-     対策としてテキストエディタ「kanedit」タイピング学習ソフト「kantray」で漢直の世界に触れてもらおうと思います。
-
- Ｑ．通知タスクトレイ(Notify)が左クリックでポップアップメニューが出る事に違和感。
- Ａ．タッチパネルなどマウスに例えるとボタンが１個しかない環境でも常駐アプリを終了できるようにしました。
-
-     左クリックでポップアップメニューは「kantray」だけでなく「LTsv_gui.py」レベルの仕様なので注意。
-
-
-３-2． 「kanfont」と「kantray5x5comic」ＦＡＱ
-
- Ｑ．「FontForge」は必要になるのですか？
- Ｑ．「WOFFコンバータ」は必要になるのですか？
- Ａ．[kantray5x5comic.ttf]の作成予定が無ければ何の問題も。
-    「kanfont」で作成する[kanfont.svg]を[kantray5x5comic.ttf]に変換するには「FontForge」の助けが必要です。
-
-      FontForge
-      http://fontforge.github.io/ja/
-
-     そのFontForgeが動かないWindows環境の場合[kantray5x5comic.woff]を[kantray5x5comic.ttf]に変換。
-
-      WOFFコンバータ
-      http://opentype.jp/woffconv.htm
-
- Ｑ．最初から[kantray5x5comic.ttf]を同梱すればいいのでは？
- Ａ．リポジトリが肥大化しそうなので却下。
-
- Ｑ．「Inkscape」に[kanfont.svg]を読み込ませる方法がわかりません
- Ａ．「Inkscape」には対応してません。直接[kanfont.svg]を「FontForge」に読み込ませてください。
-     SVGフォントパスは左上を0,0とする座標ではなく数学のグラフ同様Y軸の上方向が+1000にアセンダライン、つまり欧文フォントのベースラインが0になってます。
-     グリフキャンバスを縦長方形に拡大してディセンダライン(下方向-200)も編集できるようにしようとも思ってます。
-
- Ｑ．「FontForge」に[kanfont.svg]を読み込ませる方法がわかりません。
- Ａ．「kantray5x5comic」(全角)を読み込んでから「kantray5x5comic_w624」(半角)をマージしてください。
-     「kanfont.svg」を読み込むと「There are multiple fonts in this file,pick one」と表示されます。
-     「kanfont.svg(kantray5x5comic)」を読み込んでから、「Element」→「Merge Fonts」で「kanfont.svg(kantray5x5comic_w624)」をマージ(フォント合成)します。
-     マージしてから 「File」→「Generate Fonts」で[kantray5x5comic.ttf]として保存。
-
- Ｑ．フォント「kantray5x5comic」のインストールが分かりません。
- Ａ．ほとんどの環境では[kantray5x5comic.ttf]をフォントフォルダにコピーするだけ(もしくは上書き)のはずです。
-
-     Windowsの場合
-     C:\Windows\Fonts\kantray5x5comic.ttf
-
-     PuppyLinuxの場合
-     /usr/share/fonts/default/TTF/kantray5x5comic.ttf
-
- Ｑ．フォント「kantray5x5comic」はインストールしなければならないのですか？
- Ａ．設定ファイル[kantray.tsv][kanfont.tsv]を書き換えると任意のフォントが使えるはず。
-     「○○OSには○○フォントが入ってない」「○○フォントには○○記号が入ってない」などの環境依存を回避するために最初からフォントを同梱する作戦です。
-     むしろフォント入れても「Tkinter」で表示できないBMP外(基本多言語面0xffff以上)文字をポリゴン描画で扱う方向で予定です。
-
- Ｑ．「kantray5x5comic」はクセが強いのでもうちょっと普通のデザインで無料なフォントご存知ありませんか。
- Ａ．「Noto Font」おすすめ。
-
-      Google Noto Fonts
-      http://www.google.com/get/noto/
-
-      日本語と中国語のフォントをいれると漢字のほとんどがカバーされるはず。
-      /usr/share/fonts/TTF/NotoSansJP-Regular.otf
-      /usr/share/fonts/TTF/NotoSansHans-Regular.otf
-      /usr/share/fonts/TTF/NotoSansHant-Regular.otf
-
- Ｑ．「kantray5x5comic」はそもそも何でクセが強いのですか。
- Ａ．普通のフォントだと「ぱ(Pa)・ば(Ba)」「へ(ひらがな)・ヘ(カタカナ)」とか、「Ｏ(アルファベット)・Ο(ギリシャ文字)・О(キリル文字)・０(アラビア数字)・〇(漢数字)・○(記号)」とか。見分けが付きづらいグリフになってる気が。
-     漢直タインピング学習ソフト「kanfast」という目標があって「Tkinter」でもBMP外(基本多言語面0xffff以上)の文字を扱いたいのでフォント描画ライブラリとか考えてるので、フォントを自前で用意しなければ。
-     どうせ自作するなら、軽量に描画でき・見た目より見分け・5x5の省スペースでも表示可。という機能優先したのでクセが強いデザインに。
-
- Ｑ．「kantray5x5comic」のcomicって何ナノさ。
- Ａ．仮名と漢字で書体が違うフォント(混植)は漫画で使われる事が多い事に由来。
-     ドットの方は「kantray5x5」45の斜線も併用の方は「kantray5x5remix」って名前で別々に作る予定だったけど時間の都合で一本化。
-
-     ふきだし - Wikipedia(漢字はゴシック体、かなはアンチック体（antique=アンティークの意）となっているのである（これをアンチゴチという）)
-     https://ja.wikipedia.org/wiki/%E3%81%B5%E3%81%8D%E3%81%A0%E3%81%97
-
- Ｑ．[kanmap.tsv]の編集を「kanfont」で１個ずつやれと？
- Ａ．表計算ソフト(例えばgnumericなど)で編集する方が簡単だと思います。「'」記号がエスケープ挙動になるので注意。
-
-
-３-3． 「kantzip」のＦＡＱ
-
- Ｑ．郵便番号辞書[kantzip.tsv]が見つからないっス。
- Ａ．郵便番号辞書(大口事業所個別番号含む)は「kanzip」[kanzip.py]で作成します。「５-3a. [kanzip.py]概要」を参考。
-
- Ｑ．都道府県のアイコンどうにかなりませんか？
- Ａ．「kanedit」「kanfast」を作る過程でポリゴン文字描画モジュールの開発を進めるから「kanfont」で絵文字の実験の時にでも直すかも。
-
-
-３-4． Ｑ．辞書作成の際に参考になったサイトとか教えていただけますか？
-
+ Ｑ．辞書作成の際に参考になったサイトとか教えていただけますか？
  Ａ．他にもYahoo!知恵袋やWeblioやgoo辞書やWikipediaやニコニコ大百科など様々なサイトを参考にしてます。
-     更にここのリスト以外にもURLを貼ってある項目があります(重複を避けるようにしてます)。
+     ここのリスト以外にも上記のどこかにURLを貼ってある項目があります(重複は避けるようにしてます)。
 
   部首 - Wikipedia
   http://ja.wikipedia.org/wiki/%E9%83%A8%E9%A6%96
@@ -1535,6 +1430,121 @@ version(branch) 20160423S022604
 
   基本多言語面 ‐ 通信用語の基礎知識
   http://www.wdic.org/w/WDIC/%E5%9F%BA%E6%9C%AC%E5%A4%9A%E8%A8%80%E8%AA%9E%E9%9D%A2
+
+
+３-1． 「kantray」のＦＡＱ
+
+ Ｑ．漢直と聞いて来たのに漢直モードがエラー吐いてる気がするのですが(Linux)。
+ Ａ．「/dev/input/event」の「0-9」どれがキーボードなのか調べる方法が確立できてないです。
+     「hexdump /dev/input/event3」といった形でキーボードを取得できるか調べる事になります。
+     ※「PuppyLinux571JP」と同じ方法が「Tahrpup6.0.5」で使えなかったのでキーボード入力は一旦保留にしました。
+
+     [LTsv/LTsv_kbd.tsv]の「LTsv_deviceL」を修正します。
+     PuppyLinux571JPの場合「kbd	/dev/input/event0」
+     Tahrpup6.0.5の場合「kbd	/dev/input/event3」
+     になると思うのですが環境によって違う値になると思います。
+
+     Linux Input Subsystemの使い方(hexdump /dev/input/event0)
+     http://www.tatapa.org/~takuo/input_subsystem/input_subsystem.html
+
+ Ｑ．漢直と聞いて来たのに漢直モードが実装されてないのですが(Windows)。
+ Ａ．PythonでWindowsをキーフックする方法は今だ調査中です。あとTkinterで通知タスクトレイ(Notify)クリックからのポップアップメニュー出現方法も不明です。
+     もしかしたら今後のWindows環境では漢直が作れないかもの懸念も抱えてます(法人じゃないとWindowsドライバの証明書が取れないはず)。
+
+      Windows10では個人でのドライバ開発が不可能に？ | スラド セキュリティ(「申請書類に会社角印を押印して簡易書留で送付」「電話による所在確認」「審査」というステップが必要)
+      http://security.srad.jp/story/15/11/18/0610220/
+
+      準備OK？　EVコードサイニング証明書の現状とその実際 | OSDN Magazine(ハードウェアデベロッパーセンターにEVコードサイン証明書と企業名の登録を行ってアカウントを開設し、その後Microsoftとの契約を交わす必要がある)
+      https://osdn.jp/magazine/15/11/16/113000
+
+ Ｑ．通知タスクトレイ(Notify)が左クリックでポップアップメニューが出る事に違和感。
+ Ａ．タッチパネルなどマウスに例えるとボタンが１個しかない環境でも常駐アプリを終了できるようにしました。
+
+     左クリックでポップアップメニューは「kantray」だけでなく「LTsv_gui.py」レベルの仕様なので注意。
+
+
+３-2． 「kanfont」と「kantray5x5comic」ＦＡＱ
+
+ Ｑ．「FontForge」は必要になるのですか？
+ Ｑ．「WOFFコンバータ」は必要になるのですか？
+ Ａ．[kantray5x5comic.ttf]の作成予定が無ければ何の問題も。
+    「kanfont」で作成する[kanfont.svg]を[kantray5x5comic.ttf]に変換するには「FontForge」の助けが必要です。
+
+      FontForge
+      http://fontforge.github.io/ja/
+
+     そのFontForgeが動かないWindows環境の場合[kantray5x5comic.woff]を[kantray5x5comic.ttf]に変換。
+
+      WOFFコンバータ
+      http://opentype.jp/woffconv.htm
+
+ Ｑ．最初から[kantray5x5comic.ttf]を同梱すればいいのでは？
+ Ａ．リポジトリが肥大化しそうなので却下。
+
+ Ｑ．「Inkscape」に[kanfont.svg]を読み込ませる方法がわかりません
+ Ａ．「Inkscape」には対応してません。直接[kanfont.svg]を「FontForge」に読み込ませてください。
+     SVGフォントパスは左上を0,0とする座標ではなく数学のグラフ同様Y軸の上方向が+1000にアセンダライン、つまり欧文フォントのベースラインが0になってます。
+     グリフキャンバスを縦長方形に拡大してディセンダライン(下方向-200)も編集できるようにしようとも思ってます。
+
+ Ｑ．「FontForge」に[kanfont.svg]を読み込ませる方法がわかりません。
+ Ａ．「kantray5x5comic」(全角)を読み込んでから「kantray5x5comic_w624」(半角)をマージしてください。
+     「kanfont.svg」を読み込むと「There are multiple fonts in this file,pick one」と表示されます。
+     「kanfont.svg(kantray5x5comic)」を読み込んでから、「Element」→「Merge Fonts」で「kanfont.svg(kantray5x5comic_w624)」をマージ(フォント合成)します。
+     マージしてから 「File」→「Generate Fonts」で[kantray5x5comic.ttf]として保存。
+
+ Ｑ．フォント「kantray5x5comic」のインストールが分かりません。
+ Ａ．ほとんどの環境では[kantray5x5comic.ttf]をフォントフォルダにコピーするだけ(もしくは上書き)のはずです。
+
+     Windowsの場合
+     C:\Windows\Fonts\kantray5x5comic.ttf
+
+     PuppyLinuxの場合
+     /usr/share/fonts/default/TTF/kantray5x5comic.ttf
+
+ Ｑ．フォント「kantray5x5comic」はインストールしなければならないのですか？
+ Ａ．設定ファイル[kantray.tsv][kanfont.tsv]を書き換えると任意のフォントが使えるはず。
+     「○○OSには○○フォントが入ってない」「○○フォントには○○記号が入ってない」などの環境依存を回避するために最初からフォントを同梱する作戦です。
+     むしろフォント入れても「Tkinter」で表示できないBMP外(基本多言語面0xffff以上)文字をポリゴン描画で扱う方向で予定です。
+
+ Ｑ．「kantray5x5comic」はクセが強いのでもうちょっと普通のデザインで無料なフォントご存知ありませんか。
+ Ａ．「Noto Font」おすすめ。
+
+      Google Noto Fonts
+      http://www.google.com/get/noto/
+
+      日本語と中国語のフォントをいれると漢字のほとんどがカバーされるはず。
+      /usr/share/fonts/TTF/NotoSansJP-Regular.otf
+      /usr/share/fonts/TTF/NotoSansHans-Regular.otf
+      /usr/share/fonts/TTF/NotoSansHant-Regular.otf
+
+ Ｑ．「kantray5x5comic」はそもそも何でクセが強いのですか。
+ Ａ．普通のフォントだと「ぱ(Pa)・ば(Ba)」「へ(ひらがな)・ヘ(カタカナ)」とか、「Ｏ(アルファベット)・Ο(ギリシャ文字)・О(キリル文字)・０(アラビア数字)・〇(漢数字)・○(記号)」とか。見分けが付きづらいグリフになってる気が。
+     漢直タインピング学習ソフト「kanfast」という目標があって「Tkinter」でもBMP外(基本多言語面0xffff以上)の文字を扱いたいのでフォント描画ライブラリとか考えてるので、フォントを自前で用意しなければ。
+     どうせ自作するなら、軽量に描画でき・見た目より見分け・5x5の省スペースでも表示可。という機能優先したのでクセが強いデザインに。
+
+ Ｑ．「kantray5x5comic」のcomicって何ナノさ。
+ Ａ．仮名と漢字で書体が違うフォント(混植)は漫画で使われる事が多い事に由来。
+     ドットの方は「kantray5x5」45の斜線も併用の方は「kantray5x5remix」って名前で別々に作る予定だったけど時間の都合で一本化。
+
+     ふきだし - Wikipedia(漢字はゴシック体、かなはアンチック体（antique=アンティークの意）となっているのである（これをアンチゴチという）)
+     https://ja.wikipedia.org/wiki/%E3%81%B5%E3%81%8D%E3%81%A0%E3%81%97
+
+ Ｑ．[kanmap.tsv]の編集を「kanfont」で１個ずつやれと？
+ Ａ．表計算ソフト(例えばgnumericなど)で編集する方が簡単だと思います。「'」記号がエスケープ挙動になるので注意。
+
+
+３-3． 「kantzip」のＦＡＱ
+
+ Ｑ．郵便番号辞書[kantzip.tsv]が見つからないっス。
+ Ａ．郵便番号辞書(大口事業所個別番号含む)は「kanzip」でzipファイルをダウンロードして[kanzip.tsv]を作成します。「５-3a. [kanzip.py]概要」を参考。
+
+
+３-4． 「kanedit」のＦＡＱ
+
+ Ｑ．「kanedit」で文字を入力する方法がわかりません。
+ Ａ．準備中です。
+     「kantray」等でキーボードデバイスに書き込みができない可能性が出てきたので別のアプローチとして漢直専用エディタも用意する作戦。
+     「kanedit」は今のところ「LTsv_gui.py」に追加した機能の動作確認のみです。
 
 
 ４．   作者について、例えば連絡先。
