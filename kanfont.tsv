@@ -3,8 +3,8 @@ code	UTF-8
 enter	LF
 tab	8
 program	kanfont
-LTsvver	20160423S022604
-modify	20160520F064439
+LTsvver	20160517T141820
+modify	20160523M091830
 |L:Tsv]
 
 [kanfont|
@@ -15,7 +15,7 @@ svg_name	kanfont.svg
 font_name	kantray5x5comic
 font_widths	1024	624
 font_grid	25
-gridimage	kanfont_grid25.png
+gridimage	kanfont_grid25_199.png
 |kanfont]
 
 

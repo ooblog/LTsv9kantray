@@ -124,7 +124,7 @@ def LTsv_widget_newobj(LTsv_widgetpagelocal,LTsv_widgetoption,widget_obj):
     LTsv_widgetOBJ[str(LTsv_widgetOBJcount)]=widget_obj; LTsv_widgetOBJcount+=1
     return LTsv_widgetpagelocal
 
-def LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,widget_o=None,widget_k=None,widget_t=None,widget_u=None,widget_s=None,widget_e=None,widget_a=None,widget_v=None, \
+def LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,widget_o=None,widget_k=None,widget_t=None,widget_u=None,widget_s=None,widget_e=None,widget_a=None,widget_v=None,widget_b=None, \
   widget_p=None,widget_m=None,widget_g=None,widget_f=None,widget_x=None,widget_y=None,widget_w=None,widget_h=None,widget_c=None, \
   event_z=None,event_b=None,event_p=None,event_r=None,event_e=None,event_m=None,event_l=None,event_a=None,event_u=None, \
   menu_o=None,menu_b=None,menu_c=None,kbd_d=None,kbd_g=None,kbd_s=None):
@@ -136,6 +136,7 @@ def LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,widget_o=None,widget_k=None,widget_t=Non
     if widget_e != None:  LTsv_widgetPAGE=LTsv_pushlinerest(LTsv_widgetPAGE,"widgetend",str(widget_e))
     if widget_a != None:  LTsv_widgetPAGE=LTsv_pushlinerest(LTsv_widgetPAGE,"widgetadd",str(widget_a))
     if widget_v != None:  LTsv_widgetPAGE=LTsv_widget_newobj(LTsv_widgetPAGE,"widgetstringvar",widget_v)
+    if widget_b != None:  LTsv_widgetPAGE=LTsv_widget_newobj(LTsv_widgetPAGE,"widgetbooleanvar",widget_b)
     if widget_p != None:  LTsv_widgetPAGE=LTsv_widget_newobj(LTsv_widgetPAGE,"widgetphotoimage",widget_p)
     if widget_m != None:  LTsv_widgetPAGE=LTsv_widget_newobj(LTsv_widgetPAGE,"widgetpixmap",widget_m)
     if widget_g != None:  LTsv_widgetPAGE=LTsv_widget_newobj(LTsv_widgetPAGE,"widgetgc",widget_g)
@@ -246,6 +247,10 @@ def LTsv_widget_settext(LTsv_widgetPAGENAME,widget_t=""):
         if LTsv_GUI == LTsv_GUI_GTK2:     LTsv_libgtk.gtk_label_set_text(LTsv_libgtk.gtk_bin_get_child(widget_o),widget_t.encode("utf-8","xmlcharrefreplace"))
         if LTsv_GUI == LTsv_GUI_Tkinter:  widget_v=LTsv_widgetOBJ[LTsv_readlinerest(LTsv_widgetPAGE,"widgetstringvar")]; widget_v.set(widget_t)
         LTsv_widgetPAGE=LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,widget_t=widget_t)
+    if widget_k == "check":
+        if LTsv_GUI == LTsv_GUI_GTK2:     LTsv_libgtk.gtk_label_set_text(LTsv_libgtk.gtk_bin_get_child(widget_o),widget_t.encode("utf-8","xmlcharrefreplace"))
+        if LTsv_GUI == LTsv_GUI_Tkinter:  widget_v=LTsv_widgetOBJ[LTsv_readlinerest(LTsv_widgetPAGE,"widgetstringvar")]; widget_v.set(widget_t)
+        LTsv_widgetPAGE=LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,widget_t=widget_t)
     if widget_k == "clipboard":
         if LTsv_GUI == LTsv_GUI_GTK2:     LTsv_libgtk.gtk_clipboard_set_text(widget_o,widget_t.encode("utf-8","xmlcharrefreplace"),-1)
         if LTsv_GUI == LTsv_GUI_Tkinter:  widget_o.clipboard_append(widget_t)
@@ -312,6 +317,9 @@ def LTsv_widget_gettext(LTsv_widgetPAGENAME):
     if widget_k == "button":
         if LTsv_GUI == LTsv_GUI_GTK2:     widget_t=ctypes.c_char_p(LTsv_libgtk.gtk_label_get_text(LTsv_libgtk.gtk_bin_get_child(widget_o))).value.decode("utf-8")
         if LTsv_GUI == LTsv_GUI_Tkinter:  widget_t=widget_o.cget("text")
+    if widget_k == "check":
+        if LTsv_GUI == LTsv_GUI_GTK2:     widget_t=ctypes.c_char_p(LTsv_libgtk.gtk_label_get_text(LTsv_libgtk.gtk_bin_get_child(widget_o))).value.decode("utf-8")
+        if LTsv_GUI == LTsv_GUI_Tkinter:  widget_t=widget_o.cget("text")
     if widget_k == "clipboard":
         if LTsv_GUI == LTsv_GUI_GTK2:     widget_t=ctypes.c_char_p(LTsv_libgtk.gtk_clipboard_wait_for_text(widget_o)).value.decode("utf-8")
         if LTsv_GUI == LTsv_GUI_Tkinter:  widget_t=widget_o.clipboard_get()
@@ -344,6 +352,13 @@ def LTsv_widget_setnumber(LTsv_widgetPAGENAME,widget_s=0):
     widget_o=LTsv_widgetOBJ[LTsv_readlinerest(LTsv_widgetPAGE,"widgetobj")]
     widget_k=LTsv_readlinerest(LTsv_widgetPAGE,"widgetkind")
     widget_v=None
+    if widget_k == "check":
+        if LTsv_GUI == LTsv_GUI_GTK2:     LTsv_libgtk.gtk_toggle_button_set_active(widget_o,ctypes.c_int(min(max(int(float(widget_s)),0),1)))
+        if LTsv_GUI == LTsv_GUI_Tkinter:  LTsv_widgetOBJ[LTsv_readlinerest(LTsv_widgetPAGE,"widgetbooleanvar")].set(True if int(float(widget_s)) !=0 else False)
+    if widget_k == "entry":
+        LTsv_widget_settext(LTsv_widgetPAGENAME,widget_t="{0}".format(widget_s))
+    if widget_k == "edit":
+        LTsv_widget_settext(LTsv_widgetPAGENAME,widget_t="{0}".format(widget_s))
     if widget_k == "scale":
         if LTsv_GUI == LTsv_GUI_GTK2:     LTsv_libgtk.gtk_range_set_value(widget_o,ctypes.c_double(int(float(widget_s))))
         if LTsv_GUI == LTsv_GUI_Tkinter:  widget_o.set(int(widget_s))
@@ -360,6 +375,9 @@ def LTsv_widget_getnumber(LTsv_widgetPAGENAME):
     widget_o=LTsv_widgetOBJ[LTsv_readlinerest(LTsv_widgetPAGE,"widgetobj")]
     widget_k=LTsv_readlinerest(LTsv_widgetPAGE,"widgetkind")
     widget_s=0
+    if widget_k == "check":
+        if LTsv_GUI == LTsv_GUI_GTK2:     widget_s=ctypes.c_int(LTsv_libgtk.gtk_toggle_button_get_active(widget_o)).value
+        if LTsv_GUI == LTsv_GUI_Tkinter:   widget_s=1 if LTsv_widgetOBJ[LTsv_readlinerest(LTsv_widgetPAGE,"widgetbooleanvar")].get() == True else 0
     if widget_k == "entry":
         if LTsv_GUI == LTsv_GUI_GTK2:     widget_t=ctypes.c_char_p(LTsv_libgtk.gtk_entry_get_text(widget_o)).value.decode("utf-8")
         if LTsv_GUI == LTsv_GUI_Tkinter:  widget_t=widget_o.get()
@@ -586,6 +604,15 @@ def LTsv_window_h(LTsv_windowPAGENAME):
     window_w,window_h=LTsv_window_wh(LTsv_windowPAGENAME)
     return window_h
 
+def LTsv_window_resize(LTsv_windowPAGENAME,widget_w=16,widget_h=16):
+    global LTsv_widgetLTSV
+    LTsv_windowPAGE=LTsv_getpage(LTsv_widgetLTSV,LTsv_windowPAGENAME)
+    window_o=LTsv_widgetOBJ[LTsv_readlinerest(LTsv_windowPAGE,"widgetobj")]
+    if LTsv_GUI == LTsv_GUI_GTK2:
+        LTsv_libgtk.gtk_window_resize(window_o,widget_w,widget_h)
+    if LTsv_GUI == LTsv_GUI_Tkinter:
+        window_o.geometry("{0}x{1}".format(widget_w,widget_h))
+
 def LTsv_label_new(LTsv_windowPAGENAME,widget_n=None,widget_t="LTsv_label",widget_x=0,widget_y=0,widget_w=16,widget_h=16,widget_f=None):
     global LTsv_widgetLTSV
     LTsv_windowPAGE=LTsv_getpage(LTsv_widgetLTSV,LTsv_windowPAGENAME)
@@ -646,6 +673,30 @@ def LTsv_button_new(LTsv_windowPAGENAME,widget_n=None,event_b=None,widget_t="LTs
         widget_o=Tk.Button(window_o,textvariable=widget_v,command=event_b,font=LTsv_fonttuple(widget_f))
         widget_o.place(x=widget_x,y=widget_y,width=widget_w,height=widget_h)
         LTsv_widgetPAGE=LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,widget_o=widget_o,widget_t=widget_t,widget_v=widget_v,event_b=event_b)
+    LTsv_widgetLTSV=LTsv_putpage(LTsv_widgetLTSV,LTsv_widgetPAGENAME,LTsv_widgetPAGE)
+    return LTsv_widgetPAGENAME
+
+def LTsv_check_new(LTsv_windowPAGENAME,widget_n=None,event_b=None,widget_t="Tsv_check",widget_x=0,widget_y=0,widget_w=16,widget_h=16,widget_f=None):
+    global LTsv_widgetLTSV
+    LTsv_windowPAGE=LTsv_getpage(LTsv_widgetLTSV,LTsv_windowPAGENAME)
+    window_o=LTsv_widgetOBJ[LTsv_readlinerest(LTsv_windowPAGE,"widgetobj")]
+    LTsv_widgetPAGENAME=LTsv_widget_newUUID(widget_n); LTsv_widgetPAGE=""
+    LTsv_widgetPAGE=LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,widget_k="check",widget_t=widget_t,widget_f=widget_f,widget_x=widget_x,widget_y=widget_y,widget_w=widget_w,widget_h=widget_h)
+    if LTsv_GUI == LTsv_GUI_GTK2:
+        widget_o=LTsv_libgtk.gtk_check_button_new_with_label(widget_t.encode("utf-8","xmlcharrefreplace"))
+        window_c=LTsv_widgetOBJ[LTsv_readlinerest(LTsv_windowPAGE,"widgetcontainer")]
+        LTsv_GTKwidget_fixed(window_c,widget_o,widget_x,widget_y,widget_w,widget_h,widget_f,True)
+        widget_cbk=LTsv_CALLBACLTYPE(event_b) if event_b != None else LTsv_CALLBACLTYPE(LTsv_window_none)
+        LTsv_libobj.g_signal_connect_data(widget_o,"clicked".encode("utf-8"),widget_cbk,2,0,0)
+        LTsv_widgetPAGE=LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,widget_o=widget_o,widget_t=widget_t,event_b=widget_cbk)
+    if LTsv_GUI == LTsv_GUI_Tkinter:
+        widget_v=Tk.StringVar()
+        widget_v.set(widget_t)
+        widget_b=Tk.BooleanVar()
+        widget_b.set(False)
+        widget_o=Tk.Checkbutton(window_o,textvariable=widget_v,variable=widget_b,command=event_b,font=LTsv_fonttuple(widget_f))
+        widget_o.place(x=widget_x,y=widget_y,width=widget_w,height=widget_h)
+        LTsv_widgetPAGE=LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,widget_o=widget_o,widget_t=widget_t,widget_v=widget_v,widget_b=widget_b,event_b=event_b)
     LTsv_widgetLTSV=LTsv_putpage(LTsv_widgetLTSV,LTsv_widgetPAGENAME,LTsv_widgetPAGE)
     return LTsv_widgetPAGENAME
 
@@ -1737,7 +1788,7 @@ def debug_canvas(window_objvoid=None,window_objptr=None):
     LTsv_drawtk_color(debug_scaleRGB)
     LTsv_drawtk_polygon(*tuple(debug_polygonpointlist))
     if LTsv9_logoOBJ:
-        LTsv_drawtk_picture(LTsv9_logoPATH,debug_canvas_W-LTsv_global_pictureW(LTsv9_logoPATH),debug_canvas_H-LTsv_global_pictureH(LTsv9_logoPATH))
+        LTsv_drawtk_picture(LTsv9_logoPATH,debug_kanzip_icon_X-LTsv_global_pictureW(LTsv9_logoPATH),debug_canvas_H-LTsv_global_pictureH(LTsv9_logoPATH))
     LTsv_drawtk_queue()
     LTsv_window_after(debug_keysetup_window,event_b=debug_canvas,event_i="debug_canvas",event_w=50)
 
@@ -1800,6 +1851,9 @@ def debug_edit_clip(window_objvoid=None,window_objptr=None):
     LTsv_libc_printf("edit_clip={0}".format(edit_clip))
     LTsv_widget_settext(debug_clipboard,widget_t=edit_clip)
 
+def debug_checkbutton(window_objvoid=None,window_objptr=None):
+    print(LTsv_widget_gettext(debug_check),LTsv_widget_getnumber(debug_check))
+
 
 if __name__=="__main__":
     from LTsv_printf import *
@@ -1837,7 +1891,7 @@ if __name__=="__main__":
             LTsv_drawtk_selcanvas,LTsv_drawtk_color,LTsv_drawtk_font,LTsv_drawtk_text,LTsv_drawtk_picture=LTsv_drawTkinter_selcanvas,LTsv_drawTkinter_color,LTsv_drawTkinter_font,LTsv_drawTkinter_text,LTsv_drawTkinter_picture
             LTsv_drawtk_polygon,LTsv_drawtk_polygonfill,LTsv_drawtk_squares,LTsv_drawtk_circles,LTsv_drawtk_arc=LTsv_drawTkinter_polygon,LTsv_drawTkinter_polygonfill,LTsv_drawTkinter_squares,LTsv_drawTkinter_circles,LTsv_drawTkinter_arc
             LTsv_drawtk_glyph,LTsv_drawtk_glyphfill,LTsv_drawtk_delete,LTsv_drawtk_queue=LTsv_drawTkinter_glyph,LTsv_drawTkinter_glyphfill,LTsv_drawTkinter_delete,LTsv_drawTkinter_queue
-        LTsv9_logoPATH="../icon/LTsv9_logo.png"; LTsv9_logoOBJ=LTsv_draw_picture_load(LTsv9_logoPATH)
+        LTsv9_logoPATH="../icon_cap/LTsv9_logo.png"; LTsv9_logoOBJ=LTsv_draw_picture_load(LTsv9_logoPATH)
         debug_polygonpointlist=[556, 12, 566, 31, 583, 33, 574, 47, 581, 63, 561, 55, 537, 60, 547, 42, 529, 32, 552, 28]
         debug_kanzip_icon_WH=48; debug_kanzip_icon_X,debug_kanzip_icon_Y=debug_canvas_W-debug_kanzip_icon_WH-2,debug_canvas_H-debug_kanzip_icon_WH-2
         debug_keysetup_scaleR=LTsv_scale_new(debug_keysetup_window,widget_x=debug_scale_X+debug_scale_W*0//3,widget_y=debug_scale_Y,widget_w=debug_scale_W//3,widget_h=debug_scale_H,widget_s=0,widget_e=255,widget_a=1,event_b=debug_color_scale)
@@ -1864,6 +1918,7 @@ if __name__=="__main__":
         debug_edit=LTsv_edit_new(debug_keysetup_window,widget_t="",widget_x=0,widget_y=debug_keysetup_H-debug_keyspin_H*4,widget_w=debug_keyspin_W*2,widget_h=debug_keyspin_H*4,widget_f=debug_font_entry)
         debug_clipboard=LTsv_clipboard_new(debug_keysetup_window)
         debug_clipbutton=LTsv_button_new(debug_keysetup_window,widget_t="clip",widget_x=0,widget_y=debug_keysetup_H-debug_keyspin_H*5,widget_w=debug_keyspin_W*1,widget_h=debug_keyspin_H*1,widget_f=debug_font_entry,event_b=debug_edit_clip)
+        debug_check=LTsv_check_new(debug_keysetup_window,widget_t="check",widget_x=debug_keysetup_W-debug_keyspin_W*2,widget_y=debug_keysetup_H-debug_keyspin_H*1,widget_w=debug_keyspin_W*2,widget_h=debug_keyspin_H*1,widget_f=debug_font_entry,event_b=debug_checkbutton)
         if LTsv_GUI == LTsv_GUI_GTK2:
             debug_keysetup_combobox=LTsv_combobox_new(debug_keysetup_window,widget_x=debug_combobox_X,widget_y=debug_combobox_Y,widget_w=debug_combobox_W,widget_h=debug_combobox_H,widget_f=debug_font_entry,event_b=debug_color_combo)
             #/usr/share/X11/rgb.txt

@@ -846,7 +846,7 @@ version(branch) 20160517T141820
  LTsv_widget_newobj(LTsv_widgetpagelocal,LTsv_widgetoption,widget_obj)
   「LTsv_widgetPAGEXYWH()」のオブジェクト管理で番号が被らないようにするカウンタ。
 
- LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,widget_o=None,widget_k=None,widget_t=None,widget_u=None,widget_s=None,widget_e=None,widget_a=None,widget_v=None,
+ LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,widget_o=None,widget_k=None,widget_t=None,widget_u=None,widget_s=None,widget_e=None,widget_a=None,widget_v=None,widget_b=None,
   widget_p=None,widget_m=None,widget_g=None,widget_f=None,widget_x=None,widget_y=None,widget_w=None,widget_h=None,widget_r=None,widget_c=None,
   event_b=None,event_p=None,event_r=None,event_e=None,event_m=None,event_l=None,event_a=None,event_u=None,event_k=None,
   menu_o=None,menu_b=None,kbd_d=None,kbd_g=None,kbd_s=None):
@@ -871,6 +871,7 @@ version(branch) 20160517T141820
    widgetend(widget_e)                「scale」など数値入力系GUIオブジェクトのmax(end)。
    widgetadd(widget_a)                「scale」など数値入力系GUIオブジェクトの増減量。「Tkinter」だと整数だが「GTK2」だと小数指定が可能。
    widgetstringvar(widget_v)          「LTsv_widgetOBJ[str(LTsv_widgetOBJcount)]」で管理されるGUIオブジェクトのテキスト。
+   widgetbooleanvar(widget_b)        「LTsv_widgetOBJ[str(LTsv_widgetOBJcount)]」で管理されるGUIオブジェクトの論理値。
    widgetphotoimage(widget_p)         「LTsv_widgetOBJ[str(LTsv_widgetOBJcount)]」で管理されるGUIオブジェクトの画像。
    widgetpixmap(widget_m)             「canvas」の「LTsv_libgdk.gdk_pixmap_new()」を「LTsv_widgetOBJ[str(LTsv_widgetOBJcount)]」で管理。
    widgetgc(widget_g)                 「canvas」の「LTsv_GDKCOLOR()」を「LTsv_widgetOBJ[str(LTsv_widgetOBJcount)]」で管理。
@@ -906,12 +907,13 @@ version(branch) 20160517T141820
   「Tkinter」でウィンドウの閉じるボタンを押してもプログラム続行するようにする(ウィンドウを隠すhide_on_delete)。
 
  LTsv_window_new(widget_n=None,event_b=None,widget_t="LTsv_window",widget_w=200,widget_h=120,event_z=None)
-  「window」GUIオブジェクトを作成。通常「event_b=LTsv_window_exit」が必要。「widget_b=None」の場合「gtk_widget_hide_on_delete」。
-  「widget_b=LTsv_window_exit」を使わないケースはウィンドウを閉じた後に別のコールバック関数でセーブする場合や通知タスクトレイ(Notify)に常駐する場合です。
+  「window」GUIオブジェクトを作成。通常「event_b=LTsv_window_exit」が必要。「event_b=None」の場合「gtk_widget_hide_on_delete」。
+  「event_b=LTsv_window_exit」を使わないケースはウィンドウを閉じた後に別のコールバック関数でセーブする場合や通知タスクトレイ(Notify)に常駐する場合です。
   「LTsv_window_new()」のウィンドウを閉じた後に別のコールバック関数を指定した場合そのコールバック関数の最後に設定。
   「LTsv_widget_showhide()」でウィンドウを表示して「LTsv_window_main()」で待機させるまでが「window」作成の基本。
   「LTsv_window_main()」実行前に「print()」「LTsv_libc_printf()」などターミナル(stdout)系の命令があるとGUIが起動しない場合があります。
-  「widget_r」にコールバック関数を指定する事でウィンドウのサイズ変更できますが、可変レイアウトには対応してないので注意。
+  「widget_w」「widget_h」で指定できるウィンドウのサイズは最小値。「LTsv_window_resize()」で指定するリサイズとは別。
+  「widget_r」にコールバック関数を指定する事でウィンドウのサイズをマウスで変更できるようになりますが、可変レイアウトには対応してないので注意。
 
  LTsv_widget_settext(LTsv_widgetPAGENAME,widget_t="")
   GUIオブジェクトの文字列を設定。
@@ -974,6 +976,9 @@ version(branch) 20160517T141820
  LTsv_window_wh(LTsv_windowPAGENAME); LTsv_window_w(LTsv_windowPAGENAME); LTsv_window_h(LTsv_windowPAGENAME)
   ウィンドウの縦サイズ横サイズ。
 
+ LTsv_window_resize(LTsv_windowPAGENAME,widget_w=16,widget_h=16)
+  ウィンドウのリサイズ。ウィンドウのサイズをマウスで変更するのと同じで最小値は変化しない。
+
  LTsv_label_new(LTsv_windowPAGENAME,widget_n=None,widget_t="LTsv_label",widget_x=0,widget_y=0,widget_w=16,widget_h=16,widget_f=None)
   GUIオブジェクト「label」を作成。テキストを表示。
 
@@ -982,6 +987,10 @@ version(branch) 20160517T141820
 
  LTsv_button_new(LTsv_windowPAGENAME,widget_n=None,event_b=None,widget_t="LTsv_button",widget_x=0,widget_y=0,widget_w=16,widget_h=16,widget_f=None)
   GUIオブジェクト「button」を作成。ボタンを押すとイベント。
+
+ LTsv_check_new(LTsv_windowPAGENAME,widget_n=None,event_b=None,widget_t="Tsv_check",widget_x=0,widget_y=0,widget_w=16,widget_h=16,widget_f=None):
+  GUIオブジェクト「check」を作成。チェックマークをONOFFするとイベント。
+  「LTsv_widget_setnumber()」「LTsv_widget_getnumber()」でチェックマークのONOFFだが、使用する値は論理値ではなく数値で0か1。
 
  LTsv_clipboard_new(LTsv_windowPAGENAME,widget_n=None)
   オブジェクト「clipboard」を作成。クリップボードを用いたテキスト入力補助。
@@ -1180,8 +1189,11 @@ LTsv_drawTkinter_arcfill(draw_x,draw_y,draw_w,draw_h,draw_s=-math.pi,draw_e=math
   「rgb.txt」からRGBデータを抽出するルーチンはまだ作ってない。
 
  debug_edit_clip(window_objvoid=None,window_objptr=None)
-  単体風テスト専用。クリップボードの動作確認。
+  単体風テスト専用。クリップボード「clipboard」の動作確認。
   Wine上の「Tkinter」でクリップボードの操作が正しく機能してない様子。
+
+ debug_checkbutton(window_objvoid=None,window_objptr=None)
+  単体風テスト専用。チェックボタン「check」の動作確認。
 
 
 １-7b．「kantray」の「貼付モード(マウス)」や「kanfont」などで用いられる「keyboard」GUIの操作方法。

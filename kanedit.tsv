@@ -4,24 +4,21 @@ enter	LF
 tab	8
 program	kantray
 LTsvver	20160517T141820
-modify	20160522U231258
+modify	20160517T141820
 |L:Tsv]
 
-[kantray|
+[kanedit|
+file_last	kanedit.txt
 find_NX	Σ
 find_alpha	σ
 find_dic	名
 find_char	
-direct_notifys	3
-direct_image	kanmap.png
-direct_cellpos	N:0	X:77	NK:75	XK:152	P:76	D:153	S:154
-direct_ONOFF	0
-input_paste	CtrlL	V
-input_cut	CtrlL	X
-input_NFER	NFER
-input_XFER	XFER
-input_KANA	KANA
-input_OTHER	Left	Up	Right	Down	Enter	Tab	Esc	PrtSc	BS	DEL	Home	End	PgUp	PgDn
+window	width:320	height:240
+icon_image	kanmap.png
+icon_fontcolor	#1A1A1A
+icon_bgcolor	#F8F8F8
+icon_cellpos	N:0	X:77	NK:75	XK:152	P:76	D:153	S:154
+ifont_size		12
 eval_calc	Σ
 eval_now	年-月-日(週曜)時:分:秒
 eval_branch	@000y@0m@0dm@wdec@0h@0n@0s
@@ -31,16 +28,14 @@ eval_dakuon	Ｐ
 eval_seion	Ｈ
 eval_entry	
 dic_wordname	kanword.tsv
-dic_zipname	kanzip.tsv
-font_name	kantray5x5comic
-font_size	12
-|kantray]
+dic_zipname		kanzip.tsv
+|kanedit]
 
 [keybind|
-H_Left			Left	// H
-J_Down			Down	// J
+H_Left		Left	// H
+J_Down		Down	// J
 K_Up			Up	// K
-L_Right			Right	// L
+L_Right		Right	// L
 Home			Home	// Y
 End			End	// U
 PgUp			PgUp	// I
@@ -55,17 +50,14 @@ Z+Ctrl		CtrlL	Z	// Z
 X+Ctrl		CtrlL	X	// X
 C+Ctrl		CtrlL	C	// C
 V+Ctrl		CtrlL	V	// V
-<ShiftL		ShiftL	Left	// <
->ShiftR		ShiftL	Right	// >
+<ShiftL	ShiftL	Left	// <
+>ShiftR	ShiftL	Right	// >
 tab!		tab!		// N
-4Space!		4Space!		// G
+4Space!	4Space!	// G
 Eval!		Eval!		// E
-Window!		Window!		// W
-QuickWindow!	QuickWindow!	// Q
 |keybind]
 
 
 # Copyright (c) 2016 ooblog
 # License: MIT
 # https://github.com/ooblog/LTsv9kantray/blob/master/LICENSE
-

@@ -350,7 +350,7 @@ def LTsv_setkbddata(LTsv_kbdstacks,LTsv_mousestacks):
             try:
                 LTsv_mousebyte=os.read(LTsv_mousehands,ctypes.sizeof(LTsv_INPUTEVENT))
             except OSError as err:
-                print("LTsv_setkbddata,OSError({0}):{1}".format(err.errno,err.strerror))
+#                print("LTsv_setkbddata,OSError({0}):{1}".format(err.errno,err.strerror))
                 break
             if LTsv_mousebyte:
                 LTsv_mouseve.time,LTsv_mouseve.type,LTsv_mouseve.code,LTsv_mouseve.value=struct.unpack(LTsv_INPUTEVENT_unpack,LTsv_mousebyte)
