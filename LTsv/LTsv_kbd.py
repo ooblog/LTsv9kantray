@@ -7,6 +7,7 @@ import os
 import sys
 import ctypes
 import struct
+from LTsv_gui import *
 if sys.platform.startswith("linux"):
     import fcntl
 if sys.platform.startswith("win"):
@@ -74,7 +75,7 @@ LTsv_keyboard_kanmapN,LTsv_keyboard_kanmapX,LTsv_keyboard_kandic={},{},""
 LTsv_grabflagdef=0
 LTsv_EVIOCGRAB        =0x40044590
 LTsv_defkbddevpath    ="/dev/input/event3"; LTsv_kbddevpath=LTsv_defkbddevpath
-LTsv_defmousedevpath  ="/dev/input/event6"; LTsv_mousedevpath=LTsv_defmousedevpath
+LTsv_defmousedevpath  ="/dev/input/mice"; LTsv_mousedevpath=LTsv_defmousedevpath
 LTsv_kbdhands         =None
 LTsv_mousehands       =None
 LTsv_INPUTEVENT_unpack=b"QhhL" if sys.version_info.major == 2 else "QhhL"
@@ -129,14 +130,13 @@ def LTsv_kbdreset(LTsv_tsvpath):
     LTsv_kbdltsv=LTsv_loadfile(LTsv_tsvpath)
     LTsv_deviceL_page=LTsv_getpage(LTsv_kbdltsv,"LTsv_deviceL")
     if len(LTsv_deviceL_page) > 0:
-        LTsv_kbddevpath=LTsv_readlinerest(LTsv_deviceL_page,"kbd")
-        LTsv_mousedevpath=LTsv_readlinerest(LTsv_deviceL_page,"mouse")
-#    if not os.path.exists(LTsv_kbddevpath):
-#        LTsv_kbddevpath=LTsv_defkbddevpath
-    LTsv_kbddevpath=LTsv_defkbddevpath
-#    if not os.path.exists(LTsv_mousedevpath):
-#        LTsv_mousedevpath=LTsv_defmousedevpath
-    LTsv_mousedevpath=LTsv_defmousedevpath
+        LTsv_kbddevpath=LTsv_readlinerest(LTsv_deviceL_page,"kbd",LTsv_defkbddevpath)
+        if sys.platform.startswith("linux"):
+            if LTsv_kbddevpath in ["/dev/input/event","/dev/input/event?","/dev/input/event*"]:
+                LTsv_kbddmsg=LTsv_subprocess("dmesg | grep keyboard | grep device",LTsv_subprocess_shell=True)
+                LTsv_posL=LTsv_kbddmsg.find("input/"); LTsv_posR=LTsv_kbddmsg.find('\n')
+                LTsv_kbddevpath="/dev/"+LTsv_kbddmsg[LTsv_posL:LTsv_posR].replace('/input','/event')
+        LTsv_mousedevpath=LTsv_readlinerest(LTsv_deviceL_page,"mouse",LTsv_defmousedevpath)
     LTsv_typenameW_page=LTsv_getpage(LTsv_kbdltsv,"LTsv_typenameW")
     if len(LTsv_typenameW_page) > 0:
         for LTsv_code in range(256):
@@ -466,7 +466,7 @@ if __name__=="__main__":
     for col,val in enumerate(LTsv_typegana.keys()):
         LTsv_libc_printcat("{0}{1}:{2}".format(',' if col%16 !=0 else '\n',val,LTsv_kbdgettypegana(val)))
     print("")
-    LTsv_kbdinit()
+    LTsv_kbdinit("./LTsv_kbd.tsv")
     print("LTsv_kbdinit()")
     LTsv_kbdEVIOCGRAB(1)
     for j in range(10):

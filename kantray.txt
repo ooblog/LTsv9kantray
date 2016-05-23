@@ -1434,18 +1434,20 @@ version(branch) 20160517T141820
 
 ３-1． 「kantray」のＦＡＱ
 
- Ｑ．漢直と聞いて来たのに漢直モードがエラー吐いてる気がするのですが(Linux)。
- Ａ．「/dev/input/event」の「0-9」どれがキーボードなのか調べる方法が確立できてないです。
-     「hexdump /dev/input/event3」といった形でキーボードを取得できるか調べる事になります。
-     ※「PuppyLinux571JP」と同じ方法が「Tahrpup6.0.5」で使えなかったのでキーボード入力は一旦保留にしました。
+ Ｑ．漢直と聞いて来たのに貼付モードの時点でエラー吐いてる気がするのですが(Linux)。
+ Ａ．キーデバイスの読み込みがうまくいかない場合、デバイスを直接指定すれば動くかも。
 
-     [LTsv/LTsv_kbd.tsv]の「LTsv_deviceL」を修正します。
+     [LTsv/LTsv_kbd.tsv]の「LTsv_deviceL」の「/dev/input/event?」を修正します。
      PuppyLinux571JPの場合「kbd	/dev/input/event0」
      Tahrpup6.0.5の場合「kbd	/dev/input/event3」
      になると思うのですが環境によって違う値になると思います。
 
      Linux Input Subsystemの使い方(hexdump /dev/input/event0)
      http://www.tatapa.org/~takuo/input_subsystem/input_subsystem.html
+
+     ※「PuppyLinux571JP」と同じ方法が「Tahrpup6.0.5」で使えなかったのでキーボード入力は一旦保留にしました。
+     キーデバイスの読み込みは可能ですが書き込みの制御ができすキー入力が押しっぱなしに。
+     対策としてデバイス書き込みをしない「kanedit」開発中。
 
  Ｑ．漢直と聞いて来たのに漢直モードが実装されてないのですが(Windows)。
  Ａ．PythonでWindowsをキーフックする方法は今だ調査中です。あとTkinterで通知タスクトレイ(Notify)クリックからのポップアップメニュー出現方法も不明です。

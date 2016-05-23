@@ -52,7 +52,6 @@ version(branch) 20160517T141820
  [kantray5x5comic.ttf]を用意する場合は[kanfont.svg]または[kantray5x5comic.woff]から変換。
  Wineを使う予定がある場合は「wine_sh」フォルダ内の[*.sh]のWineパスを適宜修正。
  ※Pythonは別途インストールされているものとします(Pythonの導入分からない人は「３-0． ＦＡＱ(そもそも起動しないなどの疑問はこちら)」も参考)。
- [LTsv/LTsv_kbd.tsv]の「LTsv_deviceL」の「/dev/input/event」を「(hexdump /dev/input/event3」の要領で修正。
 
 
 ０-2． バージョン「20160423S022604(それ以前も含む)」から「20160517T141820」への変更にあたる注意点など。
@@ -65,8 +64,7 @@ version(branch) 20160517T141820
 
  Python 2.7.6(Tahrpup6.0.5)およびPython3.4.4(Wine1.7.18)で動作を確認しています。Windows,cygwin,darwinなどでの動作は確認しておりません。
  フォント「kantray5x5comic」は半角と全角の幅の比率が約5:3(1024:624)なのでアスキーアートで問題になる場合があります。
- 「/dev/input/event」の「0-9」どれがキーボードなのかマウスなのか手動で確認する必要。マウスホイールの取得は保留。
- tkk方面は手を出さない予定(コンボボックスなどはGTKのみサポート)。
+ マウスホイールの取得は保留。tkk方面は手を出さない予定(コンボボックスなどはGTKのみサポート)。
  [kantray5x5comic.svg]を[kantray5x5comic.ttf]に変換する手段として「FontForge」が必要。直接フォント生成とかできればベストだが優先順位は低い。
  「LTsv_keyboard」とは別に「LTsv_drawGTK_glyph」「LTsv_drawTkinter_glyph」を使ったキーボードも追加したい。
  [kanchar.tsv]に異体字を移管して[kanmap.tsv]を圧縮していく作業は当分続く。現在人名に使える漢字の異体字の字引入力中心に作業中。
@@ -769,9 +767,8 @@ version(branch) 20160517T141820
  １-6b．[LTsv_kbd.tsv]のタグ解説
 
   [LTsv_deviceL|                      Linuxのデバイス指定。
-   joy                                Linuxの場合デバイス名(から数字を省いた物)を指定。初期設定は「/dev/input/js」(「/dev/input/js0」の存在を想定)。
-   kbd                                初期設定は「/dev/input/event3」。キーボードデバイスの位置は環境毎の差異があるので「hexdump /dev/input/event3」のように探す。
-   mouse                              初期想定は「/dev/input/event6」。マウスデバイスの位置は環境毎の差異があるので「hexdump /dev/input/event6」のように探す。
+   kbd                                初期設定は「/dev/input/event?」(dmesgコマンドで調べる)。キーボードデバイスの位置は環境毎の差異があるので「dmesg | grep keyboard | grep device」で確認。
+   mouse                              初期想定は「/dev/input/mice」。マウスデバイスの位置は環境毎の差異があるかもなので「dmesg | grep mouse | grep device」で確認。
   [LTsv_mouse_EV_KEY|                 マウスボタンなどの入力をWindowsのGetAsyncKeyStateの1,2,4みたいにキーコード($00〜$FF)風に処理するための仮想キーコードの設定。
    BTN_LEFT:0x110	unused:250    マウスのボタン１(いわゆる左クリック「MouseL」)をキーコード250に設定する。
    BTN_RIGHT:0x111	unused:251    マウスのボタン２(いわゆる右クリック「MouseR」)をキーコード251に設定する。
@@ -1232,10 +1229,6 @@ LTsv_drawTkinter_arcfill(draw_x,draw_y,draw_w,draw_h,draw_s=-math.pi,draw_e=math
  Ａ．LTsv_window_main()」実行前に「print()」「LTsv_libc_printf()」などターミナル(stdout)系命令が実行されるとGUIが表示されない場合があります。
      回避するには「if __name__=="__main__":」以下の「print」「LTsv_libc_printf」を含む行をコメントアウトするか、
      ターミナルから「# ./LTsv_gui.py」とコマンド起動してみてください。「Geany」でF5でも起動できるはずです。
-
- Ｑ．以前(「LTsv8Py(tsvtool8)」)はマウスボタン右クリックとか使えてましたよね？
- Ａ．マウスのボタン取得は一旦封印しています。結局マウスデバイス「/dev/input/event?」を自動で取得する方法が分からなかったのでマウスの依存を減らしました。
-    デバイスに依存しない「canvas」内でのクリック取得は「event_p」のコールバック関数で取得できます。
 
  Ｑ．バージョン「20160224W182907」にあった「omake」フォルダなぜ消したし。
  Ａ．GitHubで公開する際にメンテ放棄してるサンプルは削除しないとリポジトリが肥大化すると思ったので。あと[reamde.txt]が長かったので分割。
