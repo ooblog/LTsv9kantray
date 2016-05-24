@@ -7,7 +7,7 @@ import os
 import sys
 import ctypes
 import struct
-from LTsv_gui import *
+#from LTsv_gui import *
 if sys.platform.startswith("linux"):
     import fcntl
 if sys.platform.startswith("win"):
@@ -131,11 +131,11 @@ def LTsv_kbdreset(LTsv_tsvpath):
     LTsv_deviceL_page=LTsv_getpage(LTsv_kbdltsv,"LTsv_deviceL")
     if len(LTsv_deviceL_page) > 0:
         LTsv_kbddevpath=LTsv_readlinerest(LTsv_deviceL_page,"kbd",LTsv_defkbddevpath)
-        if sys.platform.startswith("linux"):
-            if LTsv_kbddevpath in ["/dev/input/event","/dev/input/event?","/dev/input/event*"]:
-                LTsv_kbddmsg=LTsv_subprocess("dmesg | grep keyboard | grep device",LTsv_subprocess_shell=True)
-                LTsv_posL=LTsv_kbddmsg.find("input/"); LTsv_posR=LTsv_kbddmsg.find('\n')
-                LTsv_kbddevpath="/dev/"+LTsv_kbddmsg[LTsv_posL:LTsv_posR].replace('/input','/event')
+#        if sys.platform.startswith("linux"):
+#            if LTsv_kbddevpath in ["/dev/input/event","/dev/input/event?","/dev/input/event*"]:
+#                LTsv_kbddmsg=LTsv_subprocess("dmesg | grep keyboard | grep device",LTsv_subprocess_shell=True)
+#                LTsv_posL=LTsv_kbddmsg.find("input/"); LTsv_posR=LTsv_kbddmsg.find('\n')
+#                LTsv_kbddevpath="/dev/"+LTsv_kbddmsg[LTsv_posL:LTsv_posR].replace('/input','/event')
         LTsv_mousedevpath=LTsv_readlinerest(LTsv_deviceL_page,"mouse",LTsv_defmousedevpath)
     LTsv_typenameW_page=LTsv_getpage(LTsv_kbdltsv,"LTsv_typenameW")
     if len(LTsv_typenameW_page) > 0:

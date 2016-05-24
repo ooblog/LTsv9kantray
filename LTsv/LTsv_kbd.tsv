@@ -8,7 +8,7 @@ modify	20160423S022604
 |L:Tsv]
 
 [LTsv_deviceL|
-kbd	/dev/input/event?
+kbd	/dev/input/event3
 mouse	/dev/input/mice
 |LTsv_deviceL]
 # dmesg | grep keyboard | grep device

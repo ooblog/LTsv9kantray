@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import division,print_function,absolute_import,unicode_literals
 import sys
+import subprocess
 import codecs
 import ctypes
 import re
@@ -185,6 +186,24 @@ def LTsv_ink2utf(LTsv_text):
             if sys.version_info.major == 3:
                 LTsv_utftext+=chr(LTsv_unicode)
     return LTsv_utftext
+
+def LTsv_subprocess(LTsv_subprocess_input="",LTsv_subprocess_shell=False):
+    LTsv_subprocess_output=""
+    try:
+        if LTsv_subprocess_shell:
+            if sys.version_info.major == 2:
+                LTsv_subprocess_output=subprocess.check_output(LTsv_subprocess_input,shell=True).decode("utf-8")
+            if sys.version_info.major == 3:
+                LTsv_subprocess_output=subprocess.check_output(LTsv_subprocess_input,shell=True)
+        else:
+            if sys.version_info.major == 2:
+                LTsv_subprocess_output=subprocess.check_output(LTsv_subprocess_input.split(' '),shell=LTsv_subprocess_shell).decode("utf-8")
+            if sys.version_info.major == 3:
+                LTsv_subprocess_output=subprocess.check_output(LTsv_subprocess_input.split(' '),shell=LTsv_subprocess_shell)
+    except subprocess.CalledProcessError as err:
+#        print("subprocess.CalledProcessError({0}):{1}".format(err.returncode,err.output))
+        LTsv_subprocess_output=err.output if err.output != None else ""
+    return LTsv_subprocess_output
 
 
 if __name__=="__main__":

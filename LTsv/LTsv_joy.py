@@ -135,10 +135,10 @@ def LTsv_joyexit():
     for LTsv_joyid in range(LTsv_joyhandmax):
         LTsv_joyaxis[LTsv_joyid],LTsv_joyaxismax[LTsv_joyid],LTsv_joybuttons[LTsv_joyid],LTsv_buttonsmax[LTsv_joyid]=0,[0],0,[0]; 
 
-def LTsv_joyinit():
+def LTsv_joyinit(LTsv_tsvpath="LTsv/LTsv_joy.tsv"):
     global LTsv_joydevpath,LTsv_joyhandmax,LTsv_joyhands,LTsv_joyaxismax,LTsv_joyaxis,LTsv_joybuttons,LTsv_buttonsmax
     LTsv_joyexit()
-    LTsv_joyreset(LTsv_tsvpath="LTsv/LTsv_kbd.tsv")
+    LTsv_joyreset(LTsv_tsvpath)
     LTsv_joycaps=LTsv_JOYCAPS()
     if sys.platform.startswith("win"):
         LTsv_numdev=LTsv_winmm.joyGetNumDevs() if LTsv_winmm.joyGetNumDevs()<=LTsv_JOYHANDMAXLIMIT else LTsv_JOYHANDMAXLIMIT
@@ -271,7 +271,7 @@ if __name__=="__main__":
     LTsv_libc_printf("LTsv_atanclock(-1,0,joylabel)→{0}".format(LTsv_atanclock(-1,0,joylabel)))
     LTsv_libc_printf("LTsv_atanclock(0,-1,joylabel)→{0}".format(LTsv_atanclock(0,-1,joylabel)))
     print("")
-    handmax=LTsv_joyinit()
+    handmax=LTsv_joyinit("./LTsv_joy.tsv")
     for LTsv_joyidcount in range(handmax):
         LTsv_setjoydata(0)
         LTsv_jf=LTsv_getjoystr(0,"status\t{0}\tbutton".format(LTsv_joyaxis_label()))

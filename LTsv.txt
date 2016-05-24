@@ -58,6 +58,7 @@ version(branch) 20160517T141820
 
  開発環が「Python2.7.3(PuppyLinux571JP)およびPython3.4.3(Wine1.7.18)」から「Python 2.7.6(Tahrpup6.0.5)およびPython3.4.4(Wine1.7.18)」に移行。
  「LTsv_window_new()」の「event_z」でウィンドウサイズ変更に対応。
+ 「LTsv_subprocess()」を「LTsv_gui.py」から「LTsv_printf.py」に移動。
 
 
 ０-3． その他現在わかっている不具合や今後の課題。
@@ -164,6 +165,10 @@ version(branch) 20160517T141820
 
  LTsv_printf_ver()
    [LTsv_printf.py]のバージョン表示(20160517T141820)。
+
+ LTsv_subprocess(LTsv_subprocess_input="",LTsv_subprocess_shell=False)
+  ターミナルにコマンドを送る。実行結果も取得できる。
+  「LTsv_subprocess_shell=True」でgrepなどより複雑な事もできるようになるが、インジェクション脆弱性の恐れが発生するので注意。
 
 
 １-2． [LTsv_file.py]の関数一覧
@@ -947,9 +952,6 @@ version(branch) 20160517T141820
   「event_b=None」に関数の指定。「None」にした場合「LTsv_window_none」を空実行。つまり何もしない。
   「event_i="mousemotion」でタグの指定。タイマーは複数設置できるのでタグで分別。
   「event_t=1000」でミリ秒の指定。
-
- LTsv_subprocess(LTsv_subprocess_input="",LTsv_subprocess_shell=False)
-  ターミナルにコマンドを送る。
 
  LTsv_window_foreground()
   アクティブウィンドウのIDを取得する。
