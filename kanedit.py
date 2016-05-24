@@ -35,7 +35,7 @@ def kanedit_redraw():
     global kanedit_fontcolor,kanedit_bgcolor
     LTsv_drawtk_selcanvas(kanedit_canvas); LTsv_drawtk_delete(kanedit_bgcolor)
     LTsv_drawtk_color(kanedit_bgcolor); LTsv_drawtk_polygonfill(0,0,kanedit_W,0,kanedit_W,kanedit_H,0,kanedit_H)
-    LTsv_drawtk_color(kanedit_fontcolor);     LTsv_drawtk_glyphfill("テスト5x5 199 漢字 都道府県",draw_x=0,draw_y=10,draw_f=5,draw_w=1,draw_h=1)
+    LTsv_drawtk_color(kanedit_fontcolor);     LTsv_drawtk_glyphfill("kanfont_grid25_199.png\n北青岩城秋形島茨栃群埼千東神潟富石井梨野岐静愛三滋京阪兵奈和鳥根岡広口徳川媛高福佐長熊分宮鹿沖",draw_x=0,draw_y=5,draw_f=5,draw_w=1,draw_h=1)
     LTsv_drawtk_color(kanedit_fontcolor);     LTsv_drawtk_glyphfill(kanedit_getkbdnames,draw_x=0,draw_y=20,draw_f=20,draw_w=1,draw_h=1)
     LTsv_drawtk_color(kanedit_fontcolor);     LTsv_drawtk_glyphfill("w,h={0},{1}".format(kanedit_W,kanedit_H),draw_x=0,draw_y=40,draw_f=20,draw_w=1,draw_h=1)
 #    LTsv_drawtk_picture("{0}[{1}]".format(kanedit_iconimage,0),kanedit_W-kanedit_iconimage_W,kanedit_H-kanedit_iconimage_H)

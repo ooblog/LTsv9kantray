@@ -1442,7 +1442,7 @@ version(branch) 20160517T141820
      Tahrpup6.0.5の場合「kbd	/dev/input/event3」
      になると思うのですが環境によって違う値になると思います。
 
-     Linux Input Subsystemの使い方(hexdump /dev/input/event0)
+     Linux Input Subsystemの使い方
      http://www.tatapa.org/~takuo/input_subsystem/input_subsystem.html
 
      ※「PuppyLinux571JP」と同じ方法が「Tahrpup6.0.5」で使えなかったのでキーボード入力は一旦保留にしました。

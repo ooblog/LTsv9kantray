@@ -1,17 +1,17 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 from __future__ import division,print_function,absolute_import,unicode_literals
-from LTsv_file import *
 import time
 import os
 import sys
 import ctypes
 import struct
-#from LTsv_gui import *
 if sys.platform.startswith("linux"):
     import fcntl
 if sys.platform.startswith("win"):
     LTsv_user32=ctypes.windll.user32
+from LTsv_file    import *
+from LTsv_printf import *
 
 LTsv_typenameL={ "1":2,"2":3,"3":4,"4":5,"5":6,"6":7,"7":8,"8":9,"9":10,"0":11,"=":12,"^":13,"|":124,
                  "Q":16,"W":17,"E":18,"R":19,"T":20,"Y":21,"U":22,"I":23,"O":24,"P":25,"@":26,"{":27,
@@ -131,12 +131,17 @@ def LTsv_kbdreset(LTsv_tsvpath):
     LTsv_deviceL_page=LTsv_getpage(LTsv_kbdltsv,"LTsv_deviceL")
     if len(LTsv_deviceL_page) > 0:
         LTsv_kbddevpath=LTsv_readlinerest(LTsv_deviceL_page,"kbd",LTsv_defkbddevpath)
-#        if sys.platform.startswith("linux"):
-#            if LTsv_kbddevpath in ["/dev/input/event","/dev/input/event?","/dev/input/event*"]:
-#                LTsv_kbddmsg=LTsv_subprocess("dmesg | grep keyboard | grep device",LTsv_subprocess_shell=True)
-#                LTsv_posL=LTsv_kbddmsg.find("input/"); LTsv_posR=LTsv_kbddmsg.find('\n')
-#                LTsv_kbddevpath="/dev/"+LTsv_kbddmsg[LTsv_posL:LTsv_posR].replace('/input','/event')
         LTsv_mousedevpath=LTsv_readlinerest(LTsv_deviceL_page,"mouse",LTsv_defmousedevpath)
+        if sys.platform.startswith("linux"):
+            if LTsv_kbddevpath in ["/dev/input/event","/dev/input/event?","/dev/input/event*"]:
+                LTsv_kbddmsg=LTsv_subprocess("dmesg | grep keyboard | grep device",LTsv_subprocess_shell=True)
+                LTsv_posL=LTsv_kbddmsg.find("input/"); LTsv_posR=LTsv_kbddmsg.find('\n')
+                LTsv_kbddevpath="/dev/"+LTsv_kbddmsg[LTsv_posL:LTsv_posR].replace('/input','/event')
+            if LTsv_mousedevpath in ["/dev/input/event","/dev/input/event?","/dev/input/event*","/dev/input/mice","/dev/input/mouse","/dev/input/mouse0","/dev/input/mouse?","/dev/input/mouse*"]:
+                LTsv_kbddmsg=LTsv_subprocess("cat /proc/bus/input/devices | grep mouse0",LTsv_subprocess_shell=True)
+                LTsv_posL=LTsv_kbddmsg.find("event"); LTsv_posR=LTsv_kbddmsg.find(' \n')
+                LTsv_mousedevpath="/dev/input/"+LTsv_kbddmsg[LTsv_posL:LTsv_posR]
+#        print(LTsv_kbddevpath,LTsv_mousedevpath)
     LTsv_typenameW_page=LTsv_getpage(LTsv_kbdltsv,"LTsv_typenameW")
     if len(LTsv_typenameW_page) > 0:
         for LTsv_code in range(256):
@@ -334,7 +339,7 @@ def LTsv_setkbddata(LTsv_kbdstacks,LTsv_mousestacks):
     if sys.platform.startswith("linux"):
         LTsv_kbdbyte=""
         LTsv_kbdeve=LTsv_INPUTEVENT
-        for LTsv_stack in range(LTsv_kbdstacks):
+        for LTsv_stack in range(LTsv_kbdstacks) if LTsv_mousehands != None else range(0):
             try:
                 LTsv_kbdbyte=os.read(LTsv_kbdhands,ctypes.sizeof(LTsv_INPUTEVENT))
             except OSError as err:
@@ -466,7 +471,7 @@ if __name__=="__main__":
     for col,val in enumerate(LTsv_typegana.keys()):
         LTsv_libc_printcat("{0}{1}:{2}".format(',' if col%16 !=0 else '\n',val,LTsv_kbdgettypegana(val)))
     print("")
-    LTsv_kbdinit("./LTsv_kbd.tsv")
+    LTsv_kbdinit("./LTsv_kbd.tsv",LTsv_initmouse=True)
     print("LTsv_kbdinit()")
     LTsv_kbdEVIOCGRAB(1)
     for j in range(10):

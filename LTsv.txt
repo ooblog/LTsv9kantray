@@ -773,7 +773,7 @@ version(branch) 20160517T141820
 
   [LTsv_deviceL|                      Linuxのデバイス指定。
    kbd                                初期設定は「/dev/input/event?」(dmesgコマンドで調べる)。キーボードデバイスの位置は環境毎の差異があるので「dmesg | grep keyboard | grep device」で確認。
-   mouse                              初期想定は「/dev/input/mice」。マウスデバイスの位置は環境毎の差異があるかもなので「dmesg | grep mouse | grep device」で確認。
+   mouse                              初期想定は「/dev/input/event?」(/proc/bus/input/devicesで調べる)。マウスデバイスの位置は環境毎の差異があるかもなので「"cat /proc/bus/input/devices | grep mouse0」で確認。
   [LTsv_mouse_EV_KEY|                 マウスボタンなどの入力をWindowsのGetAsyncKeyStateの1,2,4みたいにキーコード($00〜$FF)風に処理するための仮想キーコードの設定。
    BTN_LEFT:0x110	unused:250    マウスのボタン１(いわゆる左クリック「MouseL」)をキーコード250に設定する。
    BTN_RIGHT:0x111	unused:251    マウスのボタン２(いわゆる右クリック「MouseR」)をキーコード251に設定する。
