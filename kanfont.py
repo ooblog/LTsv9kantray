@@ -272,7 +272,6 @@ def kanfont_grid_shell(window_objvoid=None,window_objptr=None):
 def kanfont_gridinner_shell(window_objvoid=None,window_objptr=None):
     global kanfont_fontgrid,kanfont_fontinner,kanfont_gridimage
     kanfont_fontinner=LTsv_widget_getnumber(kanfont_inner_check)
-    print("kanfont_fontinner",kanfont_fontinner)
 
 def kanfont_canvas_grid():
     global keyboard_gridX,keyboard_gridY,keyboard_removeX,keyboard_removeY,keyboard_gridZ,keyboard_gridM
@@ -306,7 +305,9 @@ def kanfont_canvas_press(callback_void=None,callback_ptr=None):
         if glyphlayer < len(kanfont_glyphnote):
             if keyboard_gridZ < len(kanfont_glyphnote[glyphlayer])//2:
                 kanfont_cursorLCR="reMove"
-                keyboard_removeX,keyboard_removeY=keyboard_gridX,keyboard_gridY
+#                keyboard_removeX,keyboard_removeY=keyboard_gridX,keyboard_gridY
+                kanfont_glyphlayer=kanfont_glyphnote[glyphlayer]
+                keyboard_removeX,keyboard_removeY=kanfont_glyphlayer[keyboard_gridZ*2],kanfont_glyphlayer[keyboard_gridZ*2+1]
             else:
                  kanfont_glyphnote[glyphlayer]+=[keyboard_gridX]; kanfont_glyphnote[glyphlayer]+=[keyboard_gridY]
         else:
@@ -342,11 +343,13 @@ def kanfont_canvas_motion(callback_void=None,callback_ptr=None):
     global keyboard_gridX,keyboard_gridY,keyboard_removeX,keyboard_removeY,keyboard_gridZ,keyboard_gridM
     kanfont_canvas_grid()
     glyphlayer=LTsv_widget_getnumber(kanfont_path_scale)
-    if glyphlayer <len( kanfont_glyphnote):
+    if glyphlayer < len( kanfont_glyphnote):
         kanfont_glyphlayer=kanfont_glyphnote[glyphlayer]
         if kanfont_cursorLCR == "Move" or kanfont_cursorLCR == "reMove":
             kanfont_glyphlayer[keyboard_gridZ*2],kanfont_glyphlayer[keyboard_gridZ*2+1]=keyboard_gridX,keyboard_gridY
             kanfont_glyphnote[glyphlayer]=kanfont_glyphlayer
+            if keyboard_removeX != keyboard_gridX or keyboard_removeY != keyboard_gridY:
+                 keyboard_removeX,keyboard_removeY=-1,-1
         else:
             keyboard_gridZ=len(kanfont_glyphlayer)//2
             for glyphpoints in range(len(kanfont_glyphlayer)//2):

@@ -19,7 +19,11 @@ kanedit_W,kanedit_H=kanedit_iconimage_W,kanedit_iconimage_H
 kanedit_fontcolor,kanedit_bgcolor="#1A1A1A","#F8F8F8"
 
 def kanedit_kbddraw(kbd_x,kbd_y):
-    pass
+    LTsv_drawtk_color(kanedit_fontcolor);     LTsv_drawtk_glyphfill("県北青岩城秋形島茨栃群埼",draw_x=kbd_x,draw_y=kbd_y+0*6,draw_f=5,draw_w=1,draw_h=1)
+    LTsv_drawtk_color(kanedit_fontcolor);     LTsv_drawtk_glyphfill("千東神潟富石井梨野岐静愛",draw_x=kbd_x,draw_y=kbd_y+1*6,draw_f=5,draw_w=1,draw_h=1)
+    LTsv_drawtk_color(kanedit_fontcolor);     LTsv_drawtk_glyphfill("三滋京阪兵奈和鳥根岡広口",draw_x=kbd_x,draw_y=kbd_y+2*6,draw_f=5,draw_w=1,draw_h=1)
+    LTsv_drawtk_color(kanedit_fontcolor);     LTsv_drawtk_glyphfill("徳川媛高福佐長熊分宮鹿沖",draw_x=kbd_x,draw_y=kbd_y+3*6,draw_f=5,draw_w=1,draw_h=1)
+    LTsv_drawtk_color(kanedit_fontcolor);     LTsv_drawtk_glyphfill("県",draw_x=kbd_x+24*3+2,draw_y=kbd_y+2,draw_f=20,draw_w=1,draw_h=1)
 
 def kanedit_input(window_objvoid=None,window_objptr=None):
     global kanedit_getkbdnames
@@ -35,10 +39,13 @@ def kanedit_redraw():
     global kanedit_fontcolor,kanedit_bgcolor
     LTsv_drawtk_selcanvas(kanedit_canvas); LTsv_drawtk_delete(kanedit_bgcolor)
     LTsv_drawtk_color(kanedit_bgcolor); LTsv_drawtk_polygonfill(0,0,kanedit_W,0,kanedit_W,kanedit_H,0,kanedit_H)
-    LTsv_drawtk_color(kanedit_fontcolor);     LTsv_drawtk_glyphfill("kanfont_grid25_199.png\n北青岩城秋形島茨栃群埼千東神潟富石井梨野岐静愛三滋京阪兵奈和鳥根岡広口徳川媛高福佐長熊分宮鹿沖",draw_x=0,draw_y=5,draw_f=5,draw_w=1,draw_h=1)
-    LTsv_drawtk_color(kanedit_fontcolor);     LTsv_drawtk_glyphfill(kanedit_getkbdnames,draw_x=0,draw_y=20,draw_f=20,draw_w=1,draw_h=1)
-    LTsv_drawtk_color(kanedit_fontcolor);     LTsv_drawtk_glyphfill("w,h={0},{1}".format(kanedit_W,kanedit_H),draw_x=0,draw_y=40,draw_f=20,draw_w=1,draw_h=1)
+    LTsv_drawtk_color(kanedit_fontcolor);     LTsv_drawtk_glyphfill("kanfont_grid25_199.png\n県北青岩城秋形島茨栃群埼\n千東神潟富石井梨野岐静愛\n三滋京阪兵奈和鳥根岡広口\n徳川媛高福佐長熊分宮鹿沖",draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1)
+    LTsv_drawtk_color(kanedit_fontcolor);     LTsv_drawtk_glyphfill("w,h={0},{1}".format(kanedit_W,kanedit_H),draw_x=0,draw_y=100,draw_f=10,draw_w=1,draw_h=1)
+    LTsv_drawtk_color(kanedit_fontcolor);     LTsv_drawtk_glyphfill("kanedit_getkbdnames={0}".format(kanedit_getkbdnames),draw_x=0,draw_y=110,draw_f=10,draw_w=1,draw_h=1)
 #    LTsv_drawtk_picture("{0}[{1}]".format(kanedit_iconimage,0),kanedit_W-kanedit_iconimage_W,kanedit_H-kanedit_iconimage_H)
+    LTsv_drawtk_font("kantray5x5comic,5")
+    LTsv_drawtk_color(kanedit_fontcolor);     LTsv_drawtk_text("kanfont_grid25_199.png\n県北青岩城秋形島茨栃群埼\n千東神潟富石井梨野岐静愛\n三滋京阪兵奈和鳥根岡広口\n徳川媛高福佐長熊分宮鹿沖",draw_x=kanedit_W//2,draw_y=0)
+    kanedit_kbddraw(kanedit_W-kanedit_iconimage_W,kanedit_H-kanedit_iconimage_H)
     LTsv_drawtk_queue()
 
 def kanedit_resize(callback_void=None,callback_ptr=None):
@@ -69,10 +76,12 @@ if len(LTsv_GUI) > 0:
         LTsv_drawtk_selcanvas,LTsv_drawtk_delete,LTsv_drawtk_queue=LTsv_drawGTK_selcanvas,LTsv_drawGTK_delete,LTsv_drawGTK_queue
         LTsv_drawtk_glyph,LTsv_drawtk_glyphfill,LTsv_drawtk_color=LTsv_drawGTK_glyph,LTsv_drawGTK_glyphfill,LTsv_drawGTK_color
         LTsv_drawtk_polygonfill,LTsv_drawtk_picture=LTsv_drawGTK_polygonfill,LTsv_drawGTK_picture
+        LTsv_drawtk_font,LTsv_drawtk_text=LTsv_drawGTK_font,LTsv_drawGTK_text
     if LTsv_GUI == LTsv_GUI_Tkinter:
         LTsv_drawtk_selcanvas,LTsv_drawtk_delete,LTsv_drawtk_queue=LTsv_drawTkinter_selcanvas,LTsv_drawTkinter_delete,LTsv_drawTkinter_queue
         LTsv_drawtk_glyph,LTsv_drawtk_glyphfill,LTsv_drawtk_color=LTsv_drawTkinter_glyph,LTsv_drawTkinter_glyphfill,LTsv_drawTkinter_color
         LTsv_drawtk_polygonfill,LTsv_drawtk_picture=LTsv_drawTkinter_polygonfill,LTsv_drawTkinter_picture
+        LTsv_drawtk_font,LTsv_drawtk_text=LTsv_drawTkinter_font,LTsv_drawTkinter_text
     kanedit_window=LTsv_window_new(widget_t="L:Tsv GUI test and KeyCode Setup",event_b=LTsv_window_exit,widget_w=kanedit_W,widget_h=kanedit_H,event_z=kanedit_resize)
     LTsv_window_resize(kanedit_window,320,240)
     kanedit_canvas=LTsv_canvas_new(kanedit_window,widget_x=0,widget_y=0,widget_w=LTsv_screen_w(kanedit_window),widget_h=LTsv_screen_h(kanedit_window),event_w=50)

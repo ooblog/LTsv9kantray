@@ -339,7 +339,7 @@ def LTsv_setkbddata(LTsv_kbdstacks,LTsv_mousestacks):
     if sys.platform.startswith("linux"):
         LTsv_kbdbyte=""
         LTsv_kbdeve=LTsv_INPUTEVENT
-        for LTsv_stack in range(LTsv_kbdstacks) if LTsv_mousehands != None else range(0):
+        for LTsv_stack in range(LTsv_kbdstacks) if LTsv_kbdhands != None else range(0):
             try:
                 LTsv_kbdbyte=os.read(LTsv_kbdhands,ctypes.sizeof(LTsv_INPUTEVENT))
             except OSError as err:
