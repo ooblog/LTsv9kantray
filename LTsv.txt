@@ -1110,7 +1110,11 @@ LTsv_drawTkinter_arcfill(draw_x,draw_y,draw_w,draw_h,draw_s=-math.pi,draw_e=math
 
  LTsv_glyphpath(glyphcode):
   「kanchar.tsv」の「活」項目のフォントパスの座標変換を指示。
-  通常は後述の「kanfont_drawGTK_glyph()」「kanfont_drawTkinter_glyph()」から自動呼び出し。
+  通常は後述の「kanfont_drawTkinter_glyph()」から自動呼び出し。
+
+ LTsv_glyphpath_outer(glyphcode):
+  「kanchar.tsv」の「活」項目のフォントパスの座標変換を指示。「GTK2」の場合１ドット未満の図形が消えるのでフォントを太らせる。
+  通常は後述の「kanfont_drawGTK_glyph()」から自動呼び出し。
 
  LTsv_drawGTK_glyph(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1); LTsv_drawTkinter_glyph(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1):
   フォント[kantray5x5comic.ttf]を用意しなくても「kanchar.tsv」から直接グリフを取得して「canvas」に描画(ワイヤフレーム)。
