@@ -127,7 +127,7 @@ def LTsv_widget_newobj(LTsv_widgetpagelocal,LTsv_widgetoption,widget_obj):
 
 def LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,widget_o=None,widget_k=None,widget_t=None,widget_u=None,widget_s=None,widget_e=None,widget_a=None,widget_v=None,widget_b=None, \
   widget_p=None,widget_m=None,widget_g=None,widget_f=None,widget_x=None,widget_y=None,widget_w=None,widget_h=None,widget_c=None, \
-  event_z=None,event_b=None,event_p=None,event_r=None,event_e=None,event_m=None,event_l=None,event_a=None,event_u=None, \
+  event_z=None,event_k=None,event_b=None,event_p=None,event_r=None,event_e=None,event_m=None,event_l=None,event_a=None,event_u=None, \
   menu_o=None,menu_b=None,menu_c=None,kbd_d=None,kbd_g=None,kbd_s=None):
     if widget_o != None:  LTsv_widgetPAGE=LTsv_widget_newobj(LTsv_widgetPAGE,"widgetobj",widget_o)
     if widget_k != None:  LTsv_widgetPAGE=LTsv_pushlinerest(LTsv_widgetPAGE,"widgetkind",widget_k)
@@ -148,6 +148,7 @@ def LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,widget_o=None,widget_k=None,widget_t=Non
     if widget_h != None:  LTsv_widgetPAGE=LTsv_pushlinerest(LTsv_widgetPAGE,"widgetsizeH",str(widget_h))
     if widget_c != None:  LTsv_widgetPAGE=LTsv_widget_newobj(LTsv_widgetPAGE,"widgetcontainer",widget_c)
     if event_z != None:  LTsv_widgetPAGE=LTsv_widget_newobj(LTsv_widgetPAGE,"widgetresize",event_z)
+    if event_k != None:  LTsv_widgetPAGE=LTsv_widget_newobj(LTsv_widgetPAGE,"widgetkeypress",event_k)
     if event_b  != None:  LTsv_widgetPAGE=LTsv_widget_newobj(LTsv_widgetPAGE,"widgetcallback",event_b)
     if event_p  != None:  LTsv_widgetPAGE=LTsv_widget_newobj(LTsv_widgetPAGE,"mouse_press",event_p)
     if event_r  != None:  LTsv_widgetPAGE=LTsv_widget_newobj(LTsv_widgetPAGE,"mouse_release",event_r)
@@ -197,7 +198,7 @@ def LTsv_tkinter_hideondelete_shell(LTsv_windowPAGENAME):
 
 LTsv_GTK_WINDOW_TOPLEVEL=0
 LTsv_GTK_WIN_POS_CENTER=1
-def LTsv_window_new(widget_n=None,event_b=None,widget_t="LTsv_window",widget_w=200,widget_h=120,event_z=None):
+def LTsv_window_new(widget_n=None,event_b=None,widget_t="LTsv_window",widget_w=200,widget_h=120,event_z=None,event_k=None):
     global LTsv_widgetLTSV
     LTsv_windowPAGENAME=LTsv_widget_newUUID(widget_n); LTsv_windowPAGE=""
     LTsv_windowPAGE=LTsv_widgetPAGEXYWH(LTsv_windowPAGE,widget_k="window",widget_t=widget_t,widget_w=widget_w,widget_h=widget_h)
@@ -211,22 +212,34 @@ def LTsv_window_new(widget_n=None,event_b=None,widget_t="LTsv_window",widget_w=2
         LTsv_libgtk.gtk_container_add(window_o,widget_c)
         event_b_cbk=LTsv_CALLBACLTYPE(event_b) if event_b != None else LTsv_libgtk.gtk_widget_hide_on_delete
         LTsv_libobj.g_signal_connect_data(window_o,"delete-event".encode("utf-8"),event_b_cbk,0,0,0)
-        event_z_cbk=LTsv_CALLBACLTYPE(event_z) if event_z != None else LTsv_CALLBACLTYPE(LTsv_window_none)
-        LTsv_libobj.g_signal_connect_data(window_o,"configure-event".encode("utf-8"),event_z_cbk,0,0,0)
-        LTsv_windowPAGE=LTsv_widgetPAGEXYWH(LTsv_windowPAGE,widget_o=window_o,widget_t=widget_t,widget_c=widget_c,event_b=event_b_cbk,event_z=event_z_cbk)
+        if event_z:
+            event_z_cbk=LTsv_CALLBACLTYPE(event_z)
+            LTsv_libobj.g_signal_connect_data(window_o,"configure-event".encode("utf-8"),event_z_cbk,0,0,0)
+        else:
+            event_z_cbk=None
+        if event_k:
+            event_k_cbk=LTsv_CALLBACLTYPE(event_k)
+            LTsv_libobj.g_signal_connect_data(window_o,"key-press-event".encode("utf-8"),event_k_cbk,0,0,0)
+#            LTsv_libobj.g_signal_connect_data(window_o,"key-release-event".encode("utf-8"),event_k_cbk,0,0,0)
+        else:
+            event_k_cbk=None
+        LTsv_windowPAGE=LTsv_widgetPAGEXYWH(LTsv_windowPAGE,widget_o=window_o,widget_t=widget_t,widget_c=widget_c,event_b=event_b_cbk,event_z=event_z_cbk,event_k=event_k_cbk)
     if LTsv_GUI == LTsv_GUI_Tkinter:
         window_o=Tk.Tk()
         window_o.title(widget_t)
         window_o.minsize(widget_w,widget_h)
         window_o.geometry("{0}x{1}+{2}+{3}".format(widget_w,widget_h,(window_o.winfo_vrootwidth()-widget_w)//2,(window_o.winfo_vrootheight()-widget_h)//2))
+        event_b_cbk=event_b if event_b != None else LTsv_tkinter_hideondelete_shell(LTsv_windowPAGENAME)
+        window_o.protocol("WM_DELETE_WINDOW",event_b_cbk)
         if event_z:
             window_o.maxsize(window_o.winfo_vrootwidth(),window_o.winfo_vrootheight())
             window_o.bind('<Configure>',event_z)
         else:
             window_o.maxsize(widget_w,widget_h); window_o.resizable(0,0)
-        event_b_cbk=event_b if event_b != None else LTsv_tkinter_hideondelete_shell(LTsv_windowPAGENAME)
-        window_o.protocol("WM_DELETE_WINDOW",event_b_cbk)
-        LTsv_windowPAGE=LTsv_widgetPAGEXYWH(LTsv_windowPAGE,widget_o=window_o,widget_t=widget_t,event_b=event_b_cbk,event_z=event_z)
+        if event_k:
+            window_o.bind('<KeyPress>',event_k)
+#            window_o.bind('<KeyRelease>',event_k)
+        LTsv_windowPAGE=LTsv_widgetPAGEXYWH(LTsv_windowPAGE,widget_o=window_o,widget_t=widget_t,event_b=event_b_cbk,event_z=event_z,event_k=event_k)
     LTsv_widgetLTSV=LTsv_putpage(LTsv_widgetLTSV,LTsv_windowPAGENAME,LTsv_windowPAGE)
     return LTsv_windowPAGENAME
 
@@ -505,24 +518,6 @@ def LTsv_window_after(LTsv_windowPAGENAME,event_b=None,event_i="mousemotion",eve
         if event_b != None:
             LTsv_timerOBJ[event_i]=window_o.after(max(event_w,10),event_b)
     return 0
-
-#def LTsv_subprocess(LTsv_subprocess_input="",LTsv_subprocess_shell=False):
-#    LTsv_subprocess_output=""
-#    try:
-#        if LTsv_subprocess_shell:
-#            if sys.version_info.major == 2:
-#                LTsv_subprocess_output=subprocess.check_output(LTsv_subprocess_input,shell=True).decode("utf-8")
-#            if sys.version_info.major == 3:
-#                LTsv_subprocess_output=subprocess.check_output(LTsv_subprocess_input,shell=True)
-#        else:
-#            if sys.version_info.major == 2:
-#                LTsv_subprocess_output=subprocess.check_output(LTsv_subprocess_input.split(' '),shell=LTsv_subprocess_shell).decode("utf-8")
-#            if sys.version_info.major == 3:
-#                LTsv_subprocess_output=subprocess.check_output(LTsv_subprocess_input.split(' '),shell=LTsv_subprocess_shell)
-#    except subprocess.CalledProcessError as err:
-#        print("subprocess.CalledProcessError({0}):{1}".format(err.returncode,err.output))
-#        LTsv_subprocess_output=err.output if err.output != None else ""
-#    return LTsv_subprocess_output
 
 def LTsv_window_foreground():
     LTsv_window_activeID=""
@@ -978,14 +973,11 @@ def LTsv_canvas_new(LTsv_windowPAGENAME,widget_n=None,widget_x=0,widget_y=0,widg
         LTsv_libobj.g_signal_connect_data(widget_o,"button-press-event".encode("utf-8"),event_p_cbk,0,0,0)
         event_r_cbk=LTsv_CALLBACLTYPE(event_r) if event_r != None else LTsv_CALLBACLTYPE(LTsv_window_none)
         LTsv_libobj.g_signal_connect_data(widget_o,"button-release-event".encode("utf-8"),event_r_cbk,0,0,0)
-        event_ef=LTsv_canvas_enter
-        event_e_cbk=LTsv_CALLBACLTYPE(event_ef) if event_ef != None else LTsv_CALLBACLTYPE(LTsv_window_none)
+        event_e_cbk=LTsv_CALLBACLTYPE(LTsv_canvas_enter) if LTsv_canvas_enter != None else LTsv_CALLBACLTYPE(LTsv_window_none)
         LTsv_libobj.g_signal_connect_data(widget_o,"enter-notify-event".encode("utf-8"),event_e_cbk,0,0,0)
-        event_mf=LTsv_canvas_motion
-        event_m_cbk=LTsv_CALLBACLTYPE(event_mf) if event_mf != None else LTsv_CALLBACLTYPE(LTsv_window_none)
+        event_m_cbk=LTsv_CALLBACLTYPE(LTsv_canvas_motion) if LTsv_canvas_motion != None else LTsv_CALLBACLTYPE(LTsv_window_none)
         LTsv_libobj.g_signal_connect_data(widget_o,"motion-notify-event".encode("utf-8"),event_m_cbk,0,0,0)
-        event_lf=LTsv_canvas_leave
-        event_l_cbk=LTsv_CALLBACLTYPE(event_lf) if event_lf != None else LTsv_CALLBACLTYPE(LTsv_window_none)
+        event_l_cbk=LTsv_CALLBACLTYPE(LTsv_canvas_leave) if LTsv_canvas_leave != None else LTsv_CALLBACLTYPE(LTsv_window_none)
         LTsv_libobj.g_signal_connect_data(widget_o,"leave-notify-event".encode("utf-8"),event_l_cbk,0,0,0)
         LTsv_widgetPAGE=LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,event_p=event_p_cbk,event_r=event_r_cbk,event_e=event_e_cbk,event_m=event_m_cbk,event_l=event_l_cbk)
     if LTsv_GUI == LTsv_GUI_Tkinter:
@@ -993,16 +985,13 @@ def LTsv_canvas_new(LTsv_windowPAGENAME,widget_n=None,widget_x=0,widget_y=0,widg
             widget_o.bind("<ButtonPress>",event_p)
         if event_r != None:
             widget_o.bind("<ButtonRelease>",event_r)
-        event_ef=LTsv_canvas_enter
-        if event_ef != None:
-            widget_o.bind("<Enter>",event_ef)
-        event_mf=LTsv_canvas_motion
-        if event_mf != None:
-            widget_o.bind("<Motion>",event_mf)
-        event_lf=LTsv_canvas_leave
-        if event_lf != None:
-            widget_o.bind("<Leave>",event_lf)
-        LTsv_widgetPAGE=LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,event_p=event_p,event_r=event_r,event_e=event_ef,event_m=event_mf,event_l=event_lf)
+        if event_r != LTsv_canvas_enter:
+            widget_o.bind("<Enter>",LTsv_canvas_enter)
+        if event_r != LTsv_canvas_motion:
+            widget_o.bind("<Motion>",LTsv_canvas_motion)
+        if event_r != LTsv_canvas_leave:
+            widget_o.bind("<Leave>",LTsv_canvas_leave)
+        LTsv_widgetPAGE=LTsv_widgetPAGEXYWH(LTsv_widgetPAGE,event_p=event_p,event_r=event_r,event_e=LTsv_canvas_enter,event_m=LTsv_canvas_motion,event_l=LTsv_canvas_leave)
     LTsv_widgetLTSV=LTsv_putpage(LTsv_widgetLTSV,LTsv_widgetPAGENAME,LTsv_widgetPAGE)
     return LTsv_widgetPAGENAME
 

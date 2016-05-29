@@ -884,6 +884,7 @@ version(branch) 20160517T141820
    widgetsizeH(widget_h)              GUIオブジェクトの縦幅。
    widgetcontainer(widget_c)          「LTsv_widgetOBJ[str(LTsv_widgetOBJcount)]」で管理されるオブジェクト配置するルールを格納するコンテナオブジェクト。
    widgetresize(event_z)             「LTsv_widgetOBJ[str(LTsv_widgetOBJcount)]」で管理される「window」のサイズ変更時のコールバック関数。
+   widgetkeypress(event_k)             「LTsv_widgetOBJ[str(LTsv_widgetOBJcount)]」で管理される「window」のキー入力時のコールバック関数。
    widgetcallback(event_b)            「LTsv_widgetOBJ[str(LTsv_widgetOBJcount)]」で管理される何かしらのコールバック関数(例えば「button」を押した時に呼び出す関数)。
    mouse_press(event_p)               「LTsv_widgetOBJ[str(LTsv_widgetOBJcount)]」で管理される「canvas」でマウスボタンを押した時のコールバック関数。
    mouse_release(event_r)             「LTsv_widgetOBJ[str(LTsv_widgetOBJcount)]」で管理される「canvas」でマウスボタンを離した時のコールバック関数。
@@ -908,9 +909,10 @@ version(branch) 20160517T141820
  LTsv_tkinter_hideondelete_shell(LTsv_windowPAGENAME)
   「Tkinter」でウィンドウの閉じるボタンを押してもプログラム続行するようにする(ウィンドウを隠すhide_on_delete)。
 
- LTsv_window_new(widget_n=None,event_b=None,widget_t="LTsv_window",widget_w=200,widget_h=120,event_z=None)
-  「window」GUIオブジェクトを作成。通常「event_b=LTsv_window_exit」が必要。「event_b=None」の場合「gtk_widget_hide_on_delete」。
-  「event_b=LTsv_window_exit」を使わないケースはウィンドウを閉じた後に別のコールバック関数でセーブする場合や通知タスクトレイ(Notify)に常駐する場合です。
+ LTsv_window_new(widget_n=None,event_b=None,widget_t="LTsv_window",widget_w=200,widget_h=120,event_z=None,event_k=None)
+  「window」GUIオブジェクトを作成。
+  「event_b=None」の場合「gtk_widget_hide_on_delete」。つまりウィンドウを閉じてもスクリプトは続行されるので「event_b=LTsv_window_exit」が必要。
+  「event_b=LTsv_window_exit」を使わない場合(ウィンドウを閉じたら自動セーブなどの場合)はそのコールバック関数内で「LTsv_window_exit」が必要です。
   「LTsv_window_new()」のウィンドウを閉じた後に別のコールバック関数を指定した場合そのコールバック関数の最後に設定。
   「LTsv_widget_showhide()」でウィンドウを表示して「LTsv_window_main()」で待機させるまでが「window」作成の基本。
   「LTsv_window_main()」実行前に「print()」「LTsv_libc_printf()」などターミナル(stdout)系の命令があるとGUIが起動しない場合があります。
@@ -922,6 +924,7 @@ version(branch) 20160517T141820
 
  LTsv_widget_gettext(LTsv_widgetPAGENAME)
   GUIオブジェクトの文字列を取得。
+  ウィンドウのタイトル取得には「LTsv_window_title(LTsv_window_id)」という別解もある。
 
  LTsv_widget_setnumber(LTsv_widgetPAGENAME,widget_s=0)
   GUIオブジェクトの数値を設定。
@@ -944,8 +947,6 @@ version(branch) 20160517T141820
 
  LTsv_window_main(LTsv_windowPAGENAME)
   GUIがイベント待ちになるので一旦スクリプトはここで停止。GUIのイベントか「LTsv_window_after()」のタイマー待ち。
-  「Tkinter」だとウィンドウを閉じた後もスクリプトの続きを再開するが「GTK2」だとスクリプトの続きは再開されない違いがある。
-  ウィンドウを閉じた後に何かさせたい場合の説明は「LTsv_window_new()」の担当。
 
  LTsv_window_after(LTsv_windowPAGENAME,event_b=None,event_i="mousemotion",event_w=1000)
   タイマーの設定。「LTsv_window_main()」から一時的に抜け出す手段の一つ。
@@ -955,7 +956,7 @@ version(branch) 20160517T141820
 
  LTsv_window_foreground()
   アクティブウィンドウのIDを取得する。
-  ターミナルから起動したばあいでもターミナルは別ウィンドウ。
+  ターミナルから起動した場合でもターミナルは別ウィンドウ。
 
  LTsv_window_title(LTsv_window_id)
   ウィンドウIDからタイトルを取得する。
@@ -963,7 +964,7 @@ version(branch) 20160517T141820
 
  LTsv_window_exit(window_objvoid=None,window_objptr=None)
   スクリプトを終了する。
-  「LTsv_window_new()」のウィンドウを閉じた後に別のコールバック関数を指定した場合そのコールバック関数の最後に設定。
+  ウィンドウを閉じる時のコールバック関数を指定した場合そのコールバック関数の最後に設定。
 
  LTsv_window_none(window_objvoid=None,window_objptr=None)
   何もしない。Pythonのpassみたいなポジション。
@@ -1114,6 +1115,7 @@ LTsv_drawTkinter_arcfill(draw_x,draw_y,draw_w,draw_h,draw_s=-math.pi,draw_e=math
 
  LTsv_glyphpath_outer(glyphcode):
   「kanchar.tsv」の「活」項目のフォントパスの座標変換を指示。「GTK2」の場合１ドット未満の図形が消えるのでフォントを太らせる。
+  正確には「kanfont」で作成する「kantray5x5」フォント座標の末尾が98の座標を繰り上げる。
   通常は後述の「kanfont_drawGTK_glyph()」から自動呼び出し。
 
  LTsv_drawGTK_glyph(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1); LTsv_drawTkinter_glyph(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1):
