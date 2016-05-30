@@ -58,6 +58,7 @@ version(branch) 20160517T141820
 
  開発環が「Python2.7.3(PuppyLinux571JP)およびPython3.4.3(Wine1.7.18)」から「Python 2.7.6(Tahrpup6.0.5)およびPython3.4.4(Wine1.7.18)」に移行。
  「LTsv_window_new()」の「event_z」でウィンドウサイズ変更に対応。
+ 「LTsv_window_new()」に「event_k」「event_y」追加でキーボード入力の感知。
  「LTsv_subprocess()」を「LTsv_gui.py」から「LTsv_printf.py」に移動。
 
 
@@ -884,7 +885,8 @@ version(branch) 20160517T141820
    widgetsizeH(widget_h)              GUIオブジェクトの縦幅。
    widgetcontainer(widget_c)          「LTsv_widgetOBJ[str(LTsv_widgetOBJcount)]」で管理されるオブジェクト配置するルールを格納するコンテナオブジェクト。
    widgetresize(event_z)             「LTsv_widgetOBJ[str(LTsv_widgetOBJcount)]」で管理される「window」のサイズ変更時のコールバック関数。
-   widgetkeypress(event_k)             「LTsv_widgetOBJ[str(LTsv_widgetOBJcount)]」で管理される「window」のキー入力時のコールバック関数。
+   keyboard_press(event_k)             「LTsv_widgetOBJ[str(LTsv_widgetOBJcount)]」で管理される「window」のキー押した時のコールバック関数。
+   keyboard_release(event_y)             「LTsv_widgetOBJ[str(LTsv_widgetOBJcount)]」で管理される「window」のキー離した時のコールバック関数。
    widgetcallback(event_b)            「LTsv_widgetOBJ[str(LTsv_widgetOBJcount)]」で管理される何かしらのコールバック関数(例えば「button」を押した時に呼び出す関数)。
    mouse_press(event_p)               「LTsv_widgetOBJ[str(LTsv_widgetOBJcount)]」で管理される「canvas」でマウスボタンを押した時のコールバック関数。
    mouse_release(event_r)             「LTsv_widgetOBJ[str(LTsv_widgetOBJcount)]」で管理される「canvas」でマウスボタンを離した時のコールバック関数。
@@ -909,7 +911,7 @@ version(branch) 20160517T141820
  LTsv_tkinter_hideondelete_shell(LTsv_windowPAGENAME)
   「Tkinter」でウィンドウの閉じるボタンを押してもプログラム続行するようにする(ウィンドウを隠すhide_on_delete)。
 
- LTsv_window_new(widget_n=None,event_b=None,widget_t="LTsv_window",widget_w=200,widget_h=120,event_z=None,event_k=None)
+ LTsv_window_new(widget_n=None,event_b=None,widget_t="LTsv_window",widget_w=200,widget_h=120,event_z=None,event_k=None,event_y=None)
   「window」GUIオブジェクトを作成。
   「event_b=None」の場合「gtk_widget_hide_on_delete」。つまりウィンドウを閉じてもスクリプトは続行されるので「event_b=LTsv_window_exit」が必要。
   「event_b=LTsv_window_exit」を使わない場合(ウィンドウを閉じたら自動セーブなどの場合)はそのコールバック関数内で「LTsv_window_exit」が必要です。
@@ -918,6 +920,7 @@ version(branch) 20160517T141820
   「LTsv_window_main()」実行前に「print()」「LTsv_libc_printf()」などターミナル(stdout)系の命令があるとGUIが起動しない場合があります。
   「widget_w」「widget_h」で指定できるウィンドウのサイズは最小値。「LTsv_window_resize()」で指定するリサイズとは別。
   「widget_r」にコールバック関数を指定する事でウィンドウのサイズをマウスで変更できるようになりますが、可変レイアウトには対応してないので注意。
+  「event_k」「event_y」でキーボード入力時(event_kが押した時event_yが離した時)のコールバック関数。
 
  LTsv_widget_settext(LTsv_widgetPAGENAME,widget_t="")
   GUIオブジェクトの文字列を設定。
