@@ -1097,14 +1097,6 @@ def LTsv_drawTkinter_selcanvas(LTsv_canvasPAGENAME,draw_g="LTsv_draw_tkTAG"):
     LTsv_Tkintercanvas_font=""
     LTsv_drawTkinter_color()
 
-def LTsv_drawGTK_color(draw_c=""):
-    LTsv_libgdk.gdk_color_parse(draw_c.encode("utf-8"),ctypes.pointer(LTsv_GTKcanvas_gccolor))
-    LTsv_libgdk.gdk_gc_set_rgb_fg_color(LTsv_GTKcanvas_g,ctypes.pointer(LTsv_GTKcanvas_gccolor))
-
-def LTsv_drawTkinter_color(draw_c=""):
-    global LTsv_Tkintercanvas_color
-    LTsv_Tkintercanvas_color=draw_c
-
 def LTsv_drawGTK_delete(draw_c="white"):
     global LTsv_GTKcanvasW,LTsv_GTKcanvasH,LTsv_GTKfont_gccolor
     LTsv_libgdk.gdk_color_parse(draw_c.encode("utf-8"),ctypes.pointer(LTsv_GTKfont_gccolor))
@@ -1115,6 +1107,22 @@ def LTsv_drawTkinter_delete(draw_c="white"):
     global LTsv_Tkinterfont_color,LTsv_Tkintercanvas_o
     LTsv_Tkinterfont_color=draw_c
     LTsv_Tkintercanvas_o.delete(LTsv_Tkintercanvas_TAG)
+
+def LTsv_drawGTK_color(draw_c=""):
+    LTsv_libgdk.gdk_color_parse(draw_c.encode("utf-8"),ctypes.pointer(LTsv_GTKcanvas_gccolor))
+    LTsv_libgdk.gdk_gc_set_rgb_fg_color(LTsv_GTKcanvas_g,ctypes.pointer(LTsv_GTKcanvas_gccolor))
+
+def LTsv_drawTkinter_color(draw_c=""):
+    global LTsv_Tkintercanvas_color
+    LTsv_Tkintercanvas_color=draw_c
+
+def LTsv_drawGTK_bgcolor(draw_c=""):
+    LTsv_libgdk.gdk_color_parse(draw_c.encode("utf-8"),ctypes.pointer(LTsv_GTKfont_gccolor))
+    LTsv_libgdk.gdk_gc_set_rgb_fg_color(LTsv_GTKcanvas_g,ctypes.pointer(LTsv_GTKfont_gccolor))
+
+def LTsv_drawTkinter_bgcolor(draw_c=""):
+    global LTsv_Tkinterfont_color
+    LTsv_Tkinterfont_color=draw_c
 
 def LTsv_drawGTK_polygon(*draw_xy):
     draw_xylen=len(draw_xy)//2; gdkpointsArrayType=LTsv_GDKPOINT*draw_xylen; gdkpointsArray=gdkpointsArrayType()

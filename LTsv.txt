@@ -1055,13 +1055,17 @@ version(branch) 20160517T141820
   ポリゴン等で絵を描く準備。事前に描画対象の「canvas」を指定する。
   「Tkinter」の場合描画図形に添付するタグ「LTsv_draw_tkTAG」も指定できる。
 
- LTsv_drawGTK_color(draw_c=""); LTsv_drawTkinter_color(draw_c="")
-  「canvas」内のポリゴン等の色指定。初期値は「white」。
-
  LTsv_drawGTK_delete(draw_c="white"); LTsv_drawTkinter_delete(draw_c="white")
   「GTK2」だと長方形を上描き描画して図形を消去する。
   「Tkinter」ではタグ(初期値は「LTsv_draw_tkTAG」)が付けられた図形を消去する。
   ここで図形の消去に使った色は後述の「LTsv_drawGTK_glyph()」「LTsv_drawTkinter_glyph()」のフォントグリフの穴空けにも使う。
+
+ LTsv_drawGTK_color(draw_c=""); LTsv_drawTkinter_color(draw_c="")
+  「canvas」内のポリゴン等の色指定。
+
+ LTsv_drawGTK_bgcolor(draw_c=""); LTsv_drawTkinter_bgcolor(draw_c="")
+  「LTsv_drawGTK_delete()」の図形消去に使う色指定。
+  「canvas」内のフォントグリフ穴空けの色も指定。
 
  LTsv_drawGTK_polygon(*draw_xy); LTsv_drawTkinter_polygon(*draw_xy)
   「canvas」にポリゴンの描画(ワイヤフレーム)。座標は(x,y,x,y…)とX座標とY座標が交互に来るタプル。

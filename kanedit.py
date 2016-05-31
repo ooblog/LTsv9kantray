@@ -57,7 +57,7 @@ def kanedit_kbddraw(kbd_x,kbd_y):
     LTsv_drawtk_color(kanedit_fontcolor);     LTsv_drawtk_glyphfill(kanedit_getkbdnames,draw_x=0,draw_y=kbd_y+1,draw_f=10,draw_w=1,draw_h=1)
     LTsv_drawtk_color(kanedit_fontcolor);     LTsv_drawtk_glyphfill(str(tinykbd_cursorMS),draw_x=0,draw_y=kbd_y+13,draw_f=10,draw_w=1,draw_h=1)
     LTsv_drawtk_color(tinykbd_bgcolor); LTsv_drawtk_polygonfill(kbd_x,kbd_y,kbd_x+tinykbd_W,kbd_y,kbd_x+tinykbd_W,kbd_y+tinykbd_H,kbd_x,kbd_y+tinykbd_H)
-    LTsv_drawtk_color(tinykbd_fontcolor)
+    LTsv_drawtk_bgcolor(tinykbd_bgcolor); LTsv_drawtk_color(tinykbd_fontcolor)
     for kbd_xy in range(tinykbd_irohamax):
         LTsv_drawtk_glyphfill(tinykbd_fontchar[kbd_xy],draw_x=kbd_x+tinykbd_fontX[kbd_xy],draw_y=kbd_y+tinykbd_fontY[kbd_xy],draw_f=tinykbd_fontsize)
     for kbd_xy in range(tinykbd_irohamax,tinykbd_None):
@@ -161,12 +161,12 @@ if len(LTsv_GUI) > 0:
     kanedit_tinykbd_new()
     if LTsv_GUI == LTsv_GUI_GTK2:
         LTsv_drawtk_selcanvas,LTsv_drawtk_delete,LTsv_drawtk_queue=LTsv_drawGTK_selcanvas,LTsv_drawGTK_delete,LTsv_drawGTK_queue
-        LTsv_drawtk_glyph,LTsv_drawtk_glyphfill,LTsv_drawtk_color=LTsv_drawGTK_glyph,LTsv_drawGTK_glyphfill,LTsv_drawGTK_color
+        LTsv_drawtk_glyph,LTsv_drawtk_glyphfill,LTsv_drawtk_color,LTsv_drawtk_bgcolor=LTsv_drawGTK_glyph,LTsv_drawGTK_glyphfill,LTsv_drawGTK_color,LTsv_drawGTK_bgcolor
         LTsv_drawtk_polygonfill,LTsv_drawtk_picture=LTsv_drawGTK_polygonfill,LTsv_drawGTK_picture
         LTsv_drawtk_font,LTsv_drawtk_text=LTsv_drawGTK_font,LTsv_drawGTK_text
     if LTsv_GUI == LTsv_GUI_Tkinter:
         LTsv_drawtk_selcanvas,LTsv_drawtk_delete,LTsv_drawtk_queue=LTsv_drawTkinter_selcanvas,LTsv_drawTkinter_delete,LTsv_drawTkinter_queue
-        LTsv_drawtk_glyph,LTsv_drawtk_glyphfill,LTsv_drawtk_color=LTsv_drawTkinter_glyph,LTsv_drawTkinter_glyphfill,LTsv_drawTkinter_color
+        LTsv_drawtk_glyph,LTsv_drawtk_glyphfill,LTsv_drawtk_color,LTsv_drawtk_bgcolor=LTsv_drawTkinter_glyph,LTsv_drawTkinter_glyphfill,LTsv_drawTkinter_color,LTsv_drawTkinter_bgcolor
         LTsv_drawtk_polygonfill,LTsv_drawtk_picture=LTsv_drawTkinter_polygonfill,LTsv_drawTkinter_picture
         LTsv_drawtk_font,LTsv_drawtk_text=LTsv_drawTkinter_font,LTsv_drawTkinter_text
     kanedit_window=LTsv_window_new(widget_t="L:Tsv GUI test and KeyCode Setup",event_b=LTsv_window_exit,widget_w=kanedit_W,widget_h=kanedit_H,event_z=kanedit_resize,event_k=kanedit_keypress,event_y=kanedit_keyrelease)
