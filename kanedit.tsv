@@ -17,6 +17,10 @@ kbd_NFERcolor		#CFE6CF
 kbd_XFERcolor		#CFE6CF
 kbd_KANAcolor		#CFE6CF
 kbd_SandScolor		#CFE6CF
+input_NFER	NFER
+input_XFER	XFER
+input_KANA	KANA
+input_SandS	Space
 file_last	kanedit.txt
 find_NX	Σ
 find_alpha	σ

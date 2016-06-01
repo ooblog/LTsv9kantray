@@ -230,12 +230,10 @@ def kanfont_glyphpath2note(glyphpath=""):
     return glyphnote
 
 def kanfont_fontdraw(callback_void=None,callback_ptr=None):
-    global kanfont_getkbdstr,kanfont_cursorLCR
     global kanfont_char,kanfont_setchar,kanfont_kanline,kanfont_path,kanfont_glyphnote,kanfont_half
     global keyboard_gridX,keyboard_gridY,keyboard_removeX,keyboard_removeY,keyboard_gridZ,keyboard_gridM
     keyboard_irohamax,keyboard_alphapos,keyboard_guidepos,keyboard_dicinppos,keyboard_dicselpos,keyboard_iroha,keyboard_guideN,keyboard_guideX,keyboard_guideK,keyboard_guideKN,keyboard_guideKX=LTsv_keyboard_iroha_guide()
     keyboard_cursorMS,keyboard_cursorIR,keyboard_cursorAF,keyboard_cursorOLD,keyboard_cursorDIC,keyboard_cursorNX,keyboard_cursorK,keyboard_cursorLCR=LTsv_keyboard_NXK()
-    LTsv_setkbddata(25,0); kanfont_getkbdstr=LTsv_getkbdlabels("MouseL\tMouseR\tMouseC")
     LTsv_drawtk_selcanvas(kanfont_canvas)
     LTsv_drawtk_delete("white")
     LTsv_drawtk_color(draw_c="#9F6C00"); gridx=kanfont_half//2
@@ -299,7 +297,7 @@ def kanfont_canvas_press(callback_void=None,callback_ptr=None):
     global keyboard_gridX,keyboard_gridY,keyboard_removeX,keyboard_removeY,keyboard_gridZ,keyboard_gridM
     kanfont_canvas_grid()
     glyphlayer=LTsv_widget_getnumber(kanfont_path_scale)
-    LTsv_setkbddata(25,0); kanfont_getkbdstr=LTsv_getkbdlabels("MouseL\tMouseR\tMouseC")
+    LTsv_setkbddata(25,25); kanfont_getkbdstr=LTsv_getkbdlabels("MouseL\tMouseR\tMouseC")
     kanfont_cursorLCR="{0}{1}{2}".format(LTsv_pickdatalabel(kanfont_getkbdstr,"MouseL"),LTsv_pickdatalabel(kanfont_getkbdstr,"MouseC"),LTsv_pickdatalabel(kanfont_getkbdstr,"MouseR"))
     if kanfont_cursorLCR == "100" or kanfont_cursorLCR == "000":
         if glyphlayer < len(kanfont_glyphnote):
@@ -435,7 +433,7 @@ kanfont_exit_configsave_cbk=LTsv_CALLBACLTYPE(kanfont_exit_configsave)
 LTsv_GUI=LTsv_guiinit()
 kanfont_max=0x2ffff if LTsv_GUI != "Tkinter" else 0xffff
 if len(LTsv_GUI) > 0:
-    LTsv_kbdinit(); kantray_kanchar=LTsv_keyboard_dic()
+    LTsv_kbdinit(LTsv_initmouse=False); kantray_kanchar=LTsv_keyboard_dic()
     kanfont_configload()
     kanfont_fontsize_entry=10;    kanfont_font_entry="{0},{1}".format(kanfont_fontname,kanfont_fontsize_entry); kanfont_label_WH=kanfont_fontsize_entry*2
     kanfont_fontsize_scale=40;    kanfont_font_scale="{0},{1}".format(kanfont_fontname,kanfont_fontsize_scale); kanfont_scale_WH=kanfont_fontsize_scale*2

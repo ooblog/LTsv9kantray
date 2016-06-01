@@ -1756,7 +1756,7 @@ def debug_canvas(window_objvoid=None,window_objptr=None):
     LTsv_drawtk_color(debug_scaleRGB); LTsv_drawtk_text("mouseX,Y\n[{0},{1}]".format(mouse_x,mouse_y),draw_x=mouse_x,draw_y=mouse_y)
     LTsv_putdaytimenow(); LTsv_checkFPS()
     LTsv_drawtk_color("black"); LTsv_drawtk_text(LTsv_getdaytimestr(LTsv_widget_gettext(debug_keysetup_timentry)),draw_x=0,draw_y=0)
-    LTsv_setkbddata(25,0)
+    LTsv_setkbddata(25,25)
     kbdlabels=LTsv_getkbdlabels().replace('\t',' ').replace('た','\nた').replace('ち','\nち').replace('つ','\nつ').replace('NFER','\nNFER')
     if LTsv_joymax > 0:
         LTsv_setjoydata(0); pad_axis=LTsv_readlinerest(LTsv_getjoystr(0),LTsv_joyaxis_label())
@@ -1814,7 +1814,7 @@ def debug_activewindow(callback_void=None,callback_ptr=None):
 def debug_canvas_press(callback_void=None,callback_ptr=None):
     global debug_polygonpointlist
     mouse_x,mouse_y=LTsv_global_canvasmotionX(),LTsv_global_canvasmotionY()
-    LTsv_setkbddata(25,0); debug_getkbdstr=LTsv_getkbdlabels("MouseL\tMouseR\tMouseC")
+    LTsv_setkbddata(0,25); debug_getkbdstr=LTsv_getkbdlabels("MouseL\tMouseR\tMouseC")
     cursorLCR="{0}{1}{2}".format(LTsv_pickdatalabel(debug_getkbdstr,"MouseL"),LTsv_pickdatalabel(debug_getkbdstr,"MouseC"),LTsv_pickdatalabel(debug_getkbdstr,"MouseR"))
     if cursorLCR == "100" or cursorLCR == "000":
         debug_polygonpointlist+=[mouse_x]; debug_polygonpointlist+=[mouse_y]
@@ -1863,7 +1863,7 @@ if __name__=="__main__":
         from LTsv_joy    import *
         from LTsv_calc   import *
         from LTsv_kbd    import *
-        LTsv_kbdinit("./LTsv_kbd.tsv")
+        LTsv_kbdinit("./LTsv_kbd.tsv",LTsv_initmouse=False)
         LTsv_joymax=LTsv_joyinit()
         debug_fontname="kantray5x5comic"
         debug_fontsize_entry=10; debug_font_entry="{0},{1}".format(debug_fontname,debug_fontsize_entry); debug_label_WH=debug_fontsize_entry*2

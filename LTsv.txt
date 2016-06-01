@@ -72,6 +72,7 @@ version(branch) 20160517T141820
  [kanchar.tsv]に異体字を移管して[kanmap.tsv]を圧縮していく作業は当分続く。現在人名に使える漢字の異体字の字引入力中心に作業中。
  通知タスクトレイ(Notify)が使えない環境にも対応するためテキストエディタ「kanedit」も用意する予定。
  「L:Tsv」をgit-subtree化できるように「kantray」の内容はなるだけ[kantray.txt]に移動したい(ドキュメント未整理の部分あり)。
+ 「LTsv10kanedit」に向けて「kanedit」開発。漢直キーボード「LTsv_keyboard_new()」を作り直す予定。
 
 
 １-0a．「L:Tsv」の解説(このドキュメントは「kantray」ではなく「L:Tsv」をメインに書いてます)。
