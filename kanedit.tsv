@@ -13,10 +13,6 @@ edit_fontcolor	black
 edit_bgcolor		#FFF3F5
 kbd_fontcolor	black
 kbd_bgcolor		#CFE6CF
-kbd_NFERcolor		#CFE6CF
-kbd_XFERcolor		#CFE6CF
-kbd_KANAcolor		#CFE6CF
-kbd_SandScolor		#CFE6CF
 input_NFER	NFER
 input_XFER	XFER
 input_KANA	KANA

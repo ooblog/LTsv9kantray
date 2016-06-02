@@ -177,6 +177,7 @@ LTsv_GUI=LTsv_guiinit()
 if len(LTsv_GUI) > 0:
     from LTsv_kbd    import *
     LTsv_kbdinit()
+    LTsv_glyphdicload("kanchar.tsv")
     if LTsv_GUI == LTsv_GUI_GTK2:
         LTsv_drawtk_selcanvas,LTsv_drawtk_color,LTsv_drawtk_polygon,LTsv_drawtk_polygonfill=LTsv_drawGTK_selcanvas,LTsv_drawGTK_color,LTsv_drawGTK_polygon,LTsv_drawGTK_polygonfill
         LTsv_drawtk_glyph,LTsv_drawtk_glyphfill,LTsv_drawtk_delete,LTsv_drawtk_queue=LTsv_drawGTK_glyph,LTsv_drawGTK_glyphfill,LTsv_drawGTK_delete,LTsv_drawGTK_queue

@@ -1117,6 +1117,10 @@ LTsv_drawTkinter_arcfill(draw_x,draw_y,draw_w,draw_h,draw_s=-math.pi,draw_e=math
   ポリゴンが時計回りなら正数、反時計回りなら負数、判定できない場合0のカウントを返す。
   時計回りの判定は簡易的(角度のみ面積無視)なので８の字にねじった形状や十字手裏剣のような凹みのある形状を扱う場合注意。
 
+ LTsv_glyphdicload(dicname="kanchar.tsv"):
+  単漢字辞書「kanchar.tsv」を読み込む。
+  ファイルが見つからない場合「LTsv_keyboard_dic()」から読み込む。
+
  LTsv_glyphpath(glyphcode):
   「kanchar.tsv」の「活」項目のフォントパスの座標変換を指示。
   通常は後述の「kanfont_drawTkinter_glyph()」から自動呼び出し。

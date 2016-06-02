@@ -1242,9 +1242,15 @@ def LTsv_clockwise(*draw_xy):
     return clockwise
 
 LTsv_PSfont_ZW,LTsv_PSfont_CW,LTsv_PSchar_ZW,LTsv_PSchar_CW=1024,624,1000,600
+LTsv_glyph_kandic=""
+def LTsv_glyphdicload(dicname="kanchar.tsv"):
+    global LTsv_glyph_kandic
+    LTsv_glyph_kandic=LTsv_loadfile(dicname,LTsv_keyboard_dic())
+
 def LTsv_glyphpath(glyphcode):
     global LTsv_kanglyphOBJ,LTsv_kanclockOBJ,LTsv_kanwideOBJ
-    LTsv_glyph_kandic=LTsv_keyboard_dic(); LTsv_glyph_kanline=LTsv_readlinerest(LTsv_glyph_kandic,glyphcode)
+    global LTsv_glyph_kandic
+    LTsv_glyph_kanline=LTsv_readlinerest(LTsv_glyph_kandic,glyphcode)
     LTsv_glyph_path,LTsv_glyph_wide=LTsv_pickdatalabel(LTsv_glyph_kanline,"活"),LTsv_pickdatalabel(LTsv_glyph_kanline,"幅")
     LTsv_glyph_pathZ=LTsv_glyph_path.strip(' ').replace('Z','z').rstrip('z').split('z') if len(LTsv_glyph_path) else []
     LTsv_glyphnote,LTsv_glyphclock=[],[]
@@ -1262,7 +1268,8 @@ def LTsv_glyphpath(glyphcode):
 
 def LTsv_glyphpath_outer(glyphcode):
     global LTsv_kanglyphOBJ,LTsv_kanclockOBJ,LTsv_kanwideOBJ
-    LTsv_glyph_kandic=LTsv_keyboard_dic(); LTsv_glyph_kanline=LTsv_readlinerest(LTsv_glyph_kandic,glyphcode)
+    global LTsv_glyph_kandic
+    LTsv_glyph_kanline=LTsv_readlinerest(LTsv_glyph_kandic,glyphcode)
     LTsv_glyph_path,LTsv_glyph_wide=LTsv_pickdatalabel(LTsv_glyph_kanline,"活"),LTsv_pickdatalabel(LTsv_glyph_kanline,"幅")
     LTsv_glyph_pathZ=LTsv_glyph_path.strip(' ').replace('Z','z').rstrip('z').split('z') if len(LTsv_glyph_path) else []
     LTsv_glyphnote,LTsv_glyphclock=[],[]
@@ -1864,6 +1871,7 @@ if __name__=="__main__":
         from LTsv_calc   import *
         from LTsv_kbd    import *
         LTsv_kbdinit("./LTsv_kbd.tsv",LTsv_initmouse=False)
+        LTsv_glyphdicload()
         LTsv_joymax=LTsv_joyinit()
         debug_fontname="kantray5x5comic"
         debug_fontsize_entry=10; debug_font_entry="{0},{1}".format(debug_fontname,debug_fontsize_entry); debug_label_WH=debug_fontsize_entry*2

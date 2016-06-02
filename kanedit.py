@@ -5,6 +5,7 @@ import sys
 import os
 os.chdir(sys.path[0])
 sys.path.append("LTsv")
+import copy
 from LTsv_printf import *
 from LTsv_file   import *
 from LTsv_time   import *
@@ -98,11 +99,10 @@ def kanedit_resize(callback_void=None,callback_ptr=None):
 
 def kanedit_tinykbd_select(choice):
     global tinykbd_fontchar
-    choiceNX=choice
     if choice in tinykbd_irohatypeN:
         choiceNX=tinykbd_irohatype[tinykbd_irohatypeN.index(choice)]
         tinykbd_fontchar[0:tinykbd_irohamax]=tinykbd_kanmapN[choiceNX][0:tinykbd_irohamax]
-    if choice in tinykbd_irohatypeX:
+    elif choice in tinykbd_irohatypeX:
         choiceNX=tinykbd_irohatype[tinykbd_irohatypeX.index(choice)]
         tinykbd_fontchar[0:tinykbd_irohamax]=tinykbd_kanmapX[choiceNX][0:tinykbd_irohamax]
 
@@ -219,6 +219,7 @@ def kanedit_configload():
         kbd_lineL=kbd_lineT.split('\t'); kbd_lineL=kbd_lineL+[" "]*(tinykbd_SandS*2-len(kbd_lineL))
         tinykbd_kanmapN[irohaalpha],tinykbd_kanmapX[irohaalpha]=kbd_lineL[0:tinykbd_SandS+1],kbd_lineL[tinykbd_SandS+1:tinykbd_SandS+1+tinykbd_SandS+1]
     tinykbd_char=LTsv_loadfile(LTsv_readlinerest(kanedit_config,"dic_charname",tinykbd_char))
+    LTsv_glyphdicload(tinykbd_char)
     tinykbd_word=LTsv_loadfile(LTsv_readlinerest(kanedit_config,"dic_wordname",tinykbd_word))
     tinykbd_zip=LTsv_loadfile(LTsv_readlinerest(kanedit_config,"dic_zipname",tinykbd_zip))
 #    kanedit_tinykbd_select(tinykbd_kanmapchoice)

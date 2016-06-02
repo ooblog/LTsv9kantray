@@ -412,6 +412,7 @@ def kanfont_configload():
     keyboard_mapdic_page=LTsv_getpage(LTsv_kbdltsv,"keyboard_mapdic")
     kanfont_mapname=LTsv_readlinerest(keyboard_mapdic_page,"mapname",kanfont_mapname)
     kanfont_dicname=LTsv_readlinerest(keyboard_mapdic_page,"dicname",kanfont_dicname)
+    LTsv_glyphdicload(kanfont_dicname)
 
 def kanfont_exit_configsave(window_objvoid=None,window_objptr=None):
     global kanfont_ltsv,kanfont_config
