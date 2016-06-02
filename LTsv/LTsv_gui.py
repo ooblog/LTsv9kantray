@@ -1245,7 +1245,11 @@ LTsv_PSfont_ZW,LTsv_PSfont_CW,LTsv_PSchar_ZW,LTsv_PSchar_CW=1024,624,1000,600
 LTsv_glyph_kandic=""
 def LTsv_glyphdicload(dicname="kanchar.tsv"):
     global LTsv_glyph_kandic
-    LTsv_glyph_kandic=LTsv_loadfile(dicname,LTsv_keyboard_dic())
+    LTsv_glyph_kandic=LTsv_loadfile(dicname) if os.path.isfile(dicname) else LTsv_keyboard_dic()
+
+def LTsv_glyphdicread(dictext):
+    global LTsv_glyph_kandic
+    LTsv_glyph_kandic=dictext
 
 def LTsv_glyphpath(glyphcode):
     global LTsv_kanglyphOBJ,LTsv_kanclockOBJ,LTsv_kanwideOBJ

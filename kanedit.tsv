@@ -22,7 +22,7 @@ find_NX	Σ
 find_alpha	σ
 find_dic	名
 find_char	
-font_size	5
+font_size	10
 eval_calc	Σ
 eval_now	年-月-日(週曜)時:分:秒
 eval_branch	@000y@0m@0dm@wdec@0h@0n@0s
