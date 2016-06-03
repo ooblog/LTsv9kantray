@@ -17,7 +17,7 @@ input_NFER	NFER
 input_XFER	XFER
 input_KANA	KANA
 input_SandS	Space
-file_last	kanedit.txt
+open_last	kanedit_test.txt
 find_NX	Σ
 find_alpha	σ
 find_dic	名

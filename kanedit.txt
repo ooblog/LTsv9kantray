@@ -1,0 +1,51 @@
+「LTsv10kantray(tsvtool10)」は「L:Tsv」の読み書きを中心としたモジュール群と漢字入力「kanedit」のPythonによる実装の予定です。
+まだ「LTsv9kantray(tsvtool9)」の延長です。
+version(branch) 20160517T141820
+
+目次
+
+ ０-0． ライセンス及びソフトの使用の補足ガイドライン
+ ０-1． 「kanedit」を制作中です。製作途中です。このドキュメントも未整理です。
+ １．   作者について、例えば連絡先。
+
+
+０-0． ライセンス及びソフトの使用の補足ガイドライン
+
+ ※「MIT License」準拠。
+   MIT License - Choose a License
+   http://choosealicense.com/licenses/mit/
+
+ ※「MIT License」の日本語訳。
+   licenses/MIT_license - Open Source Group Japan Wiki - Open Source Group Japan - OSDN
+   https://osdn.jp/projects/opensource/wiki/licenses%2FMIT_license
+
+ ※日本語による補足。
+   ・複製物にも「MIT License」の[LICENSE]ファイルを添付る事(著作権表示を誤魔化さない事)。
+   ・いかなる場合においても作者または著作権所有者は一切責任を負わない事。
+   ・ソースコードの閲覧やコピーに制限を設けない事。
+
+ ※「kantray」固有の問題への言及。
+   ・辞書などの翻訳ミスもしくは言い回しが古くなるなどの人間語の方の不具合に対してもメンテナンス義務はありません。
+
+
+０-1． 「kanedit」を制作中です。製作途中です。このドキュメントも未整理です。
+
+ 「kanedit.py」はテキストエディタになる予定です。
+ 「kantray」で漢直(キーフック)ができなくなる恐れが出てきたので、「kanedit」の製作を前倒しにしてます。
+ 「kantray」の漢直に関する記述、いわゆる「漢直モードの」内容は「kanedit.txt」に移動する予定です。
+
+
+１．   作者について、例えば連絡先。
+
+ 更新情報はGitHubやブログを確認してください。
+
+  ooblog/LTsv9kantray(GitHub)
+  https://github.com/ooblog/LTsv9kantray
+
+ [kantray] - 大風呂ダ敷
+  http://d.hatena.ne.jp/ooblog/searchdiary?word=*[kantray]
+
+
+# Copyright (c) 2016 ooblog
+# License: MIT
+# https://github.com/ooblog/LTsv9kantray/blob/master/LICENSE
