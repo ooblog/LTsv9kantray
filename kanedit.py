@@ -19,8 +19,9 @@ tinykbd_inputSandS,tinykbd_inputNFER,tinykbd_inputXFER,tinykbd_inputKANA="Space"
 tinykbd_irohatype= ["ぬ","ふ","あ","う","え","お","や","ゆ","よ","わ","ほ","へ","た","て","い","す","か","ん","な","に","ら","せ","゛","゜","ち","と","し","は","き","く","ま","の","り","れ","け","む","つ","さ","そ","ひ","こ","み","も","ね","る","め","ろ","￥"]
 tinykbd_irohatypeN=["ぬ","ふ","あ","う","え","お","や","ゆ","よ","わ","ほ","へ","た","て","い","す","か","ん","な","に","ら","せ","＠","ぷ","ち","と","し","は","き","く","ま","の","り","れ","け","む","つ","さ","そ","ひ","こ","み","も","ね","る","め","ろ","￥"]
 tinykbd_irohatypeX=["ヌ","フ","ア","ウ","エ","オ","ヤ","ユ","ヨ","ワ","ホ","ヘ","タ","テ","イ","ス","カ","ン","ナ","ニ","ラ","セ","｀","プ","チ","ト","シ","ハ","キ","ク","マ","ノ","リ","レ","ケ","ム","ツ","サ","ソ","ヒ","コ","ミ","モ","ネ","ル","メ","ロ","｜"]
+tinykbd_choice=    ["名","音","訓","送","異","俗","簡","繁","越","地","逆","非","英","顔","ε","ρ","τ","υ","θ","ι","ο","π","＠","ぷ","α","σ","δ","φ","γ","η","ξ","κ","λ","代","鍵","ぬ","ζ","χ","ψ","ω","β","ν","μ","熙","○","△","□","￥","σ"]
 tinykbd_choiceN=   ["名","音","訓","送","異","俗","簡","繁","越","地","逆","非","英","顔","ε","ρ","τ","υ","θ","ι","ο","π","＠","ぷ","α","σ","δ","φ","γ","η","ξ","κ","λ","代","鍵","ぬ","ζ","χ","ψ","ω","β","ν","μ","熙","○","△","□","￥","σ"]
-tinykbd_choiceX=   ["名","音","訓","送","異","俗","簡","繁","越","地","逆","非","英","顔","Ε","Ρ","Τ","Υ","Θ","Ι","Ο","Π","｀","プ","Α","Σ","Δ","Φ","Γ","Η","Ξ","Κ","Λ","代","鍵","ぬ","Ζ","Χ","Ψ","Ω","Β","Ν","Μ","熙","○","△","□","￥","Σ"]
+tinykbd_choiceX=   ["名","音","訓","送","異","俗","簡","繁","越","地","逆","非","英","顔","Ε","Ρ","Τ","Υ","Θ","Ι","Ο","Π","｀","プ","Α","Σ","Δ","Φ","Γ","Η","Ξ","Κ","Λ","代","鍵","ぬ","Ζ","Χ","Ψ","Ω","Β","Ν","Μ","熙","●","▲","■","￥","Σ"]
 tinykbd_alphatype= ["α","β","γ","δ","ε","ζ","η","θ","ι","κ","λ","μ","ν","ξ","ο","π","ρ","σ","τ","υ","φ","χ","ψ","ω","○","△","□"]
 tinykbd_alphatypeN=["α","β","γ","δ","ε","ζ","η","θ","ι","κ","λ","μ","ν","ξ","ο","π","ρ","σ","τ","υ","φ","χ","ψ","ω","○","△","□"]
 tinykbd_alphatypeX=["Α","Β","Γ","Δ","Ε","Ζ","Η","Θ","Ι","Κ","Λ","Μ","Ν","Ξ","Ο","Π","Ρ","Σ","Τ","Υ","Φ","Χ","Ψ","Ω","●","▲","■"]
@@ -36,7 +37,7 @@ tinykbd_menusize,tinykbd_menuspace,tinykbd_menuhalf=10,12,6
 tinykbd_irohamax=12*4; tinykbd_SandS,tinykbd_NFER,tinykbd_XFER,tinykbd_KANA,tinykbd_None=48,49,50,51,52
 tinykbd_cursorMSbf,tinykbd_cursorMSaf,tinykbd_cursorLCR,tinykbd_cursorTSF=tinykbd_None,tinykbd_None,"000",{"000":"Tap","100":"Tap","010":"Swipe","001":"Flick"}
 tinykbd_fontX,tinykbd_fontY,tinykbd_spaceX,tinykbd_spaceY=[0]*(tinykbd_None),[0]*(tinykbd_None),[0]*(tinykbd_None),[0]*(tinykbd_None)
-tinykbd_fontchar=[""]*(tinykbd_None); tinykbd_fontchar[tinykbd_SandS],tinykbd_fontchar[tinykbd_NFER],tinykbd_fontchar[tinykbd_XFER],tinykbd_fontchar[tinykbd_KANA]="名","Ｎ","Ｘ",tinykbd_irohatype[0]
+tinykbd_fontchar=[""]*(tinykbd_None); tinykbd_fontchar[tinykbd_SandS],tinykbd_fontchar[tinykbd_NFER],tinykbd_fontchar[tinykbd_XFER],tinykbd_fontchar[tinykbd_KANA]=tinykbd_dictype[1],"Ｎ","Ｘ",tinykbd_irohatype[0]
 
 def kanedit_tinykbd_new():
     global keyboard_irohamax,keyboard_alphapos,keyboard_guidepos,keyboard_dicinppos,keyboard_dicselpos,keyboard_iroha,keyboard_guideN,keyboard_guideX,keyboard_guideK,keyboard_guideKN,keyboard_guideKX
@@ -100,11 +101,11 @@ def kanedit_resize(callback_void=None,callback_ptr=None):
 
 def kanedit_tinykbd_select(choice):
     global tinykbd_fontchar
-    if choice in tinykbd_irohatypeN:
-        choiceNX=tinykbd_irohatype[tinykbd_irohatypeN.index(choice)]
+    if choice in tinykbd_irohaalphaN:
+        choiceNX=tinykbd_irohaalpha[tinykbd_irohaalphaN.index(choice)]
         tinykbd_fontchar[0:tinykbd_irohamax]=tinykbd_kanmapN[choiceNX][0:tinykbd_irohamax]
-    elif choice in tinykbd_irohatypeX:
-        choiceNX=tinykbd_irohatype[tinykbd_irohatypeX.index(choice)]
+    elif choice in tinykbd_irohaalphaX:
+        choiceNX=tinykbd_irohaalpha[tinykbd_irohaalphaX.index(choice)]
         tinykbd_fontchar[0:tinykbd_irohamax]=tinykbd_kanmapX[choiceNX][0:tinykbd_irohamax]
 
 def kanedit_tinykbd_selected(choice):
@@ -115,12 +116,20 @@ def kanedit_tinykbd_selected(choice):
         choiceNX=tinykbd_irohaalphaX.index(choice)
     return choiceNX
 
-def kanedit_inputchar(choice,kbd_xy):
+def kanedit_inputchar(inputchar):
     global kanedit_texteditvalue
-    if choice in tinykbd_irohatypeN:
-        kanedit_texteditvalue+=tinykbd_kanmapN[tinykbd_irohatype[tinykbd_irohatypeN.index(choice)]][kbd_xy]
-    if choice in tinykbd_irohatypeX:
-        kanedit_texteditvalue+=tinykbd_kanmapX[tinykbd_irohatype[tinykbd_irohatypeX.index(choice)]][kbd_xy]
+    kanedit_texteditvalue+=inputchar
+
+def kanedit_inputcharNX(choice,kbd_xy):
+    global kanedit_texteditvalue
+    if choice in tinykbd_irohaalphaN:
+        kanedit_inputchar(tinykbd_kanmapN[tinykbd_irohaalpha[tinykbd_irohaalphaN.index(choice)]][kbd_xy])
+    if choice in tinykbd_irohaalphaX:
+        kanedit_inputchar(tinykbd_kanmapX[tinykbd_irohaalpha[tinykbd_irohaalphaX.index(choice)]][kbd_xy])
+
+def kanedit_inputBS():
+    global kanedit_texteditvalue
+    kanedit_texteditvalue=kanedit_texteditvalue[:-1]
 
 def kanedit_mousecursor():
     global tinykbd_cursorMSbf,tinykbd_cursorMSaf,tinykbd_cursorLCR,tinykbd_cursorTSF
@@ -139,11 +148,14 @@ def kanedit_mousepress(window_objvoid=None,window_objptr=None):
     global tinykbd_cursorMSbf,tinykbd_cursorMSaf,tinykbd_cursorLCR,tinykbd_cursorTSF
     tinykbd_cursorMSaf=kanedit_mousecursor()
     global kanedit_getkbdnames,kanedit_getkbdkanas
-    LTsv_setkbddata(10,10); kanedit_getmouse=LTsv_getkbdlabels("MouseL\tMouseR\tMouseC")
-    tinykbd_cursorLCR="{0}{1}{2}".format(LTsv_pickdatalabel(kanedit_getmouse,"MouseL"),LTsv_pickdatalabel(kanedit_getmouse,"MouseC"),LTsv_pickdatalabel(kanedit_getmouse,"MouseR"))
-#    LTsv_libc_printf("kanedit_mousepress「{0}」".format(tinykbd_cursorLCR))
-    if tinykbd_cursorLCR in tinykbd_cursorTSF:
-        tinykbd_cursorLCR=tinykbd_cursorTSF[tinykbd_cursorLCR]
+    LTsv_setkbddata(25,25); kanedit_getmouse=LTsv_getkbdlabels("MouseL\tMouseR\tMouseC")
+    tinykbd_cursorLCR="Tap"
+#    tinykbd_cursorLCR="{0}{1}{2}".format(LTsv_pickdatalabel(kanedit_getmouse,"MouseL"),LTsv_pickdatalabel(kanedit_getmouse,"MouseC"),LTsv_pickdatalabel(kanedit_getmouse,"MouseR"))
+#    LTsv_libc_printf("kanedit_mousepress「{0}」「{1}」".format(tinykbd_cursorLCR,kanedit_getmouse))
+#    if tinykbd_cursorLCR in tinykbd_cursorTSF:
+#        tinykbd_cursorLCR=tinykbd_cursorTSF[tinykbd_cursorLCR]
+#    if tinykbd_cursorLCR == "Swipe":
+#        tinykbd_cursorLCR="SwipeN"
     if tinykbd_cursorMSaf == tinykbd_SandS:
         tinykbd_cursorLCR="Flick"
     if tinykbd_cursorMSaf == tinykbd_NFER:
@@ -154,17 +166,23 @@ def kanedit_mousepress(window_objvoid=None,window_objptr=None):
         tinykbd_cursorLCR="SwipeK"
     if tinykbd_cursorLCR == "Tap":
         if tinykbd_cursorMSaf < tinykbd_None:
-            kanedit_inputchar(tinykbd_fontchar[tinykbd_KANA],tinykbd_cursorMSaf)
+            if tinykbd_cursorMSaf < tinykbd_irohamax:
+                kanedit_inputcharNX(tinykbd_fontchar[tinykbd_KANA],tinykbd_cursorMSaf)
     if tinykbd_cursorLCR == "SwipeN":
-        tinykbd_fontchar[tinykbd_KANA]=tinykbd_irohatypeN[kanedit_tinykbd_selected(tinykbd_fontchar[tinykbd_KANA])]
+        tinykbd_fontchar[tinykbd_KANA]=tinykbd_irohaalphaN[kanedit_tinykbd_selected(tinykbd_fontchar[tinykbd_KANA])]
         kanedit_tinykbd_select(tinykbd_fontchar[tinykbd_KANA])
     if tinykbd_cursorLCR == "SwipeX":
-        tinykbd_fontchar[tinykbd_KANA]=tinykbd_irohatypeX[kanedit_tinykbd_selected(tinykbd_fontchar[tinykbd_KANA])]
+        tinykbd_fontchar[tinykbd_KANA]=tinykbd_irohaalphaX[kanedit_tinykbd_selected(tinykbd_fontchar[tinykbd_KANA])]
         kanedit_tinykbd_select(tinykbd_fontchar[tinykbd_KANA])
     if tinykbd_cursorLCR == "SwipeK":
-        kanedit_tinykbd_select("α")
+        if tinykbd_fontchar[tinykbd_KANA] in tinykbd_irohaalphaN:
+            tinykbd_fontchar[0:tinykbd_irohamax]=tinykbd_choiceN[0:tinykbd_irohamax]
+        elif tinykbd_fontchar[tinykbd_KANA] in tinykbd_irohaalphaX:
+            tinykbd_fontchar[0:tinykbd_irohamax]=tinykbd_choiceX[0:tinykbd_irohamax]
     if tinykbd_cursorLCR == "Flick":
-        pass
+        for kbd_xy in range(tinykbd_irohamax):
+            tinykbd_fontchar[kbd_xy]=LTsv_pickdatalabel(LTsv_readlinerest(tinykbd_char,tinykbd_fontchar[kbd_xy]),tinykbd_fontchar[tinykbd_SandS])
+            tinykbd_fontchar[kbd_xy]=tinykbd_fontchar[kbd_xy][0:1]
     kanedit_redraw()
 
 def kanedit_mousemotion(window_objvoid=None,window_objptr=None):
@@ -172,17 +190,29 @@ def kanedit_mousemotion(window_objvoid=None,window_objptr=None):
     if tinykbd_cursorMSaf < tinykbd_irohamax:
         if tinykbd_cursorLCR == "SwipeN":
             tinykbd_fontchar[tinykbd_KANA]=tinykbd_irohatypeN[tinykbd_cursorMSaf]
+            if tinykbd_cursorMSbf != tinykbd_cursorMSaf:
+                kanedit_tinykbd_select(tinykbd_fontchar[tinykbd_KANA])
+                kanedit_redraw()
         if tinykbd_cursorLCR == "SwipeX":
             tinykbd_fontchar[tinykbd_KANA]=tinykbd_irohatypeX[tinykbd_cursorMSaf]
-        if tinykbd_cursorMSbf != tinykbd_cursorMSaf:
-            kanedit_tinykbd_select(tinykbd_fontchar[tinykbd_KANA])
-            kanedit_redraw()
+            if tinykbd_cursorMSbf != tinykbd_cursorMSaf:
+                kanedit_tinykbd_select(tinykbd_fontchar[tinykbd_KANA])
+                kanedit_redraw()
 
 def kanedit_mouserelease(window_objvoid=None,window_objptr=None):
     global tinykbd_cursorMSbf,tinykbd_cursorMSaf,tinykbd_cursorLCR,tinykbd_cursorTSF
     tinykbd_cursorMSaf=kanedit_mousecursor()
     if tinykbd_cursorLCR == "SwipeK":
+        if tinykbd_cursorMSaf < tinykbd_irohamax:
+            if tinykbd_fontchar[tinykbd_cursorMSaf] in tinykbd_dictype:
+                tinykbd_fontchar[tinykbd_SandS]=tinykbd_fontchar[tinykbd_cursorMSaf]
+            else:
+                tinykbd_fontchar[tinykbd_KANA]=tinykbd_fontchar[tinykbd_cursorMSaf]
         kanedit_tinykbd_select(tinykbd_fontchar[tinykbd_KANA])
+    if tinykbd_cursorLCR == "Flick":
+        kanedit_tinykbd_select(tinykbd_fontchar[tinykbd_KANA])
+        if tinykbd_cursorMSaf < tinykbd_irohamax:
+            kanedit_inputchar(LTsv_pickdatalabel(LTsv_readlinerest(tinykbd_char,tinykbd_fontchar[tinykbd_cursorMSaf]),tinykbd_fontchar[tinykbd_SandS]))
     tinykbd_cursorLCR=""
     kanedit_redraw()
 
@@ -190,14 +220,20 @@ def kanedit_keypress(window_objvoid=None,window_objptr=None):
     global kanedit_getkbdnames,kanedit_getkbdkanas
     LTsv_setkbddata(10,0)
     kanedit_getkbdnames,kanedit_getkbdkanas=LTsv_getkbdnames(),LTsv_getkbdkanas()
-    if kanedit_getkbdkanas in tinykbd_irohatype:
-        kanedit_inputchar(tinykbd_fontchar[tinykbd_KANA],tinykbd_irohatype.index(kanedit_getkbdkanas))
+    for getkbdnames in kanedit_getkbdnames.split('\t'):
+        if getkbdnames == "Enter":
+            kanedit_inputchar('\n')
+        if getkbdnames == "BS":
+            kanedit_inputBS()
+    for getkbdkanas in kanedit_getkbdkanas.split('\t'):
+        if getkbdkanas in tinykbd_irohatype:
+            kanedit_inputcharNX(tinykbd_fontchar[tinykbd_KANA],tinykbd_irohatype.index(getkbdkanas))
     kanedit_redraw()
 
 def kanedit_keyrelease(window_objvoid=None,window_objptr=None):
     global kanedit_getkbdnames,kanedit_getkbdkanas
     if kanedit_getkbdnames == "Space":
-        kanedit_inputchar(tinykbd_fontchar[tinykbd_KANA],tinykbd_SandS)
+        kanedit_inputcharNX(tinykbd_fontchar[tinykbd_KANA],tinykbd_SandS)
     LTsv_setkbddata(10,0)
     kanedit_redraw()
 
@@ -233,7 +269,7 @@ def kanedit_configload():
 LTsv_GUI=LTsv_guiinit()
 kantray_max=0x2ffff if LTsv_GUI != "Tkinter" else 0xffff
 if len(LTsv_GUI) > 0:
-    LTsv_kbdinit(LTsv_initmouse=False)
+    LTsv_kbdinit(LTsv_initmouse=True)
     kanedit_tinykbd_new()
     kanedit_configload()
     if LTsv_GUI == LTsv_GUI_GTK2:
