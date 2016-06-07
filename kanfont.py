@@ -277,10 +277,8 @@ def kanfont_canvas_grid():
     global keyboard_gridX,keyboard_gridY,keyboard_removeX,keyboard_removeY,keyboard_gridZ,keyboard_gridM
     keyboard_mouseX,keyboard_mouseY=min(max(LTsv_global_canvasmotionX(),0),PSchar_ZW//2),min(max(LTsv_global_canvasmotionY(),0),PSchar_ZW//2)
     if kanfont_fontinner:
-        keyboard_gridX=(keyboard_mouseX//kanfont_fontgrid)*kanfont_fontgrid
-        keyboard_gridX=keyboard_gridX if keyboard_mouseX//(kanfont_fontgrid//2) % 2 == 0 else keyboard_gridX+kanfont_fontgrid-1
-        keyboard_gridY=(keyboard_mouseY//kanfont_fontgrid)*kanfont_fontgrid
-        keyboard_gridY=keyboard_gridY if keyboard_mouseY//(kanfont_fontgrid//2) % 2 == 0 else keyboard_gridY+kanfont_fontgrid-1
+        keyboard_gridX=(keyboard_mouseX//kanfont_fontgrid)*kanfont_fontgrid if keyboard_mouseX//(kanfont_fontgrid//2) % 2 == 0 else (keyboard_mouseX//kanfont_fontgrid+1)*kanfont_fontgrid-1
+        keyboard_gridY=(keyboard_mouseY//kanfont_fontgrid)*kanfont_fontgrid if keyboard_mouseY//(kanfont_fontgrid//2) % 2 == 0 else (keyboard_mouseY//kanfont_fontgrid+1)*kanfont_fontgrid-1
     else:
         keyboard_gridX,keyboard_gridY=(keyboard_mouseX+(kanfont_fontgrid//2))//kanfont_fontgrid*kanfont_fontgrid,(keyboard_mouseY+(kanfont_fontgrid//2))//kanfont_fontgrid*kanfont_fontgrid
 
@@ -354,7 +352,7 @@ def kanfont_canvas_motion(callback_void=None,callback_ptr=None):
             keyboard_gridZ=len(kanfont_glyphlayer)//2
             for glyphpoints in range(len(kanfont_glyphlayer)//2):
 #                if kanfont_glyphlayer[glyphpoints*2] == keyboard_gridX and kanfont_glyphlayer[glyphpoints*2+1] == keyboard_gridY:
-                if abs(kanfont_glyphlayer[glyphpoints*2]-keyboard_gridX) < kanfont_fontgrid and abs(kanfont_glyphlayer[glyphpoints*2+1]-keyboard_gridY) < kanfont_fontgrid:
+                if abs(kanfont_glyphlayer[glyphpoints*2]-keyboard_gridX) < kanfont_fontgrid//2 and abs(kanfont_glyphlayer[glyphpoints*2+1]-keyboard_gridY) < kanfont_fontgrid //2:
                     keyboard_gridZ=glyphpoints
 
 def kanfont_canvas_release(callback_void=None,callback_ptr=None):

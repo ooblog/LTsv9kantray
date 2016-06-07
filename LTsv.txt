@@ -68,11 +68,9 @@ version(branch) 20160517T141820
  フォント「kantray5x5comic」は半角と全角の幅の比率が約5:3(1024:624)なのでアスキーアートで問題になる場合があります。
  マウスホイールの取得は保留。tkk方面は手を出さない予定(コンボボックスなどはGTKのみサポート)。
  [kantray5x5comic.svg]を[kantray5x5comic.ttf]に変換する手段として「FontForge」が必要。直接フォント生成とかできればベストだが優先順位は低い。
- 「LTsv_keyboard」とは別に「LTsv_drawGTK_glyph」「LTsv_drawTkinter_glyph」を使ったキーボードも追加したい。
  [kanchar.tsv]に異体字を移管して[kanmap.tsv]を圧縮していく作業は当分続く。現在人名に使える漢字の異体字の字引入力中心に作業中。
- 通知タスクトレイ(Notify)が使えない環境にも対応するためテキストエディタ「kanedit」も用意する予定。
+ 通知タスクトレイ(Notify)が使えない環境にも対応するためテキストエディタ「kanedit」も現在制作中。漢直キーボード「LTsv_keyboard_new()」を置き換える予定。
  「L:Tsv」をgit-subtree化できるように「kantray」の内容はなるだけ[kantray.txt]に移動したい(ドキュメント未整理の部分あり)。
- 「LTsv10kanedit」に向けて「kanedit」開発。漢直キーボード「LTsv_keyboard_new()」を作り直す予定。
 
 
 １-0a．「L:Tsv」の解説(このドキュメントは「kantray」ではなく「L:Tsv」をメインに書いてます)。

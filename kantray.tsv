@@ -4,7 +4,7 @@ enter	LF
 tab	8
 program	kantray
 LTsvver	20160517T141820
-modify	20160602R115441
+modify	20160607T142504
 |L:Tsv]
 
 [kantray|
@@ -37,32 +37,32 @@ font_size	12
 |kantray]
 
 [keybind|
-H_Left			Left	// H
-J_Down			Down	// J
-K_Up			Up	// K
-L_Right			Right	// L
-Home			Home	// Y
-End			End	// U
-PgUp			PgUp	// I
-PgDn			PgDn	// O
-BS			BS	// B
-Del			Del	// D
-Enter			Enter	// E
-Tab			Tab	// T
-A+Ctrl		CtrlL	A	// A
-S+Ctrl		CtrlL	S	// S
-Z+Ctrl		CtrlL	Z	// Z
-X+Ctrl		CtrlL	X	// X
-C+Ctrl		CtrlL	C	// C
-V+Ctrl		CtrlL	V	// V
-<ShiftL		ShiftL	Left	// <
->ShiftR		ShiftL	Right	// >
-tab!		tab!		// N
-4Space!		4Space!		// G
-Eval!		Eval!		// E
-Window!		Window!		// W
-QuickWindow!	QuickWindow!	// Q
 |keybind]
+# H_Left			Left	// H
+# J_Down			Down	// J
+# K_Up			Up	// K
+# L_Right			Right	// L
+# Home			Home	// Y
+# End			End	// U
+# PgUp			PgUp	// I
+# PgDn			PgDn	// O
+# BS			BS	// B
+# Del			Del	// D
+# Enter			Enter	// E
+# Tab			Tab	// T
+# A+Ctrl		CtrlL	A	// A
+# S+Ctrl		CtrlL	S	// S
+# Z+Ctrl		CtrlL	Z	// Z
+# X+Ctrl		CtrlL	X	// X
+# C+Ctrl		CtrlL	C	// C
+# V+Ctrl		CtrlL	V	// V
+# <ShiftL		ShiftL	Left	// <
+# >ShiftR		ShiftL	Right	// >
+# tab!		tab!		// N
+# 4Space!		4Space!		// G
+# Eval!		Eval!		// E
+# Window!		Window!		// W
+# QuickWindow!	QuickWindow!	// Q
 
 
 # Copyright (c) 2016 ooblog

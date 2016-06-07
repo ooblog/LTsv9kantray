@@ -4,33 +4,29 @@ enter	LF
 tab	8
 program	kantray
 LTsvver	20160517T141820
-modify	20160517T141820
+modify	20160607T140404
 |L:Tsv]
 
 [kanedit|
 window		width:320	height:240
-edit_fontcolor	black
-edit_bgcolor		#FFF3F5
-kbd_fontcolor	black
-kbd_bgcolor		#CFE6CF
+input_SandS	Space
 input_NFER	NFER
 input_XFER	XFER
 input_KANA	KANA
-input_SandS	Space
-open_last	kanedit_test.txt
-find_NX	Σ
-find_alpha	σ
-find_dic	名
-find_char	
+edit_fontcolor	#000000
+edit_bgcolor		#FFF3F5
+kbd_fontcolor	#000000
+kbd_bgcolor		#CFE6CF
 font_size	10
-eval_calc	Σ
+find_NXalpha	σ
+find_dic	非
 eval_now	年-月-日(週曜)時:分:秒
 eval_branch	@000y@0m@0dm@wdec@0h@0n@0s
 eval_overhour	30
 eval_slash	￥
 eval_dakuon	Ｐ
 eval_seion	Ｈ
-eval_entry	
+open_last	kanedit_test.txt
 dic_mapname		kanmap.tsv
 dic_charname	kanchar.tsv
 dic_wordname	kanword.tsv
@@ -38,30 +34,57 @@ dic_zipname		kanzip.tsv
 |kanedit]
 
 [keybind|
-H_Left		Left	// H
-J_Down		Down	// J
-K_Up			Up	// K
-L_Right		Right	// L
-Home			Home	// Y
-End			End	// U
-PgUp			PgUp	// I
-PgDn			PgDn	// O
-BS			BS	// B
-Del			Del	// D
-Enter			Enter	// E
-Tab			Tab	// T
-A+Ctrl		CtrlL	A	// A
-S+Ctrl		CtrlL	S	// S
-Z+Ctrl		CtrlL	Z	// Z
-X+Ctrl		CtrlL	X	// X
-C+Ctrl		CtrlL	C	// C
-V+Ctrl		CtrlL	V	// V
-<ShiftL	ShiftL	Left	// <
->ShiftR	ShiftL	Right	// >
-tab!		tab!		// N
-4Space!	4Space!	// G
-Eval!		Eval!		// E
+Enter	
+Tab	
+BS	
+DEL	
+Y	
+U	
+H	
+J	
+K	
+L	
+B	
+N	
 |keybind]
+
+#F0B0 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	
+#F0C0 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	
+#F0D0 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	
+#1	2	3 	4 	5	6 	7	8	9	0	- 	^
+#Q 	W	E	R	T	Y	U	I	O	P	@	[
+#A	S	D	F	G	H	J	K	L	+	*	]
+#Z	X	C	V	B	N	M	<	>	/	_	|
+
+[charbind|
+	+:Enter
+	T:Tab
+	<:BS
+	>:DEL
+	Y:↖
+	U:↗
+	H:←
+	J:↓
+	K:↑
+	L:→
+	B:↙
+	N:↘
+	I:Home
+	O:End
+	/:PgUp
+	_:PgDn
+	A:All
+	S:Save
+	R:load
+	Z:undo
+	D:reDo
+	X:cut
+	C:Copy
+	V:‎paste
+	F:Find
+	*:replace
+	E:Eval
+|charbind]
 
 
 # Copyright (c) 2016 ooblog
