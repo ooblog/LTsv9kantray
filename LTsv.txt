@@ -1131,14 +1131,15 @@ LTsv_drawTkinter_arcfill(draw_x,draw_y,draw_w,draw_h,draw_s=-math.pi,draw_e=math
   正確には「kanfont」で作成する「kantray5x5」フォント座標の末尾が98の座標を繰り上げる。
   通常は後述の「kanfont_drawGTK_glyph()」から自動呼び出し。
 
- LTsv_drawGTK_glyph(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1); LTsv_drawTkinter_glyph(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1):
+ LTsv_drawGTK_glyph(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1,draw_LF=False,draw_HT=False); LTsv_drawTkinter_glyph(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1,draw_LF=False,draw_HT=False):
   フォント[kantray5x5comic.ttf]を用意しなくても「kanchar.tsv」から直接グリフを取得して「canvas」に描画(ワイヤフレーム)。
   draw_tに文字列。左上座標はdraw_x,draw_y。draw_fでフォントサイズ。draw_wで文字の隙間。draw_hで行間。
 
- LTsv_drawGTK_glyphfill(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1); LTsv_drawTkinter_glyphfill(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1):
+ LTsv_drawGTK_glyphfill(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1,draw_LF=False,draw_HT=False); LTsv_drawTkinter_glyphfill(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1,draw_LF=False,draw_HT=False):
   フォント[kantray5x5comic.ttf]を用意しなくても「kanchar.tsv」から直接グリフを取得して「canvas」に描画(塗り潰し)。
   反時計周りのパスは「LTsv_drawGTK_delete()」「LTsv_drawTkinter_delete()」で初期化に使う色。初期値は「white」。
   draw_tに文字列。左上座標はdraw_x,draw_y。draw_fでフォントサイズ。draw_wで文字の隙間。draw_hで行間。
+  draw_LFで改行を「&#61649;(0xf0d1)」で可視化、draw_HTでタブを「&#61632;(0xf0c0)」を用いて可視化。
 
  LTsv_drawGTK_queue(); LTsv_drawTkinter_queue()
   「GTK2」で「canvas」の更新を「X window」に通知する。OS(厳密にはX)に描画更新を通知しないと描画が即時反映されません。

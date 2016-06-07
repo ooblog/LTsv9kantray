@@ -58,30 +58,40 @@ kanedit_window=None
 kanedit_getkbdnames,kanedit_getkbdkanas="",""
 kanedit_W,kanedit_H,kanedit_RS=tinykbd_W,tinykbd_H,False
 kanedit_ltsv,kanedit_config,kanedit_keybind,kanedit_charbind="","","",""
+kanedit_texteditfilename,kanedit_textvalue="",""
 kanedit_fontcolor,kanedit_bgcolor,kanedit_fontsize="black","#FFF3F5",10
-kanedit_texteditfilename,kanedit_texteditvalue,kanedit_texteditlines="","",[]
-kanedit_texteditine,kanedit_texteditcursor=0,0
+kanmemo_textvalue,kanmemo_textleft,kanmemo_textright="",0,0
+kanmemo_fontcolor,kanmemo_bgcolor,kanmemo_markcolor="black","white","red"
+
+
+def kanedit_redraw():
+    LTsv_drawtk_selcanvas(kanedit_canvas); LTsv_drawtk_delete(kanedit_bgcolor)
+    kanedit_editdraw(5,5)
+    kanedit_memodraw(0,kanedit_H-tinykbd_fontsize)
+    kanedit_kbddraw(kanedit_W-tinykbd_W,kanedit_H-tinykbd_H)
+    LTsv_drawtk_queue()
+
+def kanedit_editdraw(edit_x,edit_y):
+    LTsv_drawtk_color(kanedit_bgcolor); LTsv_drawtk_polygonfill(0,0,kanedit_W,0,kanedit_W,kanedit_H,0,kanedit_H)
+    LTsv_drawtk_color(kanedit_fontcolor); LTsv_drawtk_glyphfill(kanedit_textvalue,draw_x=edit_x,draw_y=edit_y,draw_f=kanedit_fontsize,draw_w=1,draw_h=1)
+
+def kanedit_memodraw(memo_x,memo_y):
+# kanmemo_fontcolor,kanmemo_bgcolor,kanmemo_markcolor
+    LTsv_drawtk_bgcolor(kanmemo_bgcolor); LTsv_drawtk_color(kanmemo_bgcolor); 
+    LTsv_drawtk_polygonfill(memo_x,memo_y,kanedit_W-tinykbd_W,memo_y,kanedit_W-tinykbd_W,kanedit_H,memo_x,kanedit_H)
+    LTsv_drawtk_color(kanmemo_fontcolor); LTsv_drawtk_glyphfill("{0},{1}".format(tinykbd_cursorMSaf,kanedit_getkbdnames),draw_x=kanedit_W-tinykbd_W-tinykbd_W//2,draw_y=kanedit_H-tinykbd_fontsize,draw_f=tinykbd_fontsize,draw_w=1,draw_h=1)
+    LTsv_drawtk_color(kanmemo_fontcolor); LTsv_drawtk_glyphfill(kanmemo_textvalue,draw_x=memo_x,draw_y=memo_y,draw_f=tinykbd_fontsize,draw_w=1,draw_h=1,draw_LF=True,draw_HT=True)
 
 def kanedit_kbddraw(kbd_x,kbd_y):
-    global keyboard_kanmapN,keyboard_kanmapX,keyboard_dicinput
+    global kanmemo_textvalue,kanmemo_textleft,kanmemo_textright
     keyboard_kanmapN,keyboard_kanmapX,keyboard_dicinput=LTsv_keyboard_map()
-    LTsv_drawtk_color(kanedit_fontcolor);     LTsv_drawtk_glyphfill(kanedit_getkbdnames,draw_x=0,draw_y=kbd_y+1,draw_f=10,draw_w=1,draw_h=1)
-    LTsv_drawtk_color(kanedit_fontcolor);     LTsv_drawtk_glyphfill(str(tinykbd_cursorMSaf),draw_x=0,draw_y=kbd_y+13,draw_f=10,draw_w=1,draw_h=1)
+    LTsv_drawtk_bgcolor(tinykbd_bgcolor)
     LTsv_drawtk_color(tinykbd_bgcolor); LTsv_drawtk_polygonfill(kbd_x,kbd_y,kbd_x+tinykbd_W,kbd_y,kbd_x+tinykbd_W,kbd_y+tinykbd_H,kbd_x,kbd_y+tinykbd_H)
-    LTsv_drawtk_bgcolor(tinykbd_bgcolor); LTsv_drawtk_color(tinykbd_fontcolor)
+    LTsv_drawtk_color(tinykbd_fontcolor)
     for kbd_xy in range(tinykbd_irohamax):
         LTsv_drawtk_glyphfill(tinykbd_fontchar[kbd_xy],draw_x=kbd_x+tinykbd_fontX[kbd_xy],draw_y=kbd_y+tinykbd_fontY[kbd_xy],draw_f=tinykbd_fontsize)
     for kbd_xy in range(tinykbd_irohamax,tinykbd_None):
         LTsv_drawtk_glyphfill(tinykbd_fontchar[kbd_xy],draw_x=kbd_x+tinykbd_fontX[kbd_xy],draw_y=kbd_y+tinykbd_fontY[kbd_xy],draw_f=tinykbd_menusize)
-
-def kanedit_redraw():
-    global kanedit_getkbdnames,kanedit_getkbdkanas
-    global kanedit_fontcolor,kanedit_bgcolor,kanedit_fontsize
-    LTsv_drawtk_selcanvas(kanedit_canvas); LTsv_drawtk_delete(kanedit_bgcolor)
-    LTsv_drawtk_color(kanedit_bgcolor); LTsv_drawtk_polygonfill(0,0,kanedit_W,0,kanedit_W,kanedit_H,0,kanedit_H)
-    LTsv_drawtk_color(kanedit_fontcolor); LTsv_drawtk_glyphfill(kanedit_texteditvalue,draw_x=5,draw_y=5,draw_f=kanedit_fontsize,draw_w=1,draw_h=1)
-    kanedit_kbddraw(kanedit_W-tinykbd_W,kanedit_H-tinykbd_H)
-    LTsv_drawtk_queue()
 
 def kanedit_resizeredraw(window_objvoid=None,window_objptr=None):
     global kanedit_W,kanedit_H,kanedit_RS
@@ -118,29 +128,26 @@ def kanedit_tinykbd_selected(choice):
     return choiceNX
 
 def kanedit_inputchar(inputchar):
-    global kanedit_texteditfilename,kanedit_texteditvalue,kanedit_texteditlines
+    global kanedit_texteditfilename,kanedit_textvalue
     global kanedit_ltsv,kanedit_config,kanedit_keybind,kanedit_charbind
+    global kanmemo_textvalue,kanmemo_textleft,kanmemo_textright
     charbind=LTsv_readlinerest(kanedit_charbind,inputchar)
     if len(charbind):
         if charbind == "+:Enter":
-            kanedit_texteditvalue+='\n'
+            kanmemo_textvalue+='\n'
         if charbind == "T:Tab":
-            kanedit_texteditvalue+='\t'
+            kanmemo_textvalue+='\t'
         if charbind == "<:BS":
-            kanedit_texteditvalue=kanedit_texteditvalue[:-1]
+            kanmemo_textvalue=kanmemo_textvalue[:-1]
     else:
-        kanedit_texteditvalue+=inputchar
+        kanmemo_textvalue+=inputchar
 
 def kanedit_inputcharNX(choice,kbd_xy):
-    global kanedit_texteditfilename,kanedit_texteditvalue,kanedit_texteditlines
+    global kanedit_texteditfilename,kanedit_textvalue
     if choice in tinykbd_irohaalphaN:
         kanedit_inputchar(tinykbd_kanmapN[tinykbd_irohaalpha[tinykbd_irohaalphaN.index(choice)]][kbd_xy])
     if choice in tinykbd_irohaalphaX:
         kanedit_inputchar(tinykbd_kanmapX[tinykbd_irohaalpha[tinykbd_irohaalphaX.index(choice)]][kbd_xy])
-
-def kanedit_inputBS():
-    global kanedit_texteditfilename,kanedit_texteditvalue,kanedit_texteditlines
-    kanedit_texteditvalue=kanedit_texteditvalue[:-1]
 
 def kanedit_mousecursor():
     global tinykbd_cursorMSbf,tinykbd_cursorMSaf,tinykbd_cursorLCR,tinykbd_cursorTSF
@@ -255,10 +262,16 @@ def kanedit_keyrelease(window_objvoid=None,window_objptr=None):
 
 def kanedit_textload(filename):
     global kanedit_window
-    global kanedit_texteditfilename,kanedit_texteditvalue,kanedit_texteditlines
+    global kanedit_texteditfilename,kanedit_textvalue
     kanedit_texteditfilename=filename
     LTsv_widget_settext(kanedit_window,widget_t="kanedit:{0}".format(kanedit_texteditfilename))
-    kanedit_texteditvalue=LTsv_loadfile(kanedit_texteditfilename)
+    kanedit_textvalue=LTsv_loadfile(kanedit_texteditfilename)
+
+def kanedit_configloadcolors(colorrest,fontcolortag,fontcolor,bgcolortag,bgcolor,markcolortag,markcolor):
+    fontcolor=LTsv_pickdatalabel(colorrest,fontcolortag,fontcolor)
+    bgcolor=LTsv_pickdatalabel(colorrest,bgcolortag,bgcolor)
+    markcolor=LTsv_pickdatalabel(colorrest,markcolortag,markcolor)
+    return fontcolor,bgcolor,markcolor
 
 def kanedit_configload():
     global kanedit_ltsv,kanedit_config,kanedit_keybind,kanedit_charbind
@@ -268,6 +281,7 @@ def kanedit_configload():
     global tinykbd_kanmapN,tinykbd_kanmapX,tinykbd_kanmapD
     global tinykbd_fontcolor,tinykbd_bgcolor
     global tinykbd_fontchar
+    global kanmemo_fontcolor,kanmemo_bgcolor,kanmemo_markcolor
     kanedit_ltsv=LTsv_loadfile("kanedit.tsv")
     kanedit_config=LTsv_getpage(kanedit_ltsv,"kanedit")
     tinykbd_inputSandS=LTsv_readlinerest(kanedit_config,"input_SandS",tinykbd_inputSandS)
@@ -278,6 +292,7 @@ def kanedit_configload():
     kanedit_bgcolor=LTsv_readlinerest(kanedit_config,"edit_bgcolor",kanedit_bgcolor)
     tinykbd_fontcolor=LTsv_readlinerest(kanedit_config,"kbd_fontcolor",tinykbd_fontcolor)
     tinykbd_bgcolor=LTsv_readlinerest(kanedit_config,"kbd_bgcolor",tinykbd_bgcolor)
+    kanmemo_fontcolor,kanmemo_bgcolor,kanmemo_markcolor=kanedit_configloadcolors(LTsv_readlinerest(kanedit_config,"memo_colors"),"font",kanmemo_fontcolor,"bg",kanmemo_bgcolor,"mark",kanmemo_markcolor)
     kanedit_fontsize=min(max(LTsv_intstr0x(LTsv_readlinerest(kanedit_config,"font_size",str(kanedit_fontsize))),5),100)
     tinykbd_fontchar[tinykbd_KANA]=LTsv_readlinerest(kanedit_config,"find_NXalpha",tinykbd_fontchar[tinykbd_KANA])
     tinykbd_fontchar[tinykbd_KANA]=tinykbd_fontchar[tinykbd_KANA] if tinykbd_fontchar[tinykbd_KANA] in tinykbd_irohaalphaN or tinykbd_fontchar[tinykbd_KANA] in tinykbd_irohaalphaX else tinykbd_irohatype[0]

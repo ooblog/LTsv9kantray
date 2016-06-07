@@ -4,7 +4,7 @@ enter	LF
 tab	8
 program	kantray
 LTsvver	20160517T141820
-modify	20160607T140404
+modify	20160607T235037
 |L:Tsv]
 
 [kanedit|
@@ -15,8 +15,14 @@ input_XFER	XFER
 input_KANA	KANA
 edit_fontcolor	#000000
 edit_bgcolor		#FFF3F5
+edit_markcolor	#F04E7F
 kbd_fontcolor	#000000
 kbd_bgcolor		#CFE6CF
+kbd_markcolor	#F04E7F
+memo_fontcolor	#000000
+memo_bgcolor	#FFFFFF
+memo_markrcolor	#F04E7F
+memo_colors	font:#000000	bg:#FFFFFF	mark:#F04E7F
 font_size	10
 find_NXalpha	σ
 find_dic	非
@@ -38,14 +44,10 @@ Enter	
 Tab	
 BS	
 DEL	
-Y	
-U	
-H	
-J	
-K	
-L	
-B	
-N	
+Left	
+Down	
+Up	
+Right	
 |keybind]
 
 #F0B0 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	
@@ -69,21 +71,25 @@ N	
 	L:→
 	B:↙
 	N:↘
-	I:Home
-	O:End
-	/:PgUp
-	_:PgDn
-	A:All
-	S:Save
-	R:load
-	Z:undo
+	I:home
+	m:end
+	P:PgUp
+	*:PgDn
+	O:Open
+	S:Save
+	A:All
+	Z:undo
 	D:reDo
 	X:cut
 	C:Copy
 	V:‎paste
+	W:Memory
+	/:pull
+	_:push
 	F:Find
-	*:replace
+	R:Replace
 	E:Eval
+	Q:Quitl
 |charbind]
 
 
