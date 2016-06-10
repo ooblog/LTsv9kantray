@@ -7,7 +7,7 @@ version(branch) 20160517T141820
  ０-1． インストール＆アンインストール方法・その他セットアップ方法
  ０-2． バージョン「20160423S022604(それ以前も含む)」から「20160517T141820」への変更にあたる注意点など。
  ０-3． その他現在わかっている不具合や今後の課題。
- １-0a．「L:Tsv」の解説(このドキュメントは「kantray」ではなく「L:Tsv」をメインに書いてます)。
+ １-0a．「L:Tsv」の解説(このドキュメント「LTsv.txt」は「kantray」ではなく「L:Tsv」をメインに書いてます)。
  １-0b．「L:Tsv」ファイルの構造。
  １-1． [LTsv_printf.py]の関数一覧
  １-2． [LTsv_file.py]の関数一覧
@@ -73,7 +73,7 @@ version(branch) 20160517T141820
  「L:Tsv」をgit-subtree化できるように「kantray」の内容はなるだけ[kantray.txt]に移動したい(ドキュメント未整理の部分あり)。
 
 
-１-0a．「L:Tsv」の解説(このドキュメントは「kantray」ではなく「L:Tsv」をメインに書いてます)。
+１-0a．「L:Tsv」の解説(このドキュメント「LTsv.txt」は「kantray」ではなく「L:Tsv」をメインに書いてます)。
 
  LTSV自体は単なるログのフォーマットです。
 
@@ -313,13 +313,19 @@ version(branch) 20160517T141820
   「LTsv_savedir()」を内部で呼び出すのでフォルダ1個分の階層なら自動でフォルダ作成される。
 
  LTsv_labelzip(LTsv_labels,LTsv_datas)
-   LTsv_labelsを横軸ラベル、LTsv_datasをデータとして1行のLTSV「label:data	label:data	…」に束ねる。
+  LTsv_labelsを横軸ラベル、LTsv_datasをデータとして1行のLTSV「label:data	label:data	…」に束ねる。
 
  LTsv_unziplabel(LTsv_line)
-   1行のラベル有りLTSV「label:data	label:data	…」からラベルだけを取り出して横軸ラベル無しのLTSV「label	label	…」に。
+  1行のラベル有りLTSV「label:data	label:data	…」からラベルだけを取り出してtsv「label	label	…」に。
 
  LTsv_unzipdata(LTsv_line)
-  PythonのタプルやリストをLTSVに。
+  1行のラベル有りLTSV「label:data	label:data	…」からデータだけを取り出してtsv「data	data	…」に。
+
+ LTsv_unziplabelsdata(LTsv_line,LTsv_labels)
+  1行のラベル有りLTSV「label:data	label:data	…」からラベル(tsv)が存在するデータだけを取り出してtsv「data	data	…」に。
+
+ LTsv_unziptuplelabelsdata(LTsv_line,*LTsv_labels)
+  1行のラベル有りLTSV「label:data	label:data	…」からラベル(可変長引数)が存在するデータだけを取り出してtsv「data	data	…」に。
 
  LTsv_tuple2tsv(LTsv_tuple)
   PythonのタプルやリストをLTSVに。

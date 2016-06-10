@@ -392,7 +392,34 @@ def LTsv_unzipdata(LTsv_line):
                     LTsv_datas+=LTsv_data+'\t'
     return LTsv_datas.rstrip('\t')
 
+def LTsv_unziplabelsdata(LTsv_line,LTsv_labels):
+    LTsv_datas=""
+    LTsv_splitlabels=LTsv_joindatanum(LTsv_line,0,"").strip('\n').split('\t')
+    for LTsv_split in LTsv_splitlabels:
+        if len(LTsv_split) > 0:
+            LTsv_posL=LTsv_split.find(':')
+            if LTsv_posL > 0:
+                LTsv_label=LTsv_split[:LTsv_posL]
+                LTsv_data=LTsv_split[LTsv_posL+len('\t'):]
+                if LTsv_pickdatafind(LTsv_labels,LTsv_label) >= 0:
+                    LTsv_datas+=LTsv_data+'\t'
+    return LTsv_datas.rstrip('\t')
+
 #pythonstyle
+
+def LTsv_unziptuplelabelsdata(LTsv_line,*LTsv_labels):
+    LTsv_datas=""
+    LTsv_splitlabels=LTsv_joindatanum(LTsv_line,0,"").strip('\n').split('\t')
+    for LTsv_split in LTsv_splitlabels:
+        if len(LTsv_split) > 0:
+            LTsv_posL=LTsv_split.find(':')
+            if LTsv_posL > 0:
+                LTsv_label=LTsv_split[:LTsv_posL]
+                LTsv_data=LTsv_split[LTsv_posL+len('\t'):]
+                if LTsv_label in LTsv_labels:
+                    LTsv_datas+=LTsv_data+'\t'
+    return LTsv_datas.rstrip('\t')
+
 def LTsv_tuple2tsv(LTsv_tuple):
     LTsv_line=""
     for LTsv_data in LTsv_tuple:
@@ -521,6 +548,10 @@ if __name__=="__main__":
     printlog=LTsv_libc_printf("joytsv=LTsv_labelzip(joylabel,joydata)↓\n{0}".format(joytsv),printlog)
     printlog=LTsv_libc_printf("LTsv_unziplabel(joytsv)↓\n{0}".format(LTsv_unziplabel(joytsv)),printlog)
     printlog=LTsv_libc_printf("LTsv_unzipdata(joytsv)↓\n{0}".format(LTsv_unzipdata(joytsv)),printlog)
+    printlog=LTsv_libc_printf("LTsv_unziplabelsdata(joytsv,'X\\tY\\tA\\tB')↓\n{0}".format(LTsv_unziplabelsdata(joytsv,'X\tY\tA\tB')),printlog)
+    printlog=LTsv_libc_printf("LTsv_unziptuplelabelsdata(joytsv,'X','Y','A','B')↓\n{0}".format(LTsv_unziptuplelabelsdata(joytsv,'X','Y','A','B')),printlog)
+    printlog=LTsv_libc_printf("LTsv_unziptuplelabelsdata(joytsv,*('X','Y','A','B'))↓\n{0}".format(LTsv_unziptuplelabelsdata(joytsv,*('X','Y','A','B'))),printlog)
+    printlog=LTsv_libc_printf("LTsv_unziptuplelabelsdata(joytsv,*tuple(['X','Y','A','B']))↓\n{0}".format(LTsv_unziptuplelabelsdata(joytsv,*tuple(['X','Y','A','B']))),printlog)
     joydic=LTsv_label2dictstr(joytsv)
     printlog=LTsv_libc_printf("joytsv=LTsv_label2dictstr(joytsv)↓\n{0}".format(joydic),printlog)
     joytsv=LTsv_dict2label(joydic)

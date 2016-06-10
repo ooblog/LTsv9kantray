@@ -4,11 +4,13 @@ enter	LF
 tab	8
 program	kantray
 LTsvver	20160517T141820
-modify	20160607T235037
+modify	20160611S022226
 |L:Tsv]
 
 [kanedit|
-window		width:320	height:240
+window_size	width:400	height:240
+kbd_resize	1
+kbd_inputkey	0
 input_SandS	Space
 input_NFER	NFER
 input_XFER	XFER
@@ -24,7 +26,7 @@ memo_bgcolor	#FFFFFF
 memo_markrcolor	#F04E7F
 memo_colors	font:#000000	bg:#FFFFFF	mark:#F04E7F
 font_size	10
-find_NXalpha	σ
+find_NXalpha	ぬ
 find_dic	非
 eval_now	年-月-日(週曜)時:分:秒
 eval_branch	@000y@0m@0dm@wdec@0h@0n@0s
@@ -32,7 +34,7 @@ eval_overhour	30
 eval_slash	￥
 eval_dakuon	Ｐ
 eval_seion	Ｈ
-open_last	kanedit_test.txt
+open_last	kanedit.tsv
 dic_mapname		kanmap.tsv
 dic_charname	kanchar.tsv
 dic_wordname	kanword.tsv
@@ -50,9 +52,7 @@ Up	
 Right	
 |keybind]
 
-#F0B0 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	
-#F0C0 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	
-#F0D0 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	
+#F0B0-#F0DF
 #1	2	3 	4 	5	6 	7	8	9	0	- 	^
 #Q 	W	E	R	T	Y	U	I	O	P	@	[
 #A	S	D	F	G	H	J	K	L	+	*	]

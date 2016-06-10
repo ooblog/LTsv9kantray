@@ -1,6 +1,13 @@
 # 「LTsv9kantray(tsvtool9)」は「L:Tsv」の読み書きを中心としたモジュール群と漢字入力「kantray」のPythonによる実装です。
 
-## 「kantray」は日本語入力ソフトです。漢字を直接入力する(変換サジェストが存在しない)ので漢直のジャンルです。
+## 「kantray」→「kanedit」に移行計画。
+
+「kantray」のキー入力割り込み方式の漢直だとの部分でOSによっては動かないもしくは意図しない動きになる危険性があるので、  
+漢直専用エディタ「kanedit」の開発をしています。
+ある程度「kanedit」でテキスト編集ができるレベルになったら「LTsv10kantray(tsvtool10)」リポジトリを作成する予定です。
+
+
+## 「kantray」は日本語入力ソフトの予定でした。漢字を直接入力する(変換サジェストが存在しない)ので漢直のジャンルです。
 
 ![kantray_512](icon_cap/kantray_512.png "kantray")  
 通知タスクトレイ&#40;Notify&#41;に鍵盤アイコンを表示するので、漢字配列を丸暗記しなくても使えます。  
@@ -9,7 +16,7 @@
 ※配列に無い漢字も「[単漢字辞書(kanchar.tsv)](kanchar.tsv "https://github.com/ooblog/LTsv9kantray/blob/master/kanchar.tsv")」からの字引入力で異体字なども漢直できます。  
 
 
-### 漢直の操作方法
+### 「kantray」が想定してた操作方法
 
 Tkinter環境&#40;Windows&#41;ならマウス操作「貼付モード」のみですが、  
 GTK2の通知タスクトレイ&#40;Notify&#41;が使える環境ならキーボード操作「漢直モード」も使用可能になります。  
