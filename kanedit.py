@@ -18,6 +18,7 @@ tinykbd_fontsize,tinykbd_fontspace,tinykbd_fonthalf=5,6,3
 tinykbd_menusize,tinykbd_menuspace,tinykbd_menuhalf=10,12,6
 tinykbd_W,tinykbd_H=24*4,24
 tinykbd_inputSandS,tinykbd_inputNFER,tinykbd_inputXFER,tinykbd_inputKANA="Space","NFER","XFER","KANA"
+tinykbd_keepSandS,tinykbd_keepNFER,tinykbd_keepXFER,tinykbd_keepKANA=0,0,0,0
 tinykbd_irohamax=12*4; tinykbd_SandS,tinykbd_NFER,tinykbd_XFER,tinykbd_KANA,tinykbd_None=48,49,50,51,52
 tinykbd_irohatype= ["ぬ","ふ","あ","う","え","お","や","ゆ","よ","わ","ほ","へ","た","て","い","す","か","ん","な","に","ら","せ","゛","゜","ち","と","し","は","き","く","ま","の","り","れ","け","む","つ","さ","そ","ひ","こ","み","も","ね","る","め","ろ","￥"]
 tinykbd_irohatypeN=["ぬ","ふ","あ","う","え","お","や","ゆ","よ","わ","ほ","へ","た","て","い","す","か","ん","な","に","ら","せ","＠","ぷ","ち","と","し","は","き","く","ま","の","り","れ","け","む","つ","さ","そ","ひ","こ","み","も","ね","る","め","ろ","￥"]
@@ -34,7 +35,7 @@ tinykbd_irohaalphaX=tinykbd_irohatypeX+tinykbd_alphatypeX
 tinykbd_dictype=    ["英","名","音","訓","送","異","俗","熙","簡","繁","越","地","顔","鍵","代","逆","非","難","活","幅"]
 tinykbd_map,tinykbd_char,tinykbd_word,tinykbd_zip="","","",""
 tinykbd_kanmapN,tinykbd_kanmapX,tinykbd_kanmapD={},{},{}
-tinykbd_fontcolor,tinykbd_bgcolor="black","#CFE6CF"
+tinykbd_fontcolor,tinykbd_bgcolor,tinykbd_markcolor="black","#CFE6CF","red"
 tinykbd_cursorMSbf,tinykbd_cursorMSaf,tinykbd_cursorLCR,tinykbd_cursorTSF=tinykbd_None,tinykbd_None,"000",{"000":"Tap","100":"Tap","010":"Swipe","001":"Flick"}
 tinykbd_fontX,tinykbd_fontY,tinykbd_spaceX,tinykbd_spaceY=[0]*(tinykbd_None),[0]*(tinykbd_None),[0]*(tinykbd_None),[0]*(tinykbd_None)
 tinykbd_fontchar=[""]*(tinykbd_None); tinykbd_fontchar[tinykbd_SandS],tinykbd_fontchar[tinykbd_NFER],tinykbd_fontchar[tinykbd_XFER],tinykbd_fontchar[tinykbd_KANA]=tinykbd_dictype[0],"Ｎ","Ｘ",tinykbd_irohatype[0]
@@ -63,9 +64,9 @@ def kanedit_tinykbd_new(kbdresize=1):
 kanedit_window=None
 kanedit_getkbdnames,kanedit_getkbdkanas,kanedit_inputkey="","",0
 kanedit_W,kanedit_H,kanedit_RS=tinykbd_W,tinykbd_H,False
-kanedit_ltsv,kanedit_config,kanedit_keybind,kanedit_charbind="","","",""
+kanedit_ltsv,kanedit_config,kanedit_tinykbd,kanedit_keybind,kanedit_charbind="","","","",""
 kanedit_texteditfilename,kanedit_textvalue="",""
-kanedit_fontcolor,kanedit_bgcolor,kanedit_fontsize="black","#FFF3F5",10
+kanedit_fontcolor,kanedit_bgcolor,kanedit_markcolor,kanedit_fontsize="black","#FFF3F5","red",10
 kanmemo_textvalue,kanmemo_textleft,kanmemo_textright="",0,0
 kanmemo_fontcolor,kanmemo_bgcolor,kanmemo_markcolor="black","white","red"
 
@@ -85,7 +86,7 @@ def kanedit_editdraw(edit_x,edit_y):
     textline_y=edit_y
     for kanedit_textline in kanedit_textvalue.split('\n'):
         kanedit_textline+='\n'
-        LTsv_drawtk_glyphfill(kanedit_textline,draw_x=edit_x,draw_y=textline_y,draw_f=kanedit_fontsize,draw_w=1,draw_h=1,draw_LF=True,draw_HT=True)
+        LTsv_drawtk_glyphfill(kanedit_textline,draw_x=edit_x,draw_y=textline_y,draw_f=kanedit_fontsize,draw_w=1,draw_h=1,draw_LF=True,draw_HT=True,draw_SP=True)
         textline_y+=kanedit_fontsize+1
         if textline_y > kanedit_H:
             break
@@ -95,7 +96,7 @@ def kanedit_memodraw(memo_x,memo_y):
 # kanmemo_fontcolor,kanmemo_bgcolor,kanmemo_markcolor
     LTsv_drawtk_bgcolor(kanmemo_bgcolor); LTsv_drawtk_color(kanmemo_bgcolor); 
     LTsv_drawtk_polygonfill(memo_x,memo_y,kanedit_W-tinykbd_W,memo_y,kanedit_W-tinykbd_W,kanedit_H,memo_x,kanedit_H)
-    LTsv_drawtk_color(kanmemo_fontcolor); LTsv_drawtk_glyphfill(kanmemo_textvalue,draw_x=memo_x,draw_y=memo_y,draw_f=tinykbd_fontsize,draw_w=1,draw_h=1,draw_LF=True,draw_HT=True)
+    LTsv_drawtk_color(kanmemo_fontcolor); LTsv_drawtk_glyphfill(kanmemo_textvalue,draw_x=memo_x,draw_y=memo_y,draw_f=tinykbd_fontsize,draw_w=1,draw_h=1,draw_LF=True,draw_HT=True,draw_SP=True)
 
 def kanedit_kbddraw(kbd_x,kbd_y):
     global kanmemo_textvalue,kanmemo_textleft,kanmemo_textright
@@ -144,7 +145,7 @@ def kanedit_tinykbd_selected(choice):
 
 def kanedit_inputchar(inputchar):
     global kanedit_texteditfilename,kanedit_textvalue
-    global kanedit_ltsv,kanedit_config,kanedit_keybind,kanedit_charbind
+    global kanedit_ltsv,kanedit_config,kanedit_tinykbd,kanedit_keybind,kanedit_charbind
     global kanmemo_textvalue,kanmemo_textleft,kanmemo_textright
     charbind=LTsv_readlinerest(kanedit_charbind,inputchar)
     if len(charbind):
@@ -152,6 +153,8 @@ def kanedit_inputchar(inputchar):
             kanmemo_textvalue+='\n'
         if charbind == "T:Tab":
             kanmemo_textvalue+='\t'
+        if charbind == "G:4Space":
+            kanmemo_textvalue+='    '
         if charbind == "<:BS":
             kanmemo_textvalue=kanmemo_textvalue[:-1]
     else:
@@ -254,25 +257,58 @@ def kanedit_mouserelease(window_objvoid=None,window_objptr=None):
     kanedit_redraw()
 
 def kanedit_keypress(window_objvoid=None,window_objptr=None):
-    global kanedit_ltsv,kanedit_config,kanedit_keybind,kanedit_charbind
+    global kanedit_ltsv,kanedit_config,kanedit_tinykbd,kanedit_keybind,kanedit_charbind
     global kanedit_getkbdnames,kanedit_getkbdkanas,kanedit_inputkey
-    LTsv_setkbddata(10,0)
+    global tinykbd_keepSandS,tinykbd_keepNFER,tinykbd_keepXFER,tinykbd_keepKANA
+    LTsv_setkbddata(20,0)
     kanedit_getkbdnames,kanedit_getkbdkanas=LTsv_getkbdnames(),LTsv_getkbdkanas()
     keybind=LTsv_readlinerest(kanedit_keybind,kanedit_getkbdnames.rstrip('\t').replace('\t',' '))
     if len(keybind):
         kanedit_inputchar(keybind)
     else:
-        kanedit_getkbdkanas=LTsv_getkbdkanas()
+        if tinykbd_keepSandS == 0 and tinykbd_inputSandS in kanedit_getkbdnames:
+            tinykbd_keepSandS=1
+            for kbd_xy in range(tinykbd_irohamax):
+                tinykbd_fontchar[kbd_xy]=LTsv_pickdatalabel(LTsv_readlinerest(tinykbd_char,tinykbd_fontchar[kbd_xy]),tinykbd_fontchar[tinykbd_SandS])
+                tinykbd_fontchar[kbd_xy]=tinykbd_fontchar[kbd_xy][0:1]
+        if tinykbd_keepNFER == 0 and tinykbd_inputNFER in kanedit_getkbdnames:
+            tinykbd_keepNFER=1
+            tinykbd_fontchar[tinykbd_KANA]=tinykbd_irohaalphaN[kanedit_tinykbd_selected(tinykbd_fontchar[tinykbd_KANA])]
+            kanedit_tinykbd_select(tinykbd_fontchar[tinykbd_KANA])
+        if tinykbd_keepXFER == 0 and tinykbd_inputXFER in kanedit_getkbdnames:
+            tinykbd_keepXFER=1
+            tinykbd_fontchar[tinykbd_KANA]=tinykbd_irohaalphaX[kanedit_tinykbd_selected(tinykbd_fontchar[tinykbd_KANA])]
+            kanedit_tinykbd_select(tinykbd_fontchar[tinykbd_KANA])
+        if tinykbd_keepKANA == 0 and tinykbd_inputKANA in kanedit_getkbdnames:
+            tinykbd_keepKANA=1
+            if tinykbd_fontchar[tinykbd_KANA] in tinykbd_irohaalphaN:
+                tinykbd_fontchar[0:tinykbd_irohamax]=tinykbd_choiceN[0:tinykbd_irohamax]
+            elif tinykbd_fontchar[tinykbd_KANA] in tinykbd_irohaalphaX:
+                tinykbd_fontchar[0:tinykbd_irohamax]=tinykbd_choiceX[0:tinykbd_irohamax]
         for getkbdkanas in kanedit_getkbdkanas.split('\t'):
-            if getkbdkanas in tinykbd_irohatype:
-                kanedit_inputcharNX(tinykbd_fontchar[tinykbd_KANA],tinykbd_irohatype.index(getkbdkanas))
+            if not tinykbd_keepKANA:
+                if getkbdkanas in tinykbd_irohatype:
+#                    kanedit_inputcharNX(tinykbd_fontchar[tinykbd_KANA],tinykbd_irohatype.index(getkbdkanas))
+#kanedit_inputchar(inputchar)
+                    kanedit_inputcharNX(tinykbd_fontchar[tinykbd_KANA],tinykbd_irohatype.index(getkbdkanas))
     kanedit_redraw()
 
 def kanedit_keyrelease(window_objvoid=None,window_objptr=None):
     global kanedit_getkbdnames,kanedit_getkbdkanas,kanedit_inputkey
+    global tinykbd_keepSandS,tinykbd_keepNFER,tinykbd_keepXFER,tinykbd_keepKANA
     if kanedit_getkbdnames == tinykbd_inputSandS:
         kanedit_inputcharNX(tinykbd_fontchar[tinykbd_KANA],tinykbd_SandS)
-    LTsv_setkbddata(10,0)
+    LTsv_setkbddata(20,0)
+    kanedit_getkbdnames=LTsv_getkbdnames()
+    if not tinykbd_inputSandS in kanedit_getkbdnames:
+        tinykbd_keepSandS=0
+        kanedit_tinykbd_select(tinykbd_fontchar[tinykbd_KANA])
+    if not tinykbd_inputNFER in kanedit_getkbdnames:
+        tinykbd_keepNFER=0
+    if not tinykbd_inputXFER in kanedit_getkbdnames:
+        tinykbd_keepXFER=0
+    if not tinykbd_inputKANA in kanedit_getkbdnames:
+        tinykbd_keepKANA=0
     kanedit_redraw()
 
 def kanedit_textload(filename):
@@ -284,56 +320,60 @@ def kanedit_textload(filename):
 
 def kanedit_configload():
     global kanedit_W,kanedit_H,kanedit_RS
-    global kanedit_ltsv,kanedit_config,kanedit_keybind,kanedit_charbind
+    global kanedit_ltsv,kanedit_config,kanedit_tinykbd,kanedit_keybind,kanedit_charbind
     global tinykbd_inputSandS,tinykbd_inputNFER,tinykbd_inputXFER,tinykbd_inputKANA
     global kanedit_getkbdnames,kanedit_getkbdkanas,kanedit_inputkey
-    global kanedit_fontcolor,kanedit_bgcolor,kanedit_fontsize
+    global kanedit_fontcolor,kanedit_bgcolor,kanedit_markcolor,kanedit_fontsize
     global tinykbd_map,tinykbd_char,tinykbd_word,tinykbd_zip
     global tinykbd_kanmapN,tinykbd_kanmapX,tinykbd_kanmapD
-    global tinykbd_fontcolor,tinykbd_bgcolor
+    global tinykbd_fontcolor,tinykbd_bgcolor,tinykbd_markcolor
     global tinykbd_fontchar
     global kanmemo_fontcolor,kanmemo_bgcolor,kanmemo_markcolor
     kanedit_ltsv=LTsv_loadfile("kanedit.tsv")
-    kanedit_config=LTsv_getpage(kanedit_ltsv,"kanedit")
-    kbd_resize=min(max(LTsv_intstr0x(LTsv_readlinerest(kanedit_config,"kbd_resize")),1),5)
-    kanedit_tinykbd_new(kbd_resize)
-    kanedit_resizeW,kanedit_resizeH=LTsv_tsv2tuple(LTsv_unziptuplelabelsdata(LTsv_readlinerest(kanedit_config,"window_size"),"width","height"))
-    kanedit_W,kanedit_H=min(max(LTsv_intstr0x(kanedit_resizeW),tinykbd_W),LTsv_screen_w(kanedit_window)),min(max(LTsv_intstr0x(kanedit_resizeH),tinykbd_H),LTsv_screen_h(kanedit_window))
-    kanedit_inputkey=min(max(LTsv_intstr0x(LTsv_readlinerest(kanedit_config,"kbd_inputkey")),0),1)
-    tinykbd_inputSandS=LTsv_readlinerest(kanedit_config,"input_SandS",tinykbd_inputSandS)
-    tinykbd_inputNFER=LTsv_readlinerest(kanedit_config,"input_NFER",tinykbd_inputNFER)
-    tinykbd_inputXFER=LTsv_readlinerest(kanedit_config,"input_XFER",tinykbd_inputXFER)
-    tinykbd_inputKANA=LTsv_readlinerest(kanedit_config,"input_KANA",tinykbd_inputKANA)
-    kanedit_fontcolor=LTsv_readlinerest(kanedit_config,"edit_fontcolor",kanedit_fontcolor)
-    kanedit_bgcolor=LTsv_readlinerest(kanedit_config,"edit_bgcolor",kanedit_bgcolor)
-    tinykbd_fontcolor=LTsv_readlinerest(kanedit_config,"kbd_fontcolor",tinykbd_fontcolor)
-    tinykbd_bgcolor=LTsv_readlinerest(kanedit_config,"kbd_bgcolor",tinykbd_bgcolor)
-    kanmemo_fontcolor,kanmemo_bgcolor,kanmemo_markcolor=LTsv_tsv2tuple(LTsv_unziptuplelabelsdata(LTsv_readlinerest(kanedit_config,"memo_colors"),"font","bg","mark"))
-    kanedit_fontsize=min(max(LTsv_intstr0x(LTsv_readlinerest(kanedit_config,"font_size",str(kanedit_fontsize))),5),100)
-    tinykbd_fontchar[tinykbd_KANA]=LTsv_readlinerest(kanedit_config,"find_NXalpha",tinykbd_fontchar[tinykbd_KANA])
-    tinykbd_fontchar[tinykbd_KANA]=tinykbd_fontchar[tinykbd_KANA] if tinykbd_fontchar[tinykbd_KANA] in tinykbd_irohaalphaN or tinykbd_fontchar[tinykbd_KANA] in tinykbd_irohaalphaX else tinykbd_irohatype[0]
-    tinykbd_fontchar[tinykbd_SandS]=LTsv_readlinerest(kanedit_config,"find_dic",tinykbd_fontchar[tinykbd_SandS])
-    tinykbd_fontchar[tinykbd_SandS]=tinykbd_fontchar[tinykbd_SandS] if tinykbd_fontchar[tinykbd_SandS] in tinykbd_dictype else tinykbd_dictype[0]
-    tinykbd_map=LTsv_loadfile(LTsv_readlinerest(kanedit_config,"dic_mapname","kanmap.tsv"))
+    kanedit_tinykbd=LTsv_getpage(kanedit_ltsv,"tinykbd")
+    kbd_resize=min(max(LTsv_intstr0x(LTsv_readlinerest(kanedit_tinykbd,"kbd_resize")),1),5)
+    tinykbd_inputSandS=LTsv_readlinerest(kanedit_tinykbd,"input_SandS",tinykbd_inputSandS)
+    tinykbd_inputNFER=LTsv_readlinerest(kanedit_tinykbd,"input_NFER",tinykbd_inputNFER)
+    tinykbd_inputXFER=LTsv_readlinerest(kanedit_tinykbd,"input_XFER",tinykbd_inputXFER)
+    tinykbd_inputKANA=LTsv_readlinerest(kanedit_tinykbd,"input_KANA",tinykbd_inputKANA)
+    tinykbd_fontcolor,tinykbd_bgcolor,tinykbd_markcolor=LTsv_tsv2tuple(LTsv_unziptuplelabelsdata(LTsv_readlinerest(kanedit_tinykbd,"kbd_colors"),"font","bg","mark"))
+    tinykbd_map=LTsv_loadfile(LTsv_readlinerest(kanedit_tinykbd,"dic_mapname","kanmap.tsv"))
     for irohaalpha in tinykbd_irohaalpha:
         kbd_lineT=LTsv_readlinerest(tinykbd_map,irohaalpha)
         kbd_lineL=kbd_lineT.split('\t'); kbd_lineL=kbd_lineL+[" "]*(tinykbd_SandS*2-len(kbd_lineL))
         tinykbd_kanmapN[irohaalpha],tinykbd_kanmapX[irohaalpha]=kbd_lineL[0:tinykbd_SandS+1],kbd_lineL[tinykbd_SandS+1:tinykbd_SandS+1+tinykbd_SandS+1]
     kanedit_tinykbd_select(tinykbd_fontchar[tinykbd_KANA])
-    tinykbd_char=LTsv_loadfile(LTsv_readlinerest(kanedit_config,"dic_charname","kanchar.tsv"))
+    tinykbd_char=LTsv_loadfile(LTsv_readlinerest(kanedit_tinykbd,"dic_charname","kanchar.tsv"))
+    tinykbd_fontchar[tinykbd_KANA]=LTsv_readlinerest(kanedit_tinykbd,"find_NXalpha",tinykbd_fontchar[tinykbd_KANA])
+    tinykbd_fontchar[tinykbd_KANA]=tinykbd_fontchar[tinykbd_KANA] if tinykbd_fontchar[tinykbd_KANA] in tinykbd_irohaalphaN or tinykbd_fontchar[tinykbd_KANA] in tinykbd_irohaalphaX else tinykbd_irohatype[0]
+    tinykbd_fontchar[tinykbd_SandS]=LTsv_readlinerest(kanedit_tinykbd,"find_dic",tinykbd_fontchar[tinykbd_SandS])
+    tinykbd_fontchar[tinykbd_SandS]=tinykbd_fontchar[tinykbd_SandS] if tinykbd_fontchar[tinykbd_SandS] in tinykbd_dictype else tinykbd_dictype[0]
+
+    kanedit_config=LTsv_getpage(kanedit_ltsv,"kanedit")
+    kanedit_tinykbd_new(kbd_resize)
+    kanedit_resizeW,kanedit_resizeH=LTsv_tsv2tuple(LTsv_unziptuplelabelsdata(LTsv_readlinerest(kanedit_config,"window_size"),"width","height"))
+    kanedit_W,kanedit_H=min(max(LTsv_intstr0x(kanedit_resizeW),tinykbd_W),LTsv_screen_w(kanedit_window)),min(max(LTsv_intstr0x(kanedit_resizeH),tinykbd_H),LTsv_screen_h(kanedit_window))
+    kanedit_inputkey=min(max(LTsv_intstr0x(LTsv_readlinerest(kanedit_config,"kbd_inputkey")),0),1)
+    kanedit_fontcolor,kanedit_bgcolor,kanedit_markcolor=LTsv_tsv2tuple(LTsv_unziptuplelabelsdata(LTsv_readlinerest(kanedit_config,"edit_colors"),"font","bg","mark"))
+    kanmemo_fontcolor,kanmemo_bgcolor,kanmemo_markcolor=LTsv_tsv2tuple(LTsv_unziptuplelabelsdata(LTsv_readlinerest(kanedit_config,"memo_colors"),"font","bg","mark"))
+    kanedit_fontsize=min(max(LTsv_intstr0x(LTsv_readlinerest(kanedit_config,"font_size",str(kanedit_fontsize))),5),100)
     LTsv_glyphdicload(LTsv_readlinerest(kanedit_config,"dic_charname","kanchar.tsv"))
     tinykbd_word=LTsv_loadfile(LTsv_readlinerest(kanedit_config,"dic_wordname","kanword.tsv"))
     tinykbd_zip=LTsv_loadfile(LTsv_readlinerest(kanedit_config,"dic_zipname","kanzip.tsv"))
-    kanedit_textload(LTsv_readlinerest(kanedit_config,"open_last","kanedit.txt"))
+    kanedit_texteditfilename=LTsv_readlinerest(kanedit_config,"open_last","kanedit.txt")
+    kanedit_textload(kanedit_texteditfilename)
     kanedit_keybind=LTsv_getpage(kanedit_ltsv,"keybind")
     kanedit_charbind=LTsv_getpage(kanedit_ltsv,"charbind")
 
 def kanedit_exit_configsave(window_objvoid=None,window_objptr=None):
-    global kanedit_ltsv,kanedit_config,kanedit_keybind,kanedit_charbind
+    global kanedit_ltsv,kanedit_config,kanedit_tinykbd,kanedit_keybind,kanedit_charbind
     kanedit_ltsv=LTsv_loadfile("kanedit.tsv")
+    kanedit_tinykbd=LTsv_getpage(kanedit_ltsv,"tinykbd")
+    kanedit_tinykbd=LTsv_pushlinerest(kanedit_tinykbd,"find_NXalpha",tinykbd_fontchar[tinykbd_KANA])
+    kanedit_tinykbd=LTsv_pushlinerest(kanedit_tinykbd,"find_dic",tinykbd_fontchar[tinykbd_SandS])
+    kanedit_ltsv=LTsv_putpage(kanedit_ltsv,"tinykbd",kanedit_tinykbd)
     kanedit_config=LTsv_getpage(kanedit_ltsv,"kanedit")
-    kanedit_config=LTsv_pushlinerest(kanedit_config,"find_NXalpha",tinykbd_fontchar[tinykbd_KANA])
-    kanedit_config=LTsv_pushlinerest(kanedit_config,"find_dic",tinykbd_fontchar[tinykbd_SandS])
+    kanedit_config=LTsv_pushlinerest(kanedit_config,"open_last",kanedit_texteditfilename)
     kanedit_ltsv=LTsv_putpage(kanedit_ltsv,"kanedit",kanedit_config)
     LTsv_savefile("kanedit.tsv",kanedit_ltsv)
     LTsv_window_exit()

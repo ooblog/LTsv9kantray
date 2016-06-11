@@ -1295,7 +1295,7 @@ def LTsv_glyphpath_outer(glyphcode):
     LTsv_kanclockOBJ[glyphcode]=LTsv_glyphclock
     LTsv_kanwideOBJ[glyphcode]=int(LTsv_glyph_wide) if len(LTsv_glyph_wide) else LTsv_PSfont_ZW
 
-def LTsv_drawGTK_glyph(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1,draw_LF=False,draw_HT=False):
+def LTsv_drawGTK_glyph(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1,draw_LF=False,draw_HT=False,draw_SP=False):
     global LTsv_kanglyphOBJ,LTsv_kanclockOBJ,LTsv_kanwideOBJ
     draw_xf,draw_yf=draw_x,draw_y
     for glyphcode in draw_t:
@@ -1308,6 +1308,9 @@ def LTsv_drawGTK_glyph(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1,draw
         if glyphcode == '\t':
             if draw_HT:
                 glyphcode=""
+        if glyphcode == ' ':
+            if draw_SP:
+                glyphcode=""
         if not glyphcode in LTsv_kanglyphOBJ:
             LTsv_glyphpath_outer(glyphcode)
         LTsv_glyphnote=LTsv_kanglyphOBJ[glyphcode]
@@ -1316,7 +1319,7 @@ def LTsv_drawGTK_glyph(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1,draw
             LTsv_drawGTK_polygon(*tuple(LTsv_glyphpointresize))
         draw_xf=draw_xf+LTsv_kanwideOBJ[glyphcode]*draw_f//LTsv_PSchar_ZW+draw_w
 
-def LTsv_drawTkinter_glyph(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1,draw_LF=False,draw_HT=False):
+def LTsv_drawTkinter_glyph(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1,draw_LF=False,draw_HT=False,draw_SP=False):
     global LTsv_kanglyphOBJ,LTsv_kanclockOBJ,LTsv_kanwideOBJ
     draw_xf,draw_yf=draw_x,draw_y
     for glyphcode in draw_t:
@@ -1329,6 +1332,9 @@ def LTsv_drawTkinter_glyph(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1,
         if glyphcode == '\t':
             if draw_HT:
                 glyphcode=""
+        if glyphcode == ' ':
+            if draw_SP:
+                glyphcode=""
         if not glyphcode in LTsv_kanglyphOBJ:
             LTsv_glyphpath(glyphcode)
         LTsv_glyphnote=LTsv_kanglyphOBJ[glyphcode]
@@ -1337,7 +1343,7 @@ def LTsv_drawTkinter_glyph(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1,
             LTsv_drawTkinter_polygon(*tuple(LTsv_glyphpointresize))
         draw_xf=draw_xf+LTsv_kanwideOBJ[glyphcode]*draw_f//LTsv_PSchar_ZW+draw_w
 
-def LTsv_drawGTK_glyphfill(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1,draw_LF=False,draw_HT=False):
+def LTsv_drawGTK_glyphfill(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1,draw_LF=False,draw_HT=False,draw_SP=False):
     global LTsv_kanglyphOBJ,LTsv_kanclockOBJ,LTsv_kanwideOBJ
     draw_xf,draw_yf=draw_x,draw_y
     for glyphcode in draw_t:
@@ -1350,6 +1356,9 @@ def LTsv_drawGTK_glyphfill(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1,
         if glyphcode == '\t':
             if draw_HT:
                 glyphcode=""
+        if glyphcode == ' ':
+            if draw_SP:
+                glyphcode=""
         if not glyphcode in LTsv_kanglyphOBJ:
             LTsv_glyphpath_outer(glyphcode)
         LTsv_glyphnote=LTsv_kanglyphOBJ[glyphcode]
@@ -1362,7 +1371,7 @@ def LTsv_drawGTK_glyphfill(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1,
             LTsv_drawGTK_polygonfill(*tuple(LTsv_glyphpointresize))
         draw_xf=draw_xf+LTsv_kanwideOBJ[glyphcode]*draw_f//LTsv_PSchar_ZW+draw_w
 
-def LTsv_drawTkinter_glyphfill(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1,draw_LF=False,draw_HT=False):
+def LTsv_drawTkinter_glyphfill(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_h=1,draw_LF=False,draw_HT=False,draw_SP=False):
     global LTsv_kanglyphOBJ,LTsv_kanclockOBJ,LTsv_kanwideOBJ
     draw_xf,draw_yf=draw_x,draw_y
     for glyphcode in draw_t:
@@ -1375,6 +1384,9 @@ def LTsv_drawTkinter_glyphfill(draw_t,draw_x=0,draw_y=0,draw_f=10,draw_w=1,draw_
         if glyphcode == '\t':
             if draw_HT:
                 glyphcode=""
+        if glyphcode == ' ':
+            if draw_SP:
+                glyphcode=""
         if not glyphcode in LTsv_kanglyphOBJ:
             LTsv_glyphpath(glyphcode)
         LTsv_glyphnote=LTsv_kanglyphOBJ[glyphcode]
