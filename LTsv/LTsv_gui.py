@@ -10,6 +10,10 @@ import struct
 import uuid
 import datetime
 import math
+try:
+   import cPickle as pickle
+except:
+   import pickle
 from LTsv_file    import *
 from LTsv_printf import *
 try:
@@ -1246,6 +1250,19 @@ LTsv_glyph_kandic=""
 def LTsv_glyphdicload(dicname="kanchar.tsv"):
     global LTsv_glyph_kandic
     LTsv_glyph_kandic=LTsv_loadfile(dicname) if os.path.isfile(dicname) else LTsv_keyboard_dic()
+
+def LTsv_glyphOBJpickle(filename="kanpickle.bin"):
+    global LTsv_kanglyphOBJ,LTsv_kanclockOBJ,LTsv_kanwideOBJ
+    glyphOBJpickle=(LTsv_kanglyphOBJ,LTsv_kanclockOBJ,LTsv_kanwideOBJ)
+    with open(filename,mode='wb') as pickle_fobj:
+        pickle.dump(glyphOBJpickle,pickle_fobj,protocol=2)
+
+def LTsv_glyphOBJunpickle(filename="kanpickle.bin"):
+    global LTsv_kanglyphOBJ,LTsv_kanclockOBJ,LTsv_kanwideOBJ
+    if os.path.isfile(filename):
+        with open(filename,mode='rb') as pickle_fobj:
+            glyphOBJpickle=pickle.load(pickle_fobj)
+        LTsv_kanglyphOBJ,LTsv_kanclockOBJ,LTsv_kanwideOBJ=glyphOBJpickle
 
 def LTsv_glyphdicread(dictext):
     global LTsv_glyph_kandic

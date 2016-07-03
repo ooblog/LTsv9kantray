@@ -1125,6 +1125,12 @@ LTsv_drawTkinter_arcfill(draw_x,draw_y,draw_w,draw_h,draw_s=-math.pi,draw_e=math
   単漢字辞書ファイル「kanchar.tsv」を読み込む。
   ファイルが見つからない場合「LTsv_keyboard_dic()」から読み込む。
 
+ LTsv_glyphOBJpickle(filename="kanpickle.bin"):
+  フォント座標(パス回転方向とフォント幅含む)をpickle化してファイルに保存。
+
+ LTsv_glyphOBJunpickle(filename="kanpickle.bin"):
+  pickle化してファイルに保存したフォント座標(パス回転方向とフォント幅含む)を読み込む。
+
  LTsv_glyphdicread(dictext):
   単漢字辞書のテキストデータを読み込む。
 

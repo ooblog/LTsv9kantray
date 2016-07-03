@@ -32,8 +32,8 @@ tinykbd_alphatypeX=["Α","Β","Γ","Δ","Ε","Ζ","Η","Θ","Ι","Κ","Λ","Μ",
 tinykbd_irohaalpha=tinykbd_irohatype+tinykbd_alphatype
 tinykbd_irohaalphaN=tinykbd_irohatypeN+tinykbd_alphatypeN
 tinykbd_irohaalphaX=tinykbd_irohatypeX+tinykbd_alphatypeX
-tinykbd_dictype=    ["英","名","音","訓","送","異","俗","熙","簡","繁","越","地","顔","鍵","代","逆","非","難","活","幅"]
-tinykbd_map,tinykbd_char,tinykbd_word,tinykbd_zip="","","",""
+tinykbd_dictype=    ["英","名","音","訓","送","異","俗","熙","簡","繁","越","地","顔","鍵","代","逆","非","難","活","漫","幅"]
+tinykbd_map,tinykbd_char,tinykbd_pickle,tinykbd_word,tinykbd_zip="","","","",""
 tinykbd_kanmapN,tinykbd_kanmapX,tinykbd_kanmapD={},{},{}
 tinykbd_fontcolor,tinykbd_bgcolor,tinykbd_markcolor="black","#CFE6CF","red"
 tinykbd_cursorMSbf,tinykbd_cursorMSaf,tinykbd_cursorLCR,tinykbd_cursorTSF=tinykbd_None,tinykbd_None,"000",{"000":"Tap","100":"Tap","010":"Swipe","001":"Flick"}
@@ -324,7 +324,7 @@ def kanedit_configload():
     global tinykbd_inputSandS,tinykbd_inputNFER,tinykbd_inputXFER,tinykbd_inputKANA
     global kanedit_getkbdnames,kanedit_getkbdkanas,kanedit_inputkey
     global kanedit_fontcolor,kanedit_bgcolor,kanedit_markcolor,kanedit_fontsize
-    global tinykbd_map,tinykbd_char,tinykbd_word,tinykbd_zip
+    global tinykbd_map,tinykbd_char,tinykbd_pickle,tinykbd_word,tinykbd_zip
     global tinykbd_kanmapN,tinykbd_kanmapX,tinykbd_kanmapD
     global tinykbd_fontcolor,tinykbd_bgcolor,tinykbd_markcolor
     global tinykbd_fontchar
@@ -343,11 +343,13 @@ def kanedit_configload():
         kbd_lineL=kbd_lineT.split('\t'); kbd_lineL=kbd_lineL+[" "]*(tinykbd_SandS*2-len(kbd_lineL))
         tinykbd_kanmapN[irohaalpha],tinykbd_kanmapX[irohaalpha]=kbd_lineL[0:tinykbd_SandS+1],kbd_lineL[tinykbd_SandS+1:tinykbd_SandS+1+tinykbd_SandS+1]
     kanedit_tinykbd_select(tinykbd_fontchar[tinykbd_KANA])
-    tinykbd_char=LTsv_loadfile(LTsv_readlinerest(kanedit_tinykbd,"dic_charname","kanchar.tsv"))
     tinykbd_fontchar[tinykbd_KANA]=LTsv_readlinerest(kanedit_tinykbd,"find_NXalpha",tinykbd_fontchar[tinykbd_KANA])
     tinykbd_fontchar[tinykbd_KANA]=tinykbd_fontchar[tinykbd_KANA] if tinykbd_fontchar[tinykbd_KANA] in tinykbd_irohaalphaN or tinykbd_fontchar[tinykbd_KANA] in tinykbd_irohaalphaX else tinykbd_irohatype[0]
     tinykbd_fontchar[tinykbd_SandS]=LTsv_readlinerest(kanedit_tinykbd,"find_dic",tinykbd_fontchar[tinykbd_SandS])
     tinykbd_fontchar[tinykbd_SandS]=tinykbd_fontchar[tinykbd_SandS] if tinykbd_fontchar[tinykbd_SandS] in tinykbd_dictype else tinykbd_dictype[0]
+    tinykbd_char=LTsv_loadfile(LTsv_readlinerest(kanedit_tinykbd,"dic_charname","kanchar.tsv"))
+    tinykbd_pickle=LTsv_readlinerest(kanedit_tinykbd,"glyph_picklename","kanchar.tsv")
+    LTsv_glyphOBJunpickle(tinykbd_pickle)
 
     kanedit_config=LTsv_getpage(kanedit_ltsv,"kanedit")
     kanedit_tinykbd_new(kbd_resize)
@@ -376,6 +378,7 @@ def kanedit_exit_configsave(window_objvoid=None,window_objptr=None):
     kanedit_config=LTsv_pushlinerest(kanedit_config,"open_last",kanedit_texteditfilename)
     kanedit_ltsv=LTsv_putpage(kanedit_ltsv,"kanedit",kanedit_config)
     LTsv_savefile("kanedit.tsv",kanedit_ltsv)
+    LTsv_glyphOBJpickle(tinykbd_pickle)
     LTsv_window_exit()
 kanedit_exit_configsave_cbk=LTsv_CALLBACLTYPE(kanedit_exit_configsave)
 
