@@ -1,10 +1,10 @@
-# 「LTsv9kantray(tsvtool9)」は「L:Tsv」の読み書きを中心としたモジュール群と漢字入力「kantray」のPythonによる実装です。
+# 「LTsv9kantray(tsvtool9)」は「L:Tsv」の読み書きを中心としたモジュール群と漢字入力「kantray」のPythonによる実装でした。
 
 ## 「kantray」→「kanedit」に移行計画。
 
 「kantray」のキー入力割り込み方式の漢直だとの部分でOSによっては動かないもしくは意図しない動きになる危険性があるので、  
 漢直専用エディタ「kanedit」の開発をしています。
-ある程度「kanedit」でテキスト編集ができるレベルになったら「LTsv10kantray(tsvtool10)」リポジトリを作成する予定です。
+ある程度「kanedit」でテキスト編集ができるレベルになったら「LTsv10kantray(tsvtool10)」リポジトリに移動する予定です。
 
 
 ## 「kantray」は日本語入力ソフトの予定でした。漢字を直接入力する(変換サジェストが存在しない)ので漢直のジャンルです。
@@ -56,8 +56,8 @@ FontForgeの導入が困難なWindowsの場合、「kantray5x5comic.woff」を�
 
 ## 動作環境。
 
-Python 2.7.6(Tahrpup6.0.5)およびPython3.4.4(Wine1.7.18)で動作を確認しています。  
-Python2.7.3(PuppyLinux571JP)およびPython3.4.3(Wine1.7.18)でも多分動くかと思います(旧開発環境)。  
+Python 2.7.6&#40;Tahrpup6.0.5)およびPython3.4.4&#40;Wine1.7.18&#41;で動作を確認しています。  
+Python2.7.3&#40;PuppyLinux571JP)およびPython3.4.3&#40;Wine1.7.18&#41;でも多分動くかと思います&#40;旧開発環境&#41;。  
 Linux同士でも「/dev/input/event」のキーボードデバイス番号が変わるので「[LTsv.txt](LTsv.txt "https://github.com/ooblog/LTsv9kantray/blob/master/LTsv.txt")」を参照。  
 
 

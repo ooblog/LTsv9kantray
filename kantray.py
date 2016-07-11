@@ -34,13 +34,13 @@ keytray_evaltype="平片大小半全＼￥清ＨＭ濁ＢＰ今⑩⑯⑧⓪照�
 
 def kantray_directswitch(callback_void=None,callback_ptr=None):
     global kantray_directONOFF
-    if kantray_directnotifys > 0:
-        kantray_directONOFF=0 if kantray_directONOFF else 1
-        LTsv_kbdEVIOCGRAB(kantray_directONOFF)
-        LTsv_widget_settext(kantray_window,kantray_title[kantray_directONOFF])
-        for notifyLCRX in range(len(kantray_notifyID[kantray_directnotifys])):
-            LTsv_widget_settext(kantray_notifyOBJ[kantray_directnotifys][notifyLCRX],kantray_title[kantray_directONOFF])
-            LTsv_widget_seturi(kantray_notifyOBJ[kantray_directnotifys][notifyLCRX],widget_u="{0}[{1}]".format(kantray_directimage,kantray_directcellpos[kantray_notifyPD[kantray_directONOFF]]*4+kantray_notifyID[kantray_directnotifys][notifyLCRX]))
+#    if kantray_directnotifys > 0:
+#        kantray_directONOFF=0 if kantray_directONOFF else 1
+#        LTsv_kbdEVIOCGRAB(kantray_directONOFF)
+#        LTsv_widget_settext(kantray_window,kantray_title[kantray_directONOFF])
+#        for notifyLCRX in range(len(kantray_notifyID[kantray_directnotifys])):
+#            LTsv_widget_settext(kantray_notifyOBJ[kantray_directnotifys][notifyLCRX],kantray_title[kantray_directONOFF])
+#            LTsv_widget_seturi(kantray_notifyOBJ[kantray_directnotifys][notifyLCRX],widget_u="{0}[{1}]".format(kantray_directimage,kantray_directcellpos[kantray_notifyPD[kantray_directONOFF]]*4+kantray_notifyID[kantray_directnotifys][notifyLCRX]))
 kantray_directswitch_cbk=LTsv_CALLBACLTYPE(kantray_directswitch)
 
 def kantray_direct(callback_void=None,callback_ptr=None):
@@ -146,41 +146,41 @@ def kantray_direct(callback_void=None,callback_ptr=None):
 
 def kantray_direct_char(direct_char=""):
     global kantray_keybindF
-    if direct_char in kantray_keybindF:
-        kantray_keybindR=LTsv_readlinerest(kantray_keybind,direct_char)
-        if direct_char == "Window!":
-            LTsv_widget_showhide(kantray_window,True)
-        elif direct_char == "QuickWindow!":
-            LTsv_kantray_windowshow()
-        elif direct_char == "Eval!":
-            LTsv_kbdEVIOCGRAB(0)
-            LTsv_kbdwriteCtrl(kantray_inputcut)     #"CtrlL\tX"
-            LTsv_kbdEVIOCGRAB(1)
-            calc_value=LTsv_widget_gettext(kantray_clipboard)
-            calc_value=kantray_entryeval_kernel(value=calc_value)
-            LTsv_widget_settext(kantray_clipboard,widget_t=calc_value)
-            LTsv_kbdEVIOCGRAB(0)
-            LTsv_kbdwriteCtrl(kantray_inputpaste)   #"CtrlL\tV"
-            LTsv_kbdEVIOCGRAB(1)
-        elif direct_char == "tab!":
-            LTsv_widget_settext(kantray_clipboard,widget_t="\t")
-            LTsv_kbdEVIOCGRAB(0)
-            LTsv_kbdwriteCtrl(kantray_inputpaste)
-            LTsv_kbdEVIOCGRAB(1)
-        elif direct_char == "4Space!":
-            LTsv_widget_settext(kantray_clipboard,widget_t="    ")
-            LTsv_kbdEVIOCGRAB(0)
-            LTsv_kbdwriteCtrl(kantray_inputpaste)
-            LTsv_kbdEVIOCGRAB(1)
-        else:
-            LTsv_kbdEVIOCGRAB(0)
-            LTsv_kbdwriteCtrl(kantray_keybindR)     #"hjkl"
-            LTsv_kbdEVIOCGRAB(1)
-    else:
-        LTsv_widget_settext(kantray_clipboard,widget_t=direct_char)
-        LTsv_kbdEVIOCGRAB(0)
-        LTsv_kbdwriteCtrl(kantray_inputpaste)       #"CtrlL\tV"
-        LTsv_kbdEVIOCGRAB(1)
+#    if direct_char in kantray_keybindF:
+#        kantray_keybindR=LTsv_readlinerest(kantray_keybind,direct_char)
+#        if direct_char == "Window!":
+#            LTsv_widget_showhide(kantray_window,True)
+#        elif direct_char == "QuickWindow!":
+#            LTsv_kantray_windowshow()
+#        elif direct_char == "Eval!":
+#            LTsv_kbdEVIOCGRAB(0)
+#            LTsv_kbdwriteCtrl(kantray_inputcut)     #"CtrlL\tX"
+#            LTsv_kbdEVIOCGRAB(1)
+#            calc_value=LTsv_widget_gettext(kantray_clipboard)
+#            calc_value=kantray_entryeval_kernel(value=calc_value)
+#            LTsv_widget_settext(kantray_clipboard,widget_t=calc_value)
+#            LTsv_kbdEVIOCGRAB(0)
+#            LTsv_kbdwriteCtrl(kantray_inputpaste)   #"CtrlL\tV"
+#            LTsv_kbdEVIOCGRAB(1)
+#        elif direct_char == "tab!":
+#            LTsv_widget_settext(kantray_clipboard,widget_t="\t")
+#            LTsv_kbdEVIOCGRAB(0)
+#            LTsv_kbdwriteCtrl(kantray_inputpaste)
+#            LTsv_kbdEVIOCGRAB(1)
+#        elif direct_char == "4Space!":
+#            LTsv_widget_settext(kantray_clipboard,widget_t="    ")
+#            LTsv_kbdEVIOCGRAB(0)
+#            LTsv_kbdwriteCtrl(kantray_inputpaste)
+#            LTsv_kbdEVIOCGRAB(1)
+#        else:
+#            LTsv_kbdEVIOCGRAB(0)
+#            LTsv_kbdwriteCtrl(kantray_keybindR)     #"hjkl"
+#            LTsv_kbdEVIOCGRAB(1)
+#    else:
+#        LTsv_widget_settext(kantray_clipboard,widget_t=direct_char)
+#        LTsv_kbdEVIOCGRAB(0)
+#        LTsv_kbdwriteCtrl(kantray_inputpaste)       #"CtrlL\tV"
+#        LTsv_kbdEVIOCGRAB(1)
 
 def kantray_getkey():
     LTsv_setkbddata(25,0); kantray_getkbdstr=LTsv_getkbdlabels("MouseL\tMouseR\tMouseC")
@@ -363,8 +363,8 @@ def kantray_entryeval_kernel(value=""):
 def kantray_notify_menu():
     yield ("「kantray」の終了",kantray_exit_configsave_cbk)
     yield ("",None)
-    yield ("「漢直モード(キーボード)」と「貼付モード(マウス)」の切替",kantray_directswitch_cbk)
-    yield ("",None)
+#    yield ("「漢直モード(キーボード)」と「貼付モード(マウス)」の切替",kantray_directswitch_cbk)
+#    yield ("",None)
     yield ("「kantray」を強引に表示",LTsv_kantray_windowshow_cbk)
 
 def LTsv_kantray_windowshow(window_objvoid=None,window_objptr=None):
@@ -391,7 +391,7 @@ def kantray_configload():
         kantray_directimage=LTsv_readlinerest(kantray_config,"direct_image",kantray_directimage)
         if LTsv_draw_picture_load(kantray_directimage) != None:
             LTsv_draw_picture_celldiv(kantray_directimage,28,25)
-            kantray_directONOFF=min(max(LTsv_intstr0x(LTsv_readlinerest(kantray_config,"direct_ONOFF")),0),1)
+#            kantray_directONOFF=min(max(LTsv_intstr0x(LTsv_readlinerest(kantray_config,"direct_ONOFF")),0),1)
         else:
             kantray_directnotifys=0
             kantray_directONOFF=0
@@ -465,7 +465,7 @@ if len(LTsv_GUI) > 0:
         for notifyLCRX in range(len(kantray_notifyID[kantray_directnotifys])):
             kantray_notifyOBJ[kantray_directnotifys][notifyLCRX]=LTsv_notifyicon_new(kantray_window,widget_t="kantray",widget_u="{0}[{1}]".format(kantray_directimage,kantray_directcellpos[kantray_notifyPD[kantray_directONOFF]]*4+kantray_notifyID[kantray_directnotifys][notifyLCRX]),menu_b=kantray_notify_menu(),menu_c=kantray_directswitch)
             LTsv_widget_settext(kantray_notifyOBJ[kantray_directnotifys][notifyLCRX],kantray_title[kantray_directONOFF])
-        LTsv_kbdEVIOCGRAB(kantray_directONOFF)
+#        LTsv_kbdEVIOCGRAB(kantray_directONOFF)
     LTsv_widget_showhide(kantray_window,True)
     kantray_direct()
     LTsv_window_main(kantray_window)
