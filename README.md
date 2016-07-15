@@ -2,8 +2,9 @@
 
 ## 「kantray」→「kanedit」に移行計画。
 
+![kanedit_512](icon_cap/kanedit_512.png "kanedit")  
 「kantray」のキー入力割り込み方式の漢直だとの部分でOSによっては動かないもしくは意図しない動きになる危険性があるので、  
-漢直専用エディタ「kanedit」の開発をしています。
+漢直専用エディタ「kanedit」の開発をしています。  
 ある程度「kanedit」でテキスト編集ができるレベルになったら「LTsv10kantray(tsvtool10)」リポジトリに移動する予定です。
 
 

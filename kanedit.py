@@ -92,14 +92,13 @@ def kanedit_editdraw(edit_x,edit_y):
             break
 
 def kanedit_memodraw(memo_x,memo_y):
-#    LTsv_drawtk_color(kanedit_fontcolor); LTsv_drawtk_glyphfill(kanedit_textvalue,draw_x=edit_x,draw_y=edit_y,draw_f=kanedit_fontsize,draw_w=1,draw_h=1)
-# kanmemo_fontcolor,kanmemo_bgcolor,kanmemo_markcolor
+    global kanmemo_textvalue,kanmemo_textleft,kanmemo_textright
+    global kanmemo_fontcolor,kanmemo_bgcolor,kanmemo_markcolor
     LTsv_drawtk_bgcolor(kanmemo_bgcolor); LTsv_drawtk_color(kanmemo_bgcolor); 
     LTsv_drawtk_polygonfill(memo_x,memo_y,kanedit_W-tinykbd_W,memo_y,kanedit_W-tinykbd_W,kanedit_H,memo_x,kanedit_H)
     LTsv_drawtk_color(kanmemo_fontcolor); LTsv_drawtk_glyphfill(kanmemo_textvalue,draw_x=memo_x,draw_y=memo_y,draw_f=tinykbd_fontsize,draw_w=1,draw_h=1,draw_LF=True,draw_HT=True,draw_SP=True)
 
 def kanedit_kbddraw(kbd_x,kbd_y):
-    global kanmemo_textvalue,kanmemo_textleft,kanmemo_textright
     keyboard_kanmapN,keyboard_kanmapX,keyboard_dicinput=LTsv_keyboard_map()
     LTsv_drawtk_bgcolor(tinykbd_bgcolor)
     LTsv_drawtk_color(tinykbd_bgcolor); LTsv_drawtk_polygonfill(kbd_x,kbd_y,kbd_x+tinykbd_W,kbd_y,kbd_x+tinykbd_W,kbd_y+tinykbd_H,kbd_x,kbd_y+tinykbd_H)
@@ -328,6 +327,7 @@ def kanedit_configload():
     global tinykbd_kanmapN,tinykbd_kanmapX,tinykbd_kanmapD
     global tinykbd_fontcolor,tinykbd_bgcolor,tinykbd_markcolor
     global tinykbd_fontchar
+    global kanmemo_textvalue,kanmemo_textleft,kanmemo_textright
     global kanmemo_fontcolor,kanmemo_bgcolor,kanmemo_markcolor
     kanedit_ltsv=LTsv_loadfile("kanedit.tsv")
     kanedit_tinykbd=LTsv_getpage(kanedit_ltsv,"tinykbd")
@@ -366,6 +366,7 @@ def kanedit_configload():
     kanedit_textload(kanedit_texteditfilename)
     kanedit_keybind=LTsv_getpage(kanedit_ltsv,"keybind")
     kanedit_charbind=LTsv_getpage(kanedit_ltsv,"charbind")
+    kanmemo_textvalue=LTsv_readlinerest(kanedit_config,"eval_entry")
 
 def kanedit_exit_configsave(window_objvoid=None,window_objptr=None):
     global kanedit_ltsv,kanedit_config,kanedit_tinykbd,kanedit_keybind,kanedit_charbind
@@ -376,6 +377,7 @@ def kanedit_exit_configsave(window_objvoid=None,window_objptr=None):
     kanedit_ltsv=LTsv_putpage(kanedit_ltsv,"tinykbd",kanedit_tinykbd)
     kanedit_config=LTsv_getpage(kanedit_ltsv,"kanedit")
     kanedit_config=LTsv_pushlinerest(kanedit_config,"open_last",kanedit_texteditfilename)
+    kanedit_config=LTsv_pushlinerest(kanedit_config,"eval_entry",kanmemo_textvalue)
     kanedit_ltsv=LTsv_putpage(kanedit_ltsv,"kanedit",kanedit_config)
     LTsv_savefile("kanedit.tsv",kanedit_ltsv)
     LTsv_glyphOBJpickle(tinykbd_pickle)
