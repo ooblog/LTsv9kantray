@@ -63,23 +63,18 @@ target/
 
 
 # git push github:ooblog/LTsv9kantray.git master
-# git push github:ooblog/LTsv9kantray.git 20160517T141820
+# git push github:ooblog/LTsv9kantray.git 20160716S001619
 # git log
 # git ls-files
 # git commit -a -m ""
 # git branch
 # git checkout master
-# git merge 20160517T141820
-# git branch -d 20160517T141820
-# git push github:ooblog/LTsv9kantray.git :20160517T141820
+# git merge 20160716S001619
+# git branch -d 20160716S001619
+# git push github:ooblog/LTsv9kantray.git :20160716S001619
+LTsv/testfile/
 kanfont.svg
+kanpickle.bin
 kanzip.tsv
 kanzip/
-未整理漢字/
-testfile/
-LTsv/testfile/
-celdivsave.py
-celldivsave/
-sensorC.png
-kanedit_test.txt
-kanpickle.bin
+kanmap/

@@ -1,6 +1,6 @@
 「LTsv10kanedit(tsvtool10)」は「L:Tsv」の読み書きを中心としたモジュール群と漢字入力「kanedit」のPythonによる実装の予定です。
 開発中につき「LTsv9kantray(tsvtool9)」の運用を併用してください。
-version(branch) 20160517T141820
+version(branch) 20160716S001619
 
 目次
 

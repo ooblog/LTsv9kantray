@@ -421,10 +421,11 @@ def LTsv_unziptuplelabelsdata(LTsv_line,*LTsv_labels):
     return LTsv_datas.rstrip('\t')
 
 def LTsv_tuple2tsv(LTsv_tuple):
-    LTsv_line=""
-    for LTsv_data in LTsv_tuple:
-        LTsv_line+=str(LTsv_data)+'\t'
-    return LTsv_line.rstrip('\t')
+    return '\t'.join(LTsv_tuple)
+#    LTsv_line=""
+#    for LTsv_data in LTsv_tuple:
+#        LTsv_line+=str(LTsv_data)+'\t'
+#    return LTsv_line.rstrip('\t')
 
 def LTsv_tsv2list(LTsv_line):
     LTsv_list=LTsv_line.replace('\n','\t').strip('\t').split('\t')
@@ -482,7 +483,7 @@ def LTsv_dict2label(LTsv_dict):
     return LTsv_line.rstrip('\t')
 
 def LTsv_file_ver():
-    return "20160517T141820"
+    return "20160716S001619"
 
 if __name__=="__main__":
     from LTsv_printf import *

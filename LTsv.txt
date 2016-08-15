@@ -1,11 +1,11 @@
 「LTsv9kantray(tsvtool9)」は「L:Tsv」の読み書きを中心としたモジュール群と漢字入力「kantray」のPythonによる実装です。
-version(branch) 20160517T141820
+version(branch) 20160716S001619
 
 目次
 
  ０-0． ライセンス及びソフトの使用の補足ガイドライン
  ０-1． インストール＆アンインストール方法・その他セットアップ方法
- ０-2． バージョン「20160423S022604(それ以前も含む)」から「20160517T141820」への変更にあたる注意点など。
+ ０-2． バージョン「20160423S022604(それ以前も含む)」から「20160716S001619」への変更にあたる注意点など。
  ０-3． その他現在わかっている不具合や今後の課題。
  １-0a．「L:Tsv」の解説(このドキュメント「LTsv.txt」は「kantray」ではなく「L:Tsv」をメインに書いてます)。
  １-0b．「L:Tsv」ファイルの構造。
@@ -54,7 +54,7 @@ version(branch) 20160517T141820
  ※Pythonは別途インストールされているものとします(Pythonの導入分からない人は「３-0． ＦＡＱ(そもそも起動しないなどの疑問はこちら)」も参考)。
 
 
-０-2． バージョン「20160423S022604(それ以前も含む)」から「20160517T141820」への変更にあたる注意点など。
+０-2． バージョン「20160423S022604(それ以前も含む)」から「20160716S001619」への変更にあたる注意点など。
 
  開発環が「Python2.7.3(PuppyLinux571JP)およびPython3.4.3(Wine1.7.18)」から「Python 2.7.6(Tahrpup6.0.5)およびPython3.4.4(Wine1.7.18)」に移行。
  「LTsv_window_new()」の「event_z」でウィンドウサイズ変更に対応。
@@ -164,7 +164,7 @@ version(branch) 20160517T141820
   データ破損を補完する機能はないので注意。
 
  LTsv_printf_ver()
-   [LTsv_printf.py]のバージョン表示(20160517T141820)。
+   [LTsv_printf.py]のバージョン表示(20160716S001619)。
 
  LTsv_subprocess(LTsv_subprocess_input="",LTsv_subprocess_shell=False)
   ターミナルにコマンドを送る。実行結果も取得できる。
@@ -350,14 +350,14 @@ version(branch) 20160517T141820
   Pythonの辞書「{"label":data,"label":data,…}」をラベル有りLTSV「label:data	label:data	…」に。dataは文字列化。
 
  LTsv_file_ver()
-  [LTsv_file.py]のバージョン表示(20160517T141820)。
+  [LTsv_file.py]のバージョン表示(20160716S001619)。
 
 
 １-3a．[LTsv_time.py]の関数一覧
 
  日時フォーマットモジュールです。FPSも扱います。徹夜日時という概念があります。
  ・とりあえず日時を取得する場合は「LTsv_getdaytimestr(overhour=24,diffminute=0)」で。
- ・20160517T141820形式(@000y@0m@0dm@wdec@0h@0n@0s)だと困るのであればフォーマット指定。
+ ・20160716S001619形式(@000y@0m@0dm@wdec@0h@0n@0s)だと困るのであればフォーマット指定。
  ・徹夜日時とは正子(夜中の午前0時)を24時として日付を切り替えずに25時(夜中の1時)、26時(夜中の2時)…と時だけが過ぎる状態です。
  ・ISOカレンダーの週はISO8601の1月4日を含む週(最初の木曜日を含む週)を第1週と数える方法。曜日は月曜から始まるので土日は週末。ISOカレンダーの曜は月曜が1で土曜が6、日曜が7。
  ・単体風テストでは複数の日時フォーマットを用いて関数群の挙動確認ができます。
@@ -394,7 +394,7 @@ version(branch) 20160517T141820
   追加オプションでLTsv_overhour(徹夜日時)とLTsv_diffminute(時差)の設定を上書きできる。
 
  LTsv_putdaytimever(LTsv_verstr,overhour=None,diffminute=None)
-  「LTsv_time_ver()」などの「20160517T141820」形式(@000y@0m@0dm@wdec@0h@0n@0s)をLTsv_meridian_nowに格納。各種日時変数も計算。
+  「LTsv_time_ver()」などの「20160716S001619」形式(@000y@0m@0dm@wdec@0h@0n@0s)をLTsv_meridian_nowに格納。各種日時変数も計算。
   追加オプションでLTsv_overhour(徹夜日時)とLTsv_diffminute(時差)の設定を上書きできる。
 
  LTsv_putdaytimenow(overhour=None,diffminute=None)
