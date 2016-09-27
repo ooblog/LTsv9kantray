@@ -1,4 +1,4 @@
-「LTsv9kantray(tsvtool9)」は「L:Tsv」の読み書きを中心としたモジュール群と漢字入力「kantray」のPythonによる実装です。
+「LTsv9kantray(tsvtool9)」は「L:Tsv」の読み書きを中心としたモジュール群と漢字入力「kantray」のPythonによる実装でした。
 version(branch) 20160716S001619
 
 目次
@@ -24,6 +24,7 @@ version(branch) 20160716S001619
  ２-0． 「L:Tsv」のサンプルアプリケーション。
  ３-0． ＦＡＱ(そもそも起動しないなどの疑問はこちら)
  ３-1． 「L:Tsv」のＦＡＱ
+ ３-2． 「LTsv10kanedit」のＦＡＱ
  ４．   作者について、例えば連絡先。
 
 
@@ -44,6 +45,7 @@ version(branch) 20160716S001619
 
  ※「kantray」固有の問題への言及。
    ・辞書などの翻訳ミスもしくは言い回しが古くなるなどの人間語の方の不具合に対してもメンテナンス義務はありません。
+   ・開発の主体が「LTsv10kanedit(https://github.com/ooblog/LTsv10kanedit)」に移行したので「kantray」のメンテナンス予定はありません。
 
 
 ０-1． インストール＆アンインストール方法・その他セットアップ方法
@@ -67,10 +69,11 @@ version(branch) 20160716S001619
  Python 2.7.6(Tahrpup6.0.5)およびPython3.4.4(Wine1.7.18)で動作を確認しています。Windows,cygwin,darwinなどでの動作は確認しておりません。
  フォント「kantray5x5comic」は半角と全角の幅の比率が約5:3(1024:624)なのでアスキーアートで問題になる場合があります。
  マウスホイールの取得は保留。tkk方面は手を出さない予定(コンボボックスなどはGTKのみサポート)。
- [kantray5x5comic.svg]を[kantray5x5comic.ttf]に変換する手段として「FontForge」が必要。直接フォント生成とかできればベストだが優先順位は低い。
  [kanchar.tsv]に異体字を移管して[kanmap.tsv]を圧縮していく作業は当分続く。現在人名に使える漢字の異体字の字引入力中心に作業中。
  通知タスクトレイ(Notify)が使えない環境にも対応するためテキストエディタ「kanedit」も現在制作中。漢直キーボード「LTsv_keyboard_new()」を置き換える予定。
  「L:Tsv」をgit-subtree化できるように「kantray」の内容はなるだけ[kantray.txt]に移動したい(ドキュメント未整理の部分あり)。
+
+ 「kanedit」開発に移行したので「kantray」に書かれてる内容からの変更は「kanedit」の方に書いてある場合があります。
 
 
 １-0a．「L:Tsv」の解説(このドキュメント「LTsv.txt」は「kantray」ではなく「L:Tsv」をメインに書いてます)。
@@ -1289,6 +1292,20 @@ LTsv_drawTkinter_arcfill(draw_x,draw_y,draw_w,draw_h,draw_s=-math.pi,draw_e=math
  Ｑ．「kanfont_drawGTK_glyph」でGUIのフォントを変更するにはどうすればいいですか。
  Ａ．「kanfont_drawGTK_glyph」「kanfont_drawTkinter_glyph」は「canvas」に描画する命令なのでGUIのボタン等には使えません。
      GUIで表示する場合は付属の「kantray5x5comic.woff」を「kantray5x5comic.ttf」に変換する等してフォントのインストール。
+
+
+３-2． 「LTsv10kanedit」のＦＡＱ
+
+ Ｑ．「kanedit」が同梱されてないようですが。
+ Ａ．「kanedit」は新レポジトリに移動しました。漢直の開発も「kanedit」に移行してるので注意。
+
+     ooblog/LTsv10kanedit(GitHub)
+     https://github.com/ooblog/LTsv10kanedit
+
+ Ｑ．「9」から「10」に移行の際に気をつける事はありますか？
+ Ａ．「LTsv_keyboard_new()」を廃止し「LTsv/LTsv_glyph.py」や「editcanvas」を追加しました。
+     「LTsv.txt」「kanchar.tsv」「kanpickle.bin」などを「LTsv」フォルダに移動。
+     「LTsv」フォルダをコピーして実行ファイルに「sys.path.append("LTsv")」一行加えたら「L:Tsv」モジュールをインポートできる的な流れ。
 
 
 ４．   作者について、例えば連絡先。

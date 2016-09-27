@@ -1,11 +1,11 @@
 # 「LTsv9kantray(tsvtool9)」は「L:Tsv」の読み書きを中心としたモジュール群と漢字入力「kantray」のPythonによる実装でした。
 
-## 「kantray」→「kanedit」に移行計画。
+## 「kantray」→「kanedit」に移行。
 
 ![kanedit_512](icon_cap/kanedit_512.png "kanedit")  
-「kantray」のキー入力割り込み方式の漢直だとの部分でOSによっては動かないもしくは意図しない動きになる危険性があるので、  
-漢直専用エディタ「kanedit」の開発をしています。  
-ある程度「kanedit」でテキスト編集ができるレベルになったら「LTsv10kantray(tsvtool10)」リポジトリに移動する予定です。
+画面は開発中のもので実際の「[LTsv10kanedit](https://github.com/ooblog/LTsv10kanedit "LTsv10kanedit")」と異なってます。  
+「kantray」のキー入力割り込み方式の漢直だとの部分でOSによっては動かないもしくは意図しない動きになる危険性があるので、漢直専用エディタ「kanedit」の開発をしています。  
+その他「SandS」が不要になってたりと9と10で仕様自体も異なってるので古いドキュメントに拘泥しないよう注意。  
 
 
 ## 「kantray」は日本語入力ソフトの予定でした。漢字を直接入力する(変換サジェストが存在しない)ので漢直のジャンルです。
@@ -24,7 +24,7 @@ GTK2の通知タスクトレイ&#40;Notify&#41;が使える環境ならキーボ
 親指で&#91;NFER&#40;無変換&#41;&#93;,&#91;XFER&#40;変換&#41;&#93;,&#91;Space&#40;SandS&#41;&#93;,&#91;KANA&#93;キーを操作して鍵盤を交換しながら漢字を直接入力します。  
 漢直の実装はキーフック(EVIOCGRAB)でキーボード操作を吸収してクリップボード経由で文字入力するので、  
 &#91;Ctrl&#93;+&#91;V&#93;で貼り付けができないエディタでは漢直できません。逆にVim以外のエディタでもhjkl移動を可能にします。  
-※「PuppyLinux571JP」と同じ方法が「Tahrpup6.0.5」で使えなかったのでキーボード入力は一旦保留にしました。  
+※「PuppyLinux571JP」と同じ方法が「Tahrpup6.0.5」で使えなかったのでキーボード割込は保留にしました。  
 
 漢直の操作方法は「[kantray.txt](kantray.txt "https://github.com/ooblog/LTsv9kantray/blob/master/kantray.txt")」の方に書いてます。  
 電卓フォーマットや日時フォーマットなどの仕様は「[LTsv.txt](LTsv.txt "https://github.com/ooblog/LTsv9kantray/blob/master/LTsv.txt")」の方に書いてます。  
