@@ -53,6 +53,7 @@ FontForgeの導入が困難なWindowsの場合、「kantray5x5comic.woff」を�
 ## 「LTsv」はアプリを作るためのモジュール群です。
 
 モジュールの仕様や「kantray」の電卓で使う日時フォーマット・電卓フォーマットの仕様とかは[LTsv.txt](LTsv.txt)の方に書いてます。  
+ですが「[LTsv10kanedit](https://github.com/ooblog/LTsv10kanedit "LTsv10kanedit")」に開発の主体は移行してるので参考程度に止めとくよう注意。  
 
 
 ## 動作環境。
